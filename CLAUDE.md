@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Dakol-AI-OS** is a multi-agent AI task router built for the *SyncMaster* music platform. It intelligently routes user tasks to one of three LLM backends (Claude API, OpenAI/Codex, or local Ollama), runs a parallel multi-agent consensus layer, fuses the results, and logs everything to a JSON memory store for future reinforcement learning.
+**Dakol-AI-OS** is a general-purpose, reusable multi-agent AI operating system. It intelligently routes any user task to the most suitable LLM backend (Claude API, OpenAI/Codex, or local Ollama), runs a parallel multi-agent consensus layer, fuses the results, and logs everything to a JSON memory store for future reinforcement learning.
+
+The current domain agents (sync, audio, code) reflect an early implementation focused on music/SyncMaster use cases, but the architecture is designed to be extended with new domain agents for any problem space.
 
 ## Running the Router
 
