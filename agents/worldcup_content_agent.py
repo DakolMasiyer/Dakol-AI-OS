@@ -554,6 +554,7 @@ class WorldCupContentAgent(BaseAgent):
             )
 
         # ── Tone: override system prompt with example + explicit directives ──────
+        system_prompt = config["system"]
         if tone:
             example = FEW_SHOT_EXAMPLES.get(
                 (content_type, tone),

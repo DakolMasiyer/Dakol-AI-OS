@@ -237,6 +237,19 @@ def generate_worldcup_content(
     llm_result = _generate(system_prompt, user_prompt, content_type, max_tokens)
     elapsed_ms = int((time.time() - start) * 1000)
 
+    if llm_result["model"] == "none":
+        return {
+            "content": "",
+            "match": match,
+            "content_type": content_type,
+            "model": "none",
+            "tokens": 0,
+            "generation_time_ms": elapsed_ms,
+            "user_id": user_id,
+            "status": "error",
+            "error": "AI generation service is temporarily at capacity (rate limits reached). Please try again in a few minutes or upgrade to Pro.",
+        }
+
     return {
         "content": llm_result["text"],
         "match": match,
