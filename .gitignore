@@ -8,4 +8,4 @@ memory/*.log
 venv/
 .venv/
 push_to_github.sh
-
+projects/worldcup-ai/
