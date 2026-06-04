@@ -1,9 +1,11 @@
 import json
 from datetime import datetime
 import os
+from uuid import uuid4
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEMORY_FILE = os.path.join(BASE_DIR, "memory", "logs.json")
+VALID_FEEDBACK = {"good", "bad", "wrong_model", "retry_needed"}
 
 
 # ----------------------------
@@ -12,8 +14,9 @@ MEMORY_FILE = os.path.join(BASE_DIR, "memory", "logs.json")
 def load_memory():
     try:
         with open(MEMORY_FILE, "r") as f:
-            return json.load(f)
-    except:
+            data = json.load(f)
+            return data if isinstance(data, list) else []
+    except (FileNotFoundError, json.JSONDecodeError):
         return []
 
 
@@ -25,6 +28,28 @@ def save_memory(data):
         json.dump(data, f, indent=2)
 
 
+def record_feedback(event_id, feedback, note=None):
+    if feedback not in VALID_FEEDBACK:
+        valid = ", ".join(sorted(VALID_FEEDBACK))
+        raise ValueError(f"feedback must be one of: {valid}")
+
+    memory = load_memory()
+    for entry in memory:
+        if entry.get("event_id") == event_id:
+            entry["feedback"] = {
+                "label": feedback,
+                "value": feedback,
+                "timestamp": datetime.now().isoformat(),
+            }
+            if note:
+                entry["feedback"]["note"] = str(note)[:500]
+
+            save_memory(memory)
+            return entry
+
+    raise ValueError(f"No memory event found for event_id: {event_id}")
+
+
 # ----------------------------
 # LOG EVENT (LEARNING-READY VERSION)
 # ----------------------------
@@ -32,10 +57,11 @@ def log_event(task, model, output, agent_result=None):
     memory = load_memory()
 
     entry = {
+        "event_id": str(uuid4()),
         "timestamp": datetime.now().isoformat(),
         "task": task,
         "model_used": model,
-        "output": output[:800],
+        "output": str(output or "")[:800],
         "agent_result": agent_result  # 🔥 IMPORTANT FOR STEP 8
     }
 
@@ -49,9 +75,11 @@ def log_event(task, model, output, agent_result=None):
     print("Saved at:", entry["timestamp"])
 
     if agent_result:
+        fusion = agent_result.get("fusion_output", agent_result)
+
         print("\n[AGENT LEARNING DATA STORED]")
-        print("Intent:", agent_result.get("final_intent", "unknown"))
-        print("Best Agent:", agent_result.get("best_agent", "unknown"))
-        print("Confidence:", agent_result.get("confidence", "unknown"))
+        print("Intent:", fusion.get("final_intent", "unknown"))
+        print("Best Agent:", fusion.get("best_agent", "unknown"))
+        print("Confidence:", fusion.get("confidence", "unknown"))
 
     return entry

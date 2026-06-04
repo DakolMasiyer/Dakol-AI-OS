@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.git/
+logs/
+memory/logs.json
+memory/tasks.json
+memory/graph_store.json
+memory/learning_state.json

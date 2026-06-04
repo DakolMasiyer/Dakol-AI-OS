@@ -1,0 +1,10 @@
+# Optional Phase 8 audio-analysis extras.
+# The core SyncMaster analyzer works without these for PCM WAV files.
+#
+# Install after ffmpeg is available when deeper local DSP is needed:
+#   venv/bin/python -m pip install -r requirements-audio.txt
+
+numpy
+soundfile
+librosa
+

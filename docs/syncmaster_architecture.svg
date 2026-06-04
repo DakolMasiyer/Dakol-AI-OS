@@ -1,0 +1,234 @@
+<svg viewBox="0 0 960 1080" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8b5cf6"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c0e1a"/>
+      <stop offset="100%" style="stop-color:#0f1117"/>
+    </linearGradient>
+    <linearGradient id="layer1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f"/>
+      <stop offset="100%" style="stop-color:#1a3050"/>
+    </linearGradient>
+    <linearGradient id="layer2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d1b4e"/>
+      <stop offset="100%" style="stop-color:#231540"/>
+    </linearGradient>
+    <linearGradient id="layer3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3d2b"/>
+      <stop offset="100%" style="stop-color:#14301f"/>
+    </linearGradient>
+    <linearGradient id="moatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b1f6e"/>
+      <stop offset="100%" style="stop-color:#2d1758"/>
+    </linearGradient>
+    <linearGradient id="filmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3d1a1a"/>
+      <stop offset="100%" style="stop-color:#2e1212"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="1080" fill="url(#bgGrad)" rx="0"/>
+
+  <!-- Title -->
+  <text x="480" y="44" text-anchor="middle" font-size="20" font-weight="700" fill="#f1f5f9" letter-spacing="1">SYNCMASTER — THREE-LAYER INTELLIGENCE STACK</text>
+  <text x="480" y="66" text-anchor="middle" font-size="12" fill="#64748b">Listening Farm · Metadata Tagger · Sync Brief Matcher · Moat Architecture</text>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- INPUT LAYER -->
+  <!-- ─────────────────────────────────────────── -->
+  <text x="480" y="100" text-anchor="middle" font-size="11" fill="#64748b" letter-spacing="2">INPUT LAYER</text>
+
+  <!-- Open Source Box -->
+  <rect x="60" y="112" width="260" height="90" rx="10" fill="#161c2e" stroke="#334155" stroke-width="1.5"/>
+  <text x="190" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#94a3b8">OPEN SOURCE CATALOGUE</text>
+  <text x="190" y="158" text-anchor="middle" font-size="11" fill="#64748b">FMA · ccMixter · Jamendo</text>
+  <text x="190" y="176" text-anchor="middle" font-size="11" fill="#64748b">Bootstrap phase — no artist needed</text>
+  <rect x="70" y="186" width="240" height="8" rx="4" fill="#1e293b"/>
+  <rect x="70" y="186" width="180" height="8" rx="4" fill="#3b82f6" opacity="0.7"/>
+  <text x="315" y="193" text-anchor="start" font-size="9" fill="#64748b">∞ tracks</text>
+
+  <!-- Artist Upload Box -->
+  <rect x="640" y="112" width="260" height="90" rx="10" fill="#161c2e" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="770" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#f59e0b">ARTIST UPLOADS</text>
+  <text x="770" y="158" text-anchor="middle" font-size="11" fill="#64748b">SyncMaster platform tracks</text>
+  <text x="770" y="176" text-anchor="middle" font-size="11" fill="#64748b">Real music · Real intent · Real value</text>
+  <rect x="650" y="186" width="240" height="8" rx="4" fill="#1e293b"/>
+  <rect x="650" y="186" width="60" height="8" rx="4" fill="#f59e0b" opacity="0.8"/>
+  <text x="895" y="193" text-anchor="start" font-size="9" fill="#64748b">growing</text>
+
+  <!-- Arrows from inputs to Layer 1 -->
+  <line x1="190" y1="202" x2="350" y2="268" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <line x1="770" y1="202" x2="610" y2="268" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-amber)"/>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- LAYER 1: SIGNAL EXTRACTION -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="60" y="270" width="840" height="120" rx="12" fill="url(#layer1Grad)" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="80" y="296" font-size="10" font-weight="700" fill="#93c5fd" letter-spacing="2">LAYER 1 — SIGNAL EXTRACTION</text>
+  <text x="80" y="314" font-size="11" fill="#bfdbfe">DSP Pipeline · Fast · Cheap · Runs on every track instantly</text>
+
+  <!-- Feature chips -->
+  <rect x="80" y="326" width="80" height="28" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="120" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">BPM</text>
+
+  <rect x="172" y="326" width="80" height="28" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="212" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">KEY</text>
+
+  <rect x="264" y="326" width="100" height="28" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="314" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">ENERGY</text>
+
+  <rect x="376" y="326" width="110" height="28" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="431" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">SPECTRAL</text>
+
+  <rect x="498" y="326" width="100" height="28" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="548" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">TIMBRE</text>
+
+  <rect x="610" y="326" width="130" height="28" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="675" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">INSTRUMENTATION</text>
+
+  <rect x="752" y="326" width="130" height="28" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="817" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">VOCAL PRESENCE</text>
+
+  <text x="80" y="376" font-size="10" fill="#64748b">Tool: librosa · essentia · ~$0.001/track · &lt;5 seconds · No AI API needed</text>
+  <text x="700" y="376" text-anchor="end" font-size="10" fill="#3b82f6">NOT metadata stripping — audio analysis from the signal itself</text>
+
+  <!-- Arrow Layer 1 → Layer 2 -->
+  <line x1="480" y1="390" x2="480" y2="426" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- LAYER 2: SEMANTIC EVALUATION -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="60" y="428" width="840" height="138" rx="12" fill="url(#layer2Grad)" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="80" y="454" font-size="10" font-weight="700" fill="#c4b5fd" letter-spacing="2">LAYER 2 — SEMANTIC EVALUATION (THE LISTENER)</text>
+  <text x="80" y="472" font-size="11" fill="#ddd6fe">Gemini 1.5 Pro · Audio passed directly · Brief matching · Natural language judgment</text>
+
+  <!-- Three evaluation types -->
+  <rect x="80" y="484" width="220" height="66" rx="8" fill="#1f1240" stroke="#7c3aed" stroke-width="1"/>
+  <text x="190" y="503" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">MOOD ANALYSIS</text>
+  <text x="190" y="520" text-anchor="middle" font-size="10" fill="#8b7cf4">Cinematic · Tense · Uplifting</text>
+  <text x="190" y="537" text-anchor="middle" font-size="10" fill="#8b7cf4">Aggressive · Tender · Playful</text>
+
+  <rect x="320" y="484" width="320" height="66" rx="8" fill="#1f1240" stroke="#7c3aed" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="480" y="503" text-anchor="middle" font-size="11" font-weight="700" fill="#c4b5fd">SYNC BRIEF MATCHING</text>
+  <text x="480" y="520" text-anchor="middle" font-size="10" fill="#a78bfa">Track × Brief → Fit score + Reasoning</text>
+  <text x="480" y="537" text-anchor="middle" font-size="10" fill="#a78bfa">Strengths · Weaknesses · Recommendation</text>
+
+  <rect x="660" y="484" width="220" height="66" rx="8" fill="#1f1240" stroke="#7c3aed" stroke-width="1"/>
+  <text x="770" y="503" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">CONTEXT JUDGMENT</text>
+  <text x="770" y="520" text-anchor="middle" font-size="10" fill="#8b7cf4">Placement type prediction</text>
+  <text x="770" y="537" text-anchor="middle" font-size="10" fill="#8b7cf4">Audience + Era + Territory fit</text>
+
+  <text x="80" y="558" font-size="10" fill="#64748b">~$0.02/evaluation · 5-30 seconds · Expensive at scale — replaced by Layer 3 classifier over time</text>
+
+  <!-- TWO ARROWS FROM LAYER 2 -->
+  <!-- Arrow to Artist Return (right) -->
+  <line x1="900" y1="497" x2="946" y2="497" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+  <!-- Arrow down to Moat -->
+  <line x1="480" y1="566" x2="480" y2="598" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+  <!-- Artist return label (right side) -->
+  <text x="952" y="440" font-size="10" fill="#f59e0b" transform="rotate(90, 952, 490)">→ ARTIST SEES THIS</text>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- ARTIST RETURN (right side panel) -->
+  <!-- ─────────────────────────────────────────── -->
+  <!-- Handled by text label above, keep clean -->
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- EVALUATION LOG — THE MOAT -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="60" y="600" width="840" height="100" rx="12" fill="url(#moatGrad)" stroke="#7c3aed" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="480" y="626" text-anchor="middle" font-size="13" font-weight="700" fill="#e9d5ff" letter-spacing="3">⬡  EVALUATION LOG — THE MOAT  ⬡</text>
+  <text x="480" y="646" text-anchor="middle" font-size="11" fill="#c4b5fd">Every track × brief evaluation · Full reasoning · Fit scores · Timestamps · Source flag (synthetic / real)</text>
+  <text x="480" y="664" text-anchor="middle" font-size="11" fill="#a78bfa">Supabase evaluation_log table · Append-only · Grows with every upload and every brief run</text>
+  <text x="480" y="682" text-anchor="middle" font-size="10" fill="#7c3aed">This is what Musiio had. 400M evaluations sold to SoundCloud. You are building toward this.</text>
+
+  <!-- Arrow Moat → Layer 3 -->
+  <line x1="480" y1="700" x2="480" y2="730" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- LAYER 3: CLASSIFIER TRAINING -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="60" y="732" width="840" height="100" rx="12" fill="url(#layer3Grad)" stroke="#10b981" stroke-width="1.5"/>
+  <text x="80" y="758" font-size="10" font-weight="700" fill="#6ee7b7" letter-spacing="2">LAYER 3 — CLASSIFIER TRAINING (THE TEACHING LOOP)</text>
+  <text x="80" y="776" font-size="11" fill="#a7f3d0">Farm data trains a lightweight model · Sync fitness predicted from Layer 1 features alone · No LLM needed</text>
+
+  <rect x="80" y="788" width="250" height="32" rx="6" fill="#14301f" stroke="#10b981" stroke-width="1"/>
+  <text x="205" y="808" text-anchor="middle" font-size="11" fill="#6ee7b7">Input: DSP features from Layer 1</text>
+
+  <text x="350" y="808" font-size="16" fill="#10b981">→</text>
+
+  <rect x="370" y="788" width="250" height="32" rx="6" fill="#14301f" stroke="#10b981" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="495" y="808" text-anchor="middle" font-size="11" font-weight="700" fill="#34d399">scikit-learn classifier (trained)</text>
+
+  <text x="640" y="808" font-size="16" fill="#10b981">→</text>
+
+  <rect x="660" y="788" width="220" height="32" rx="6" fill="#14301f" stroke="#10b981" stroke-width="1"/>
+  <text x="770" y="808" text-anchor="middle" font-size="11" fill="#6ee7b7">Sync fitness scores at DSP speed</text>
+
+  <!-- Teaching loop arrow back to Layer 1 -->
+  <path d="M 55 790 C 30 790, 30 330, 55 330" stroke="#10b981" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrow-green)"/>
+  <text x="8" y="565" font-size="10" fill="#10b981" transform="rotate(-90, 22, 565)">TEACHING LOOP — Classifier improves metadata tagger</text>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- DOMAIN REPLICATION — FILM -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="60" y="856" width="840" height="108" rx="12" fill="url(#filmGrad)" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="80" y="880" font-size="10" font-weight="700" fill="#fca5a5" letter-spacing="2">DOMAIN REPLICATION — FILM (SAME ARCHITECTURE, DIFFERENT SIGNALS)</text>
+
+  <!-- Film Layer 1 -->
+  <rect x="80" y="890" width="180" height="56" rx="8" fill="#2a1010" stroke="#ef4444" stroke-width="1"/>
+  <text x="170" y="910" text-anchor="middle" font-size="11" font-weight="700" fill="#fca5a5">LAYER 1</text>
+  <text x="170" y="928" text-anchor="middle" font-size="10" fill="#f87171">Script NLP</text>
+  <text x="170" y="944" text-anchor="middle" font-size="10" fill="#f87171">Scene · Tone · INT/EXT</text>
+
+  <text x="276" y="920" font-size="18" fill="#ef4444" text-anchor="middle">→</text>
+
+  <!-- Film Layer 2 -->
+  <rect x="290" y="890" width="200" height="56" rx="8" fill="#2a1010" stroke="#ef4444" stroke-width="1"/>
+  <text x="390" y="910" text-anchor="middle" font-size="11" font-weight="700" fill="#fca5a5">LAYER 2</text>
+  <text x="390" y="928" text-anchor="middle" font-size="10" fill="#f87171">Claude · Scene breakdown</text>
+  <text x="390" y="944" text-anchor="middle" font-size="10" fill="#f87171">Production brief matching</text>
+
+  <text x="506" y="920" font-size="18" fill="#ef4444" text-anchor="middle">→</text>
+
+  <!-- Film Moat -->
+  <rect x="520" y="890" width="180" height="56" rx="8" fill="#3d1a1a" stroke="#ef4444" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="610" y="910" text-anchor="middle" font-size="11" font-weight="700" fill="#fca5a5">MOAT</text>
+  <text x="610" y="928" text-anchor="middle" font-size="10" fill="#f87171">Scene × Brief evaluations</text>
+  <text x="610" y="944" text-anchor="middle" font-size="10" fill="#f87171">Call sheet intelligence log</text>
+
+  <text x="716" y="920" font-size="18" fill="#ef4444" text-anchor="middle">→</text>
+
+  <!-- Film Layer 3 -->
+  <rect x="730" y="890" width="170" height="56" rx="8" fill="#2a1010" stroke="#ef4444" stroke-width="1"/>
+  <text x="815" y="910" text-anchor="middle" font-size="11" font-weight="700" fill="#fca5a5">LAYER 3</text>
+  <text x="815" y="928" text-anchor="middle" font-size="10" fill="#f87171">Scene complexity</text>
+  <text x="815" y="944" text-anchor="middle" font-size="10" fill="#f87171">classifier (trained)</text>
+
+  <!-- Footer note -->
+  <text x="480" y="978" text-anchor="middle" font-size="10" fill="#475569">DAKOL-AI-OS · SyncMaster Intelligence Stack · Architecture v1.0 · 2026-05-26</text>
+  <text x="480" y="996" text-anchor="middle" font-size="10" fill="#334155">The moat is evaluation_log. The classifier is what makes it defensible. The farm is what fills them both.</text>
+
+  <!-- Right-side return value indicator -->
+  <rect x="916" y="428" width="36" height="138" rx="8" fill="#1c1208" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="934" y="465" text-anchor="middle" font-size="9" fill="#f59e0b" transform="rotate(90, 934, 497)">ARTIST VALUE: metadata tags + top 5 brief matches returned</text>
+
+</svg>

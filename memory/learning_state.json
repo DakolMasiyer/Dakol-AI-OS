@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "updated_at": "2026-06-04T19:06:24.660048",
+  "event_count": 14,
+  "intents": {
+    "unknown": {
+      "count": 14,
+      "average_score": 0.5,
+      "error_rate": 0.0,
+      "models": {
+        "claude": 5,
+        "codex": 4,
+        "local": 5
+      },
+      "model_scores": {
+        "claude": 0.5,
+        "codex": 0.5,
+        "local": 0.5
+      },
+      "agents": {
+        "unknown": 14
+      }
+    }
+  },
+  "models": {
+    "claude": {
+      "count": 5,
+      "average_score": 0.5,
+      "error_rate": 0.0,
+      "models": {
+        "claude": 5
+      },
+      "model_scores": {
+        "claude": 0.5
+      },
+      "agents": {
+        "unknown": 5
+      }
+    },
+    "codex": {
+      "count": 4,
+      "average_score": 0.5,
+      "error_rate": 0.0,
+      "models": {
+        "codex": 4
+      },
+      "model_scores": {
+        "codex": 0.5
+      },
+      "agents": {
+        "unknown": 4
+      }
+    },
+    "local": {
+      "count": 5,
+      "average_score": 0.5,
+      "error_rate": 0.0,
+      "models": {
+        "local": 5
+      },
+      "model_scores": {
+        "local": 0.5
+      },
+      "agents": {
+        "unknown": 5
+      }
+    }
+  },
+  "agents": {},
+  "model_bias": {},
+  "agent_bias": {},
+  "low_confidence_patterns": []
+}

@@ -1,0 +1,837 @@
+[
+  {
+    "task_id": "ab666e5d-9242-4836-a4e1-99f2cee0fd87",
+    "status": "completed",
+    "task": "analyze this repo router",
+    "metadata": {
+      "planner_used": "deterministic",
+      "plan": {
+        "id": "plan_analyze_this_repo_router",
+        "objective": "analyze this repo router",
+        "provider": "deterministic",
+        "steps": [
+          {
+            "id": "step_1",
+            "description": "Clarify the requested outcome and constraints.",
+            "tool_name": "local_model",
+            "dependencies": [],
+            "inputs": {
+              "task": "analyze this repo router"
+            }
+          },
+          {
+            "id": "step_2",
+            "description": "Execute the primary work for the task.",
+            "tool_name": "local_model",
+            "dependencies": [
+              "step_1"
+            ],
+            "inputs": {
+              "task": "analyze this repo router"
+            }
+          },
+          {
+            "id": "step_3",
+            "description": "Review the result and prepare a concise handoff.",
+            "tool_name": "memory",
+            "dependencies": [
+              "step_2"
+            ],
+            "inputs": {
+              "task": "analyze this repo router"
+            }
+          }
+        ]
+      }
+    },
+    "result": {
+      "plan": {
+        "id": "plan_analyze_this_repo_router",
+        "objective": "analyze this repo router",
+        "provider": "deterministic",
+        "steps": [
+          {
+            "id": "step_1",
+            "description": "Clarify the requested outcome and constraints.",
+            "tool_name": "local_model",
+            "dependencies": [],
+            "inputs": {
+              "task": "analyze this repo router"
+            }
+          },
+          {
+            "id": "step_2",
+            "description": "Execute the primary work for the task.",
+            "tool_name": "local_model",
+            "dependencies": [
+              "step_1"
+            ],
+            "inputs": {
+              "task": "analyze this repo router"
+            }
+          },
+          {
+            "id": "step_3",
+            "description": "Review the result and prepare a concise handoff.",
+            "tool_name": "memory",
+            "dependencies": [
+              "step_2"
+            ],
+            "inputs": {
+              "task": "analyze this repo router"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "step_1": {
+          "model": "local",
+          "intent": "general_explanation",
+          "confidence": 0.045,
+          "matched_terms": [
+            "thi"
+          ],
+          "scoring_method": "lexical",
+          "embedding_provider": "",
+          "learning_applied": false,
+          "original_model": ""
+        },
+        "step_2": {
+          "model": "local",
+          "intent": "general_explanation",
+          "confidence": 0.045,
+          "matched_terms": [
+            "thi"
+          ],
+          "scoring_method": "lexical",
+          "embedding_provider": "",
+          "learning_applied": false,
+          "original_model": ""
+        },
+        "step_3": {
+          "version": 1,
+          "updated_at": "2026-05-25T21:20:59.241065",
+          "event_count": 14,
+          "intents": {
+            "unknown": {
+              "count": 14,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "claude": 5,
+                "codex": 4,
+                "local": 5
+              },
+              "model_scores": {
+                "claude": 0.5,
+                "codex": 0.5,
+                "local": 0.5
+              },
+              "agents": {
+                "unknown": 14
+              }
+            }
+          },
+          "models": {
+            "claude": {
+              "count": 5,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "claude": 5
+              },
+              "model_scores": {
+                "claude": 0.5
+              },
+              "agents": {
+                "unknown": 5
+              }
+            },
+            "codex": {
+              "count": 4,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "codex": 4
+              },
+              "model_scores": {
+                "codex": 0.5
+              },
+              "agents": {
+                "unknown": 4
+              }
+            },
+            "local": {
+              "count": 5,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "local": 5
+              },
+              "model_scores": {
+                "local": 0.5
+              },
+              "agents": {
+                "unknown": 5
+              }
+            }
+          },
+          "agents": {},
+          "model_bias": {},
+          "agent_bias": {},
+          "low_confidence_patterns": []
+        }
+      },
+      "final_output": {
+        "version": 1,
+        "updated_at": "2026-05-25T21:20:59.241065",
+        "event_count": 14,
+        "intents": {
+          "unknown": {
+            "count": 14,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "claude": 5,
+              "codex": 4,
+              "local": 5
+            },
+            "model_scores": {
+              "claude": 0.5,
+              "codex": 0.5,
+              "local": 0.5
+            },
+            "agents": {
+              "unknown": 14
+            }
+          }
+        },
+        "models": {
+          "claude": {
+            "count": 5,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "claude": 5
+            },
+            "model_scores": {
+              "claude": 0.5
+            },
+            "agents": {
+              "unknown": 5
+            }
+          },
+          "codex": {
+            "count": 4,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "codex": 4
+            },
+            "model_scores": {
+              "codex": 0.5
+            },
+            "agents": {
+              "unknown": 4
+            }
+          },
+          "local": {
+            "count": 5,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "local": 5
+            },
+            "model_scores": {
+              "local": 0.5
+            },
+            "agents": {
+              "unknown": 5
+            }
+          }
+        },
+        "agents": {},
+        "model_bias": {},
+        "agent_bias": {},
+        "low_confidence_patterns": []
+      }
+    },
+    "error": null,
+    "created_at": "2026-05-25T21:20:59.236692",
+    "updated_at": "2026-05-25T21:20:59.261189"
+  },
+  {
+    "task_id": "82b48cb5-4374-4d51-9f0a-25b41c015ca4",
+    "status": "completed",
+    "task": "inspect queued router task",
+    "metadata": {
+      "planner_used": "deterministic",
+      "plan": {
+        "id": "plan_inspect_queued_router_task",
+        "objective": "inspect queued router task",
+        "provider": "deterministic",
+        "steps": [
+          {
+            "id": "step_1",
+            "description": "Clarify the requested outcome and constraints.",
+            "tool_name": "local_model",
+            "dependencies": [],
+            "inputs": {
+              "task": "inspect queued router task"
+            }
+          },
+          {
+            "id": "step_2",
+            "description": "Execute the primary work for the task.",
+            "tool_name": "local_model",
+            "dependencies": [
+              "step_1"
+            ],
+            "inputs": {
+              "task": "inspect queued router task"
+            }
+          },
+          {
+            "id": "step_3",
+            "description": "Review the result and prepare a concise handoff.",
+            "tool_name": "memory",
+            "dependencies": [
+              "step_2"
+            ],
+            "inputs": {
+              "task": "inspect queued router task"
+            }
+          }
+        ]
+      }
+    },
+    "result": {
+      "plan": {
+        "id": "plan_inspect_queued_router_task",
+        "objective": "inspect queued router task",
+        "provider": "deterministic",
+        "steps": [
+          {
+            "id": "step_1",
+            "description": "Clarify the requested outcome and constraints.",
+            "tool_name": "local_model",
+            "dependencies": [],
+            "inputs": {
+              "task": "inspect queued router task"
+            }
+          },
+          {
+            "id": "step_2",
+            "description": "Execute the primary work for the task.",
+            "tool_name": "local_model",
+            "dependencies": [
+              "step_1"
+            ],
+            "inputs": {
+              "task": "inspect queued router task"
+            }
+          },
+          {
+            "id": "step_3",
+            "description": "Review the result and prepare a concise handoff.",
+            "tool_name": "memory",
+            "dependencies": [
+              "step_2"
+            ],
+            "inputs": {
+              "task": "inspect queued router task"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "step_1": {
+          "model": "local",
+          "intent": "general_explanation",
+          "confidence": 0.045,
+          "matched_terms": [
+            "task"
+          ],
+          "scoring_method": "lexical",
+          "embedding_provider": "",
+          "learning_applied": false,
+          "original_model": ""
+        },
+        "step_2": {
+          "model": "local",
+          "intent": "general_explanation",
+          "confidence": 0.045,
+          "matched_terms": [
+            "task"
+          ],
+          "scoring_method": "lexical",
+          "embedding_provider": "",
+          "learning_applied": false,
+          "original_model": ""
+        },
+        "step_3": {
+          "version": 1,
+          "updated_at": "2026-05-25T21:23:01.108587",
+          "event_count": 14,
+          "intents": {
+            "unknown": {
+              "count": 14,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "claude": 5,
+                "codex": 4,
+                "local": 5
+              },
+              "model_scores": {
+                "claude": 0.5,
+                "codex": 0.5,
+                "local": 0.5
+              },
+              "agents": {
+                "unknown": 14
+              }
+            }
+          },
+          "models": {
+            "claude": {
+              "count": 5,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "claude": 5
+              },
+              "model_scores": {
+                "claude": 0.5
+              },
+              "agents": {
+                "unknown": 5
+              }
+            },
+            "codex": {
+              "count": 4,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "codex": 4
+              },
+              "model_scores": {
+                "codex": 0.5
+              },
+              "agents": {
+                "unknown": 4
+              }
+            },
+            "local": {
+              "count": 5,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "local": 5
+              },
+              "model_scores": {
+                "local": 0.5
+              },
+              "agents": {
+                "unknown": 5
+              }
+            }
+          },
+          "agents": {},
+          "model_bias": {},
+          "agent_bias": {},
+          "low_confidence_patterns": []
+        }
+      },
+      "final_output": {
+        "version": 1,
+        "updated_at": "2026-05-25T21:23:01.108587",
+        "event_count": 14,
+        "intents": {
+          "unknown": {
+            "count": 14,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "claude": 5,
+              "codex": 4,
+              "local": 5
+            },
+            "model_scores": {
+              "claude": 0.5,
+              "codex": 0.5,
+              "local": 0.5
+            },
+            "agents": {
+              "unknown": 14
+            }
+          }
+        },
+        "models": {
+          "claude": {
+            "count": 5,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "claude": 5
+            },
+            "model_scores": {
+              "claude": 0.5
+            },
+            "agents": {
+              "unknown": 5
+            }
+          },
+          "codex": {
+            "count": 4,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "codex": 4
+            },
+            "model_scores": {
+              "codex": 0.5
+            },
+            "agents": {
+              "unknown": 4
+            }
+          },
+          "local": {
+            "count": 5,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "local": 5
+            },
+            "model_scores": {
+              "local": 0.5
+            },
+            "agents": {
+              "unknown": 5
+            }
+          }
+        },
+        "agents": {},
+        "model_bias": {},
+        "agent_bias": {},
+        "low_confidence_patterns": []
+      }
+    },
+    "error": null,
+    "created_at": "2026-05-25T21:22:56.915678",
+    "updated_at": "2026-05-25T21:23:01.146489"
+  },
+  {
+    "task_id": "2a76913c-1c4a-4d5c-a96a-48eed314d664",
+    "status": "completed",
+    "task": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
+    "metadata": {
+      "planner_used": "deterministic",
+      "plan": {
+        "id": "plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
+        "objective": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
+        "provider": "deterministic",
+        "steps": [
+          {
+            "id": "step_1",
+            "description": "Clarify the requested outcome and constraints.",
+            "tool_name": "local_model",
+            "dependencies": [],
+            "inputs": {
+              "task": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+            }
+          },
+          {
+            "id": "step_2",
+            "description": "Execute the primary work for the task.",
+            "tool_name": "syncmaster_analyze_metadata",
+            "dependencies": [
+              "step_1"
+            ],
+            "inputs": {
+              "payload": {
+                "description": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
+                "tags": [
+                  "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+                ]
+              }
+            }
+          },
+          {
+            "id": "step_3",
+            "description": "Review the result and prepare a concise handoff.",
+            "tool_name": "memory",
+            "dependencies": [
+              "step_2"
+            ],
+            "inputs": {
+              "task": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+            }
+          }
+        ]
+      }
+    },
+    "result": {
+      "plan": {
+        "id": "plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
+        "objective": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
+        "provider": "deterministic",
+        "steps": [
+          {
+            "id": "step_1",
+            "description": "Clarify the requested outcome and constraints.",
+            "tool_name": "local_model",
+            "dependencies": [],
+            "inputs": {
+              "task": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+            }
+          },
+          {
+            "id": "step_2",
+            "description": "Execute the primary work for the task.",
+            "tool_name": "syncmaster_analyze_metadata",
+            "dependencies": [
+              "step_1"
+            ],
+            "inputs": {
+              "payload": {
+                "description": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
+                "tags": [
+                  "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+                ]
+              }
+            }
+          },
+          {
+            "id": "step_3",
+            "description": "Review the result and prepare a concise handoff.",
+            "tool_name": "memory",
+            "dependencies": [
+              "step_2"
+            ],
+            "inputs": {
+              "task": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "step_1": {
+          "model": "local",
+          "intent": "sync_metadata",
+          "confidence": 0.363,
+          "matched_terms": [
+            "bpm",
+            "bpm_key",
+            "key_mood",
+            "mood_genre",
+            "analyze",
+            "genre",
+            "key",
+            "metadata"
+          ],
+          "scoring_method": "lexical",
+          "embedding_provider": "",
+          "learning_applied": false,
+          "original_model": ""
+        },
+        "step_2": {
+          "metadata": {
+            "title": "",
+            "artist": "",
+            "bpm": 120,
+            "key": "",
+            "mood": [
+              "dark"
+            ],
+            "genre": [
+              "cinematic"
+            ],
+            "energy": "medium",
+            "vocals": "instrumental",
+            "tags": [
+              "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+            ],
+            "source_text": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+          },
+          "confidence": {
+            "bpm": 1.0,
+            "key": 0.0,
+            "mood": 0.9,
+            "genre": 0.9,
+            "energy": 0.85,
+            "vocals": 0.9
+          },
+          "matched_terms": {
+            "bpm": [
+              "120 bpm"
+            ],
+            "key": [],
+            "mood": [
+              "dark"
+            ],
+            "genre": [
+              "cinematic"
+            ],
+            "energy": [
+              "120"
+            ],
+            "vocals": [
+              "instrumental"
+            ]
+          },
+          "warnings": []
+        },
+        "step_3": {
+          "version": 1,
+          "updated_at": "2026-05-25T21:46:09.465063",
+          "event_count": 14,
+          "intents": {
+            "unknown": {
+              "count": 14,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "claude": 5,
+                "codex": 4,
+                "local": 5
+              },
+              "model_scores": {
+                "claude": 0.5,
+                "codex": 0.5,
+                "local": 0.5
+              },
+              "agents": {
+                "unknown": 14
+              }
+            }
+          },
+          "models": {
+            "claude": {
+              "count": 5,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "claude": 5
+              },
+              "model_scores": {
+                "claude": 0.5
+              },
+              "agents": {
+                "unknown": 5
+              }
+            },
+            "codex": {
+              "count": 4,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "codex": 4
+              },
+              "model_scores": {
+                "codex": 0.5
+              },
+              "agents": {
+                "unknown": 4
+              }
+            },
+            "local": {
+              "count": 5,
+              "average_score": 0.5,
+              "error_rate": 0.0,
+              "models": {
+                "local": 5
+              },
+              "model_scores": {
+                "local": 0.5
+              },
+              "agents": {
+                "unknown": 5
+              }
+            }
+          },
+          "agents": {},
+          "model_bias": {},
+          "agent_bias": {},
+          "low_confidence_patterns": []
+        }
+      },
+      "final_output": {
+        "version": 1,
+        "updated_at": "2026-05-25T21:46:09.465063",
+        "event_count": 14,
+        "intents": {
+          "unknown": {
+            "count": 14,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "claude": 5,
+              "codex": 4,
+              "local": 5
+            },
+            "model_scores": {
+              "claude": 0.5,
+              "codex": 0.5,
+              "local": 0.5
+            },
+            "agents": {
+              "unknown": 14
+            }
+          }
+        },
+        "models": {
+          "claude": {
+            "count": 5,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "claude": 5
+            },
+            "model_scores": {
+              "claude": 0.5
+            },
+            "agents": {
+              "unknown": 5
+            }
+          },
+          "codex": {
+            "count": 4,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "codex": 4
+            },
+            "model_scores": {
+              "codex": 0.5
+            },
+            "agents": {
+              "unknown": 4
+            }
+          },
+          "local": {
+            "count": 5,
+            "average_score": 0.5,
+            "error_rate": 0.0,
+            "models": {
+              "local": 5
+            },
+            "model_scores": {
+              "local": 0.5
+            },
+            "agents": {
+              "unknown": 5
+            }
+          }
+        },
+        "agents": {},
+        "model_bias": {},
+        "agent_bias": {},
+        "low_confidence_patterns": []
+      }
+    },
+    "error": null,
+    "created_at": "2026-05-25T21:46:09.441873",
+    "updated_at": "2026-05-25T21:46:09.528864"
+  }
+]

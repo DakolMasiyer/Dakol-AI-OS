@@ -1,0 +1,763 @@
+{
+  "edges": [
+    {
+      "properties": {},
+      "relation": "PLANNED_BY",
+      "source": "task:ab666e5d-9242-4836-a4e1-99f2cee0fd87",
+      "target": "plan:plan_analyze_this_repo_router"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_analyze_this_repo_router",
+      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
+      "target": "tool:local_model"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
+      "target": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_analyze_this_repo_router",
+      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
+      "target": "tool:local_model"
+    },
+    {
+      "properties": {},
+      "relation": "DEPENDS_ON",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
+      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
+      "target": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_analyze_this_repo_router",
+      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
+      "target": "tool:memory"
+    },
+    {
+      "properties": {},
+      "relation": "DEPENDS_ON",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
+      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
+      "target": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3"
+    },
+    {
+      "properties": {},
+      "relation": "PLANNED_BY",
+      "source": "task:82b48cb5-4374-4d51-9f0a-25b41c015ca4",
+      "target": "plan:plan_inspect_queued_router_task"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_inspect_queued_router_task",
+      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
+      "target": "tool:local_model"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
+      "target": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_inspect_queued_router_task",
+      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
+      "target": "tool:local_model"
+    },
+    {
+      "properties": {},
+      "relation": "DEPENDS_ON",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
+      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
+      "target": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_inspect_queued_router_task",
+      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
+      "target": "tool:memory"
+    },
+    {
+      "properties": {},
+      "relation": "DEPENDS_ON",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
+      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
+      "target": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3"
+    },
+    {
+      "properties": {},
+      "relation": "PLANNED_BY",
+      "source": "task:2a76913c-1c4a-4d5c-a96a-48eed314d664",
+      "target": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
+      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
+      "target": "tool:local_model"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
+      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
+      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
+      "target": "tool:syncmaster_analyze_metadata"
+    },
+    {
+      "properties": {},
+      "relation": "DEPENDS_ON",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
+      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
+      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_METADATA_ANALYSIS",
+      "source": "track:track",
+      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "HAS_STEP",
+      "source": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
+      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3"
+    },
+    {
+      "properties": {},
+      "relation": "CALLED_TOOL",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
+      "target": "tool:memory"
+    },
+    {
+      "properties": {},
+      "relation": "DEPENDS_ON",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
+      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+    },
+    {
+      "properties": {},
+      "relation": "PRODUCED_OUTPUT",
+      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
+      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3"
+    }
+  ],
+  "nodes": {
+    "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1": {
+      "id": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
+      "properties": {
+        "value": {
+          "confidence": 0.363,
+          "embedding_provider": "",
+          "intent": "sync_metadata",
+          "learning_applied": false,
+          "matched_terms": [
+            "bpm",
+            "bpm_key",
+            "key_mood",
+            "mood_genre",
+            "analyze",
+            "genre",
+            "key",
+            "metadata"
+          ],
+          "model": "local",
+          "original_model": "",
+          "scoring_method": "lexical"
+        }
+      },
+      "type": "output"
+    },
+    "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2": {
+      "id": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
+      "properties": {
+        "value": {
+          "confidence": {
+            "bpm": 1.0,
+            "energy": 0.85,
+            "genre": 0.9,
+            "key": 0.0,
+            "mood": 0.9,
+            "vocals": 0.9
+          },
+          "matched_terms": {
+            "bpm": [
+              "120 bpm"
+            ],
+            "energy": [
+              "120"
+            ],
+            "genre": [
+              "cinematic"
+            ],
+            "key": [],
+            "mood": [
+              "dark"
+            ],
+            "vocals": [
+              "instrumental"
+            ]
+          },
+          "metadata": {
+            "artist": "",
+            "bpm": 120,
+            "energy": "medium",
+            "genre": [
+              "cinematic"
+            ],
+            "key": "",
+            "mood": [
+              "dark"
+            ],
+            "source_text": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
+            "tags": [
+              "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+            ],
+            "title": "",
+            "vocals": "instrumental"
+          },
+          "warnings": []
+        }
+      },
+      "type": "output"
+    },
+    "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3": {
+      "id": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
+      "properties": {
+        "value": {
+          "agent_bias": {},
+          "agents": {},
+          "event_count": 14,
+          "intents": {
+            "unknown": {
+              "agents": {
+                "unknown": 14
+              },
+              "average_score": 0.5,
+              "count": 14,
+              "error_rate": 0.0,
+              "model_scores": {
+                "claude": 0.5,
+                "codex": 0.5,
+                "local": 0.5
+              },
+              "models": {
+                "claude": 5,
+                "codex": 4,
+                "local": 5
+              }
+            }
+          },
+          "low_confidence_patterns": [],
+          "model_bias": {},
+          "models": {
+            "claude": {
+              "agents": {
+                "unknown": 5
+              },
+              "average_score": 0.5,
+              "count": 5,
+              "error_rate": 0.0,
+              "model_scores": {
+                "claude": 0.5
+              },
+              "models": {
+                "claude": 5
+              }
+            },
+            "codex": {
+              "agents": {
+                "unknown": 4
+              },
+              "average_score": 0.5,
+              "count": 4,
+              "error_rate": 0.0,
+              "model_scores": {
+                "codex": 0.5
+              },
+              "models": {
+                "codex": 4
+              }
+            },
+            "local": {
+              "agents": {
+                "unknown": 5
+              },
+              "average_score": 0.5,
+              "count": 5,
+              "error_rate": 0.0,
+              "model_scores": {
+                "local": 0.5
+              },
+              "models": {
+                "local": 5
+              }
+            }
+          },
+          "updated_at": "2026-05-25T21:46:09.465063",
+          "version": 1
+        }
+      },
+      "type": "output"
+    },
+    "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1": {
+      "id": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
+      "properties": {
+        "value": {
+          "confidence": 0.045,
+          "embedding_provider": "",
+          "intent": "general_explanation",
+          "learning_applied": false,
+          "matched_terms": [
+            "task"
+          ],
+          "model": "local",
+          "original_model": "",
+          "scoring_method": "lexical"
+        }
+      },
+      "type": "output"
+    },
+    "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2": {
+      "id": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
+      "properties": {
+        "value": {
+          "confidence": 0.045,
+          "embedding_provider": "",
+          "intent": "general_explanation",
+          "learning_applied": false,
+          "matched_terms": [
+            "task"
+          ],
+          "model": "local",
+          "original_model": "",
+          "scoring_method": "lexical"
+        }
+      },
+      "type": "output"
+    },
+    "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3": {
+      "id": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
+      "properties": {
+        "value": {
+          "agent_bias": {},
+          "agents": {},
+          "event_count": 14,
+          "intents": {
+            "unknown": {
+              "agents": {
+                "unknown": 14
+              },
+              "average_score": 0.5,
+              "count": 14,
+              "error_rate": 0.0,
+              "model_scores": {
+                "claude": 0.5,
+                "codex": 0.5,
+                "local": 0.5
+              },
+              "models": {
+                "claude": 5,
+                "codex": 4,
+                "local": 5
+              }
+            }
+          },
+          "low_confidence_patterns": [],
+          "model_bias": {},
+          "models": {
+            "claude": {
+              "agents": {
+                "unknown": 5
+              },
+              "average_score": 0.5,
+              "count": 5,
+              "error_rate": 0.0,
+              "model_scores": {
+                "claude": 0.5
+              },
+              "models": {
+                "claude": 5
+              }
+            },
+            "codex": {
+              "agents": {
+                "unknown": 4
+              },
+              "average_score": 0.5,
+              "count": 4,
+              "error_rate": 0.0,
+              "model_scores": {
+                "codex": 0.5
+              },
+              "models": {
+                "codex": 4
+              }
+            },
+            "local": {
+              "agents": {
+                "unknown": 5
+              },
+              "average_score": 0.5,
+              "count": 5,
+              "error_rate": 0.0,
+              "model_scores": {
+                "local": 0.5
+              },
+              "models": {
+                "local": 5
+              }
+            }
+          },
+          "updated_at": "2026-05-25T21:23:01.108587",
+          "version": 1
+        }
+      },
+      "type": "output"
+    },
+    "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1": {
+      "id": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
+      "properties": {
+        "value": {
+          "confidence": 0.045,
+          "embedding_provider": "",
+          "intent": "general_explanation",
+          "learning_applied": false,
+          "matched_terms": [
+            "thi"
+          ],
+          "model": "local",
+          "original_model": "",
+          "scoring_method": "lexical"
+        }
+      },
+      "type": "output"
+    },
+    "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2": {
+      "id": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
+      "properties": {
+        "value": {
+          "confidence": 0.045,
+          "embedding_provider": "",
+          "intent": "general_explanation",
+          "learning_applied": false,
+          "matched_terms": [
+            "thi"
+          ],
+          "model": "local",
+          "original_model": "",
+          "scoring_method": "lexical"
+        }
+      },
+      "type": "output"
+    },
+    "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3": {
+      "id": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
+      "properties": {
+        "value": {
+          "agent_bias": {},
+          "agents": {},
+          "event_count": 14,
+          "intents": {
+            "unknown": {
+              "agents": {
+                "unknown": 14
+              },
+              "average_score": 0.5,
+              "count": 14,
+              "error_rate": 0.0,
+              "model_scores": {
+                "claude": 0.5,
+                "codex": 0.5,
+                "local": 0.5
+              },
+              "models": {
+                "claude": 5,
+                "codex": 4,
+                "local": 5
+              }
+            }
+          },
+          "low_confidence_patterns": [],
+          "model_bias": {},
+          "models": {
+            "claude": {
+              "agents": {
+                "unknown": 5
+              },
+              "average_score": 0.5,
+              "count": 5,
+              "error_rate": 0.0,
+              "model_scores": {
+                "claude": 0.5
+              },
+              "models": {
+                "claude": 5
+              }
+            },
+            "codex": {
+              "agents": {
+                "unknown": 4
+              },
+              "average_score": 0.5,
+              "count": 4,
+              "error_rate": 0.0,
+              "model_scores": {
+                "codex": 0.5
+              },
+              "models": {
+                "codex": 4
+              }
+            },
+            "local": {
+              "agents": {
+                "unknown": 5
+              },
+              "average_score": 0.5,
+              "count": 5,
+              "error_rate": 0.0,
+              "model_scores": {
+                "local": 0.5
+              },
+              "models": {
+                "local": 5
+              }
+            }
+          },
+          "updated_at": "2026-05-25T21:20:59.241065",
+          "version": 1
+        }
+      },
+      "type": "output"
+    },
+    "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da": {
+      "id": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
+      "properties": {
+        "provider": "deterministic"
+      },
+      "type": "plan"
+    },
+    "plan:plan_analyze_this_repo_router": {
+      "id": "plan:plan_analyze_this_repo_router",
+      "properties": {
+        "provider": "deterministic"
+      },
+      "type": "plan"
+    },
+    "plan:plan_inspect_queued_router_task": {
+      "id": "plan:plan_inspect_queued_router_task",
+      "properties": {
+        "provider": "deterministic"
+      },
+      "type": "plan"
+    },
+    "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1": {
+      "id": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
+      "properties": {
+        "description": "Clarify the requested outcome and constraints."
+      },
+      "type": "step"
+    },
+    "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2": {
+      "id": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
+      "properties": {
+        "description": "Execute the primary work for the task."
+      },
+      "type": "step"
+    },
+    "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3": {
+      "id": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
+      "properties": {
+        "description": "Review the result and prepare a concise handoff."
+      },
+      "type": "step"
+    },
+    "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1": {
+      "id": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
+      "properties": {
+        "description": "Clarify the requested outcome and constraints."
+      },
+      "type": "step"
+    },
+    "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2": {
+      "id": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
+      "properties": {
+        "description": "Execute the primary work for the task."
+      },
+      "type": "step"
+    },
+    "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3": {
+      "id": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
+      "properties": {
+        "description": "Review the result and prepare a concise handoff."
+      },
+      "type": "step"
+    },
+    "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1": {
+      "id": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
+      "properties": {
+        "description": "Clarify the requested outcome and constraints."
+      },
+      "type": "step"
+    },
+    "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2": {
+      "id": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
+      "properties": {
+        "description": "Execute the primary work for the task."
+      },
+      "type": "step"
+    },
+    "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3": {
+      "id": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
+      "properties": {
+        "description": "Review the result and prepare a concise handoff."
+      },
+      "type": "step"
+    },
+    "task:2a76913c-1c4a-4d5c-a96a-48eed314d664": {
+      "id": "task:2a76913c-1c4a-4d5c-a96a-48eed314d664",
+      "properties": {
+        "objective": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+      },
+      "type": "task"
+    },
+    "task:82b48cb5-4374-4d51-9f0a-25b41c015ca4": {
+      "id": "task:82b48cb5-4374-4d51-9f0a-25b41c015ca4",
+      "properties": {
+        "objective": "inspect queued router task"
+      },
+      "type": "task"
+    },
+    "task:ab666e5d-9242-4836-a4e1-99f2cee0fd87": {
+      "id": "task:ab666e5d-9242-4836-a4e1-99f2cee0fd87",
+      "properties": {
+        "objective": "analyze this repo router"
+      },
+      "type": "task"
+    },
+    "tool:local_model": {
+      "id": "tool:local_model",
+      "properties": {
+        "name": "local_model"
+      },
+      "type": "tool"
+    },
+    "tool:memory": {
+      "id": "tool:memory",
+      "properties": {
+        "name": "memory"
+      },
+      "type": "tool"
+    },
+    "tool:syncmaster_analyze_metadata": {
+      "id": "tool:syncmaster_analyze_metadata",
+      "properties": {
+        "name": "syncmaster_analyze_metadata"
+      },
+      "type": "tool"
+    },
+    "track:track": {
+      "id": "track:track",
+      "properties": {
+        "artist": "",
+        "bpm": 120,
+        "energy": "medium",
+        "genre": [
+          "cinematic"
+        ],
+        "key": "",
+        "mood": [
+          "dark"
+        ],
+        "source_text": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
+        "tags": [
+          "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
+        ],
+        "title": "",
+        "vocals": "instrumental"
+      },
+      "type": "track"
+    }
+  }
+}

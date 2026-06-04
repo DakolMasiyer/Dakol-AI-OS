@@ -1,0 +1,6 @@
+# Optional Phase 8B model-assisted tagging extras.
+# Do not install by default; these can be large and may download models.
+
+transformers
+torch
+

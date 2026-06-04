@@ -1,32 +1,36 @@
-import json
-from datetime import datetime
-import os
+"""Compatibility wrapper for the canonical memory logger.
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-MEMORY_FILE = os.path.join(BASE_DIR, "memory", "logs.json")
+Older code imported memory helpers from ``scripts.memory``. Keep that import
+path working, but route all behavior through ``memory.log`` so there is only
+one logger implementation.
+"""
+
+from memory import log as _memory_log
+
+
+MEMORY_FILE = _memory_log.MEMORY_FILE
+
+
+def _with_legacy_memory_file(func, *args):
+    canonical_memory_file = _memory_log.MEMORY_FILE
+    _memory_log.MEMORY_FILE = MEMORY_FILE
+    try:
+        return func(*args)
+    finally:
+        _memory_log.MEMORY_FILE = canonical_memory_file
 
 
 def load_memory():
-    with open(MEMORY_FILE, "r") as f:
-        return json.load(f)
+    return _with_legacy_memory_file(_memory_log.load_memory)
 
 
 def save_memory(data):
-    with open(MEMORY_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    return _with_legacy_memory_file(_memory_log.save_memory, data)
 
 
-def log_event(task, model, output):
-    memory = load_memory()
+def log_event(task, model, output, agent_result=None):
+    return _with_legacy_memory_file(_memory_log.log_event, task, model, output, agent_result)
 
-    entry = {
-        "timestamp": datetime.now().isoformat(),
-        "task": task,
-        "model_used": model,
-        "output": output[:800]
-    }
 
-    memory.append(entry)
-    save_memory(memory)
-
-    return entry
+def record_feedback(event_id, feedback, note=None):
+    return _with_legacy_memory_file(_memory_log.record_feedback, event_id, feedback, note)
