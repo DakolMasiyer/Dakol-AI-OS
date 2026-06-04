@@ -12,7 +12,11 @@ import time
 import requests
 from typing import Optional
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeout
-from agents.football_data_agent import FootballDataAgent, get_match_by_id, get_matches, get_historical_h2h
+from agents.football_data_agent import (
+    FootballDataAgent, get_match_by_id, get_matches,
+    get_historical_h2h, get_squad_context,
+    get_wc_standings_context, get_top_scorers_context,
+)
 from agents.worldcup_content_agent import WorldCupContentAgent
 
 _football_agent = FootballDataAgent()
@@ -183,15 +187,47 @@ def generate_worldcup_content(
             "error": f"Match '{match_id}' not found.",
         }
 
-    h2h_summary = None
-    home_team = match.get("home_team")
-    away_team = match.get("away_team")
-    if home_team and away_team:
-        h2h_result = get_historical_h2h(home_team, away_team)
-        if h2h_result:
-            h2h_summary = h2h_result.get("summary")
+    home_team = match.get("home_team", "")
+    away_team = match.get("away_team", "")
 
-    system_prompt, user_prompt = _content_agent.build_prompt(content_type, match, h2h_summary)
+    # ── Fetch all enrichment context in parallel ──────────────────────────────
+    h2h_summary      = None
+    squad_home       = None
+    squad_away       = None
+    standings        = None
+    top_scorers      = None
+
+    def _safe(fn, *args, **kwargs):
+        try:
+            return fn(*args, **kwargs)
+        except Exception as e:
+            print(f"[worldcup_skill] Context fetch failed ({fn.__name__}): {e}")
+            return None
+
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        f_h2h       = pool.submit(_safe, get_historical_h2h,       home_team, away_team)
+        f_squad_h   = pool.submit(_safe, get_squad_context,         home_team)
+        f_squad_a   = pool.submit(_safe, get_squad_context,         away_team)
+        f_standings = pool.submit(_safe, get_wc_standings_context,  home_team)
+        f_scorers   = pool.submit(_safe, get_top_scorers_context)
+
+        h2h_result  = f_h2h.result(timeout=8)
+        squad_home  = f_squad_h.result(timeout=8)
+        squad_away  = f_squad_a.result(timeout=8)
+        standings   = f_standings.result(timeout=8)
+        top_scorers = f_scorers.result(timeout=8)
+
+    if h2h_result:
+        h2h_summary = h2h_result.get("summary")
+
+    system_prompt, user_prompt = _content_agent.build_prompt(
+        content_type, match,
+        h2h_context=h2h_summary,
+        squad_home=squad_home,
+        squad_away=squad_away,
+        standings_context=standings,
+        top_scorers_context=top_scorers,
+    )
     max_tokens = _content_agent.get_max_tokens(content_type)
 
     llm_result = _generate(system_prompt, user_prompt, content_type, max_tokens)
