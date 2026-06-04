@@ -175,6 +175,7 @@ def generate_worldcup_content(
     match_id: str,
     content_type: str = "twitter_thread",
     user_id: str = "anonymous",
+    brand_profile: dict = None,
 ) -> dict:
     start = time.time()
 
@@ -220,6 +221,8 @@ def generate_worldcup_content(
     if h2h_result:
         h2h_summary = h2h_result.get("summary")
 
+    tone = (brand_profile or {}).get("tone")  # e.g. "analytical", "hype", "casual"
+
     system_prompt, user_prompt = _content_agent.build_prompt(
         content_type, match,
         h2h_context=h2h_summary,
@@ -227,6 +230,7 @@ def generate_worldcup_content(
         squad_away=squad_away,
         standings_context=standings,
         top_scorers_context=top_scorers,
+        tone=tone,
     )
     max_tokens = _content_agent.get_max_tokens(content_type)
 
