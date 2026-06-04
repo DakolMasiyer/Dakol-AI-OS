@@ -191,10 +191,19 @@ def get_matches(competition: str = "WC") -> List[dict]:
 
 
 def get_match_by_id(match_id: str) -> Optional[dict]:
-    """Get a single match by ID from the cached list."""
-    matches = get_matches()
-    for m in matches:
-        if str(m.get("id")) == str(match_id) or str(m.get("external_id")) == str(match_id):
+    """
+    Get a single match by ID. Checks live API matches first, then MOCK_FIXTURES.
+    This handles the case where the frontend served mock IDs (wc2026-xxx) while
+    the backend has live matches with different IDs.
+    """
+    mid = str(match_id)
+    # Search live + cached matches first
+    for m in get_matches():
+        if str(m.get("id")) == mid or str(m.get("external_id")) == mid:
+            return m
+    # Fallback: check mock fixtures (covers wc2026-xxx IDs served by Next.js fallback)
+    for m in MOCK_FIXTURES:
+        if str(m.get("id")) == mid or str(m.get("external_id")) == mid:
             return m
     return None
 
