@@ -40,7 +40,7 @@ def _run_groq(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> Op
             "https://api.groq.com/openai/v1/chat/completions",
             headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
             json={
-                "model": "llama-3.1-70b-versatile",
+                "model": "llama-3.3-70b-versatile",
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt},
@@ -54,7 +54,7 @@ def _run_groq(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> Op
             data = resp.json()
             text = data["choices"][0]["message"]["content"]
             tokens = data.get("usage", {}).get("total_tokens", len(text.split()))
-            return {"text": text, "tokens": tokens, "model": "groq/llama-3.1-70b"}
+            return {"text": text, "tokens": tokens, "model": "groq/llama-3.3-70b"}
         print(f"[worldcup_skill] Groq {resp.status_code}: {resp.text[:200]}")
     except Exception as e:
         print(f"[worldcup_skill] Groq failed: {e}")

@@ -553,22 +553,57 @@ class WorldCupContentAgent(BaseAgent):
                 "and data-rich, not like a stats dump. Prioritise the most compelling facts."
             )
 
-        # Inject few-shot example as style reference
+        # ── Tone: override system prompt with example + explicit directives ──────
         if tone:
             example = FEW_SHOT_EXAMPLES.get(
                 (content_type, tone),
                 FEW_SHOT_EXAMPLES.get((content_type, "analytical"), _FALLBACK_EXAMPLE)
             )
-            user_prompt = (
-                f"STYLE REFERENCE — study the structure, voice, and format below. "
-                f"Do NOT copy the content. Apply this style to the actual match data.\n\n"
+
+            # Explicit tone behavioural directives — non-negotiable instructions
+            tone_directives = {
+                "hype": (
+                    "TONE OVERRIDE — MANDATORY: Write in HYPE mode. "
+                    "Use UPPERCASE for peak moments. Short punchy sentences. "
+                    "Emojis on most tweets (🚨🔥🏆⚽). Emotional urgency throughout. "
+                    "Never write like a journalist — write like a fan who can't breathe."
+                ),
+                "analytical": (
+                    "TONE OVERRIDE — MANDATORY: Write in ANALYTICAL mode. "
+                    "No hype language. No UPPERCASE. Minimal emojis (max 1 per tweet). "
+                    "Every tweet must make ONE tactical point with evidence. "
+                    "Use terms: xG, pressing triggers, half-space, structure, transitions. "
+                    "End with a clear verdict tweet."
+                ),
+                "casual": (
+                    "TONE OVERRIDE — MANDATORY: Write in CASUAL mode. "
+                    "Sound like a funny, self-aware fan — not a journalist. "
+                    "Use lowercase for comedic effect. Arrow lists (→) and reaction format. "
+                    "Self-deprecating humour. Emojis for comic timing 😭."
+                ),
+                "professional": (
+                    "TONE OVERRIDE — MANDATORY: Write in PROFESSIONAL mode. "
+                    "Data-led. No emojis except context emoji on final tweet. "
+                    "Cite specific stats (xG, minutes, career records). "
+                    "Formal conclusion tweet summarising the key finding."
+                ),
+                "editorial": (
+                    "TONE OVERRIDE — MANDATORY: Write in EDITORIAL mode. "
+                    "Reflective, literary, slow-burn. No bullet points. "
+                    "Build narrative arc across tweets. First tweet is a scene-setter, "
+                    "last tweet is a resonant conclusion. Minimal hashtags."
+                ),
+            }
+            directive = tone_directives.get(tone, "")
+            system_prompt = (
+                f"{directive}\n\n"
+                f"STUDY THIS EXAMPLE — match its structure, sentence rhythm, and voice EXACTLY:\n\n"
                 f"{example}\n\n"
-                f"---\n\n"
-                f"NOW WRITE THE ACTUAL CONTENT:\n\n"
-                + user_prompt
+                f"--- END EXAMPLE ---\n\n"
+                + config["system"]
             )
 
-        return config["system"], user_prompt
+        return system_prompt, user_prompt
 
     def get_max_tokens(self, content_type: str) -> int:
         return CONTENT_PROMPTS.get(content_type, CONTENT_PROMPTS["match_preview"])["max_tokens"]
