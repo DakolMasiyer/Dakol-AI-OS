@@ -9,3 +9,5 @@ memory/logs.json
 memory/tasks.json
 memory/graph_store.json
 memory/learning_state.json
+projects/
+

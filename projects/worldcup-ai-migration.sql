@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS users (
   total_tokens_used   INTEGER DEFAULT 0,
   total_cost_cents    INTEGER DEFAULT 0,
   stripe_customer_id  TEXT,
+  expires_at          TIMESTAMPTZ,
   last_reset_date     DATE DEFAULT CURRENT_DATE,
   created_at          TIMESTAMPTZ DEFAULT NOW(),
   updated_at          TIMESTAMPTZ DEFAULT NOW()
@@ -199,3 +200,6 @@ VALUES
   ('mock-007', 'Italy',     'Japan',       '🇮🇹', '🇯🇵', 'Group G', 'scheduled', '2026-06-17 18:00:00+00', 'Lincoln Financial Field, Philly',   'TBD', 'FIFA World Cup 2026'),
   ('mock-008', 'Colombia',  'Senegal',     '🇨🇴', '🇸🇳', 'Group H', 'scheduled', '2026-06-18 21:00:00+00', 'NRG Stadium, Houston',               'TBD', 'FIFA World Cup 2026')
 ON CONFLICT (external_id) DO NOTHING;
+
+-- Migration to support one-time subscription expiry:
+ALTER TABLE users ADD COLUMN IF NOT EXISTS expires_at TIMESTAMPTZ;
