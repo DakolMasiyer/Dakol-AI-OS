@@ -3,7 +3,7 @@ import asyncio
 import urllib.request
 import tempfile
 import os as _os
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from typing import Optional, Dict, Any
 from pydantic import BaseModel
 from scripts.router import route_task
@@ -201,6 +201,8 @@ async def worldcup_generate(payload: WorldCupGenerateRequest):
             user_id=payload.user_id,
             brand_profile=payload.brand_profile,
         )
+        if result.get("status") == "invalid_match_status":
+            raise HTTPException(status_code=400, detail=result["error"])
         return result
     except Exception as e:
         return {"error": str(e), "status": "error"}

@@ -188,6 +188,28 @@ def generate_worldcup_content(
             "error": f"Match '{match_id}' not found.",
         }
 
+    status_rules = {
+        'post_match_analysis': ['finished'],
+        'match_preview': ['scheduled'],
+    }
+    allowed_statuses = status_rules.get(content_type)
+    if allowed_statuses and match.get('status') not in allowed_statuses:
+        return {
+            "content": "",
+            "match": match,
+            "content_type": content_type,
+            "model": "none",
+            "tokens": 0,
+            "generation_time_ms": int((time.time() - start) * 1000),
+            "user_id": user_id,
+            "status": "invalid_match_status",
+            "error": (
+                "Post-match analysis is only available for finished matches."
+                if content_type == "post_match_analysis"
+                else "Match preview is only available for upcoming matches."
+            ),
+        }
+
     home_team = match.get("home_team", "")
     away_team = match.get("away_team", "")
 
