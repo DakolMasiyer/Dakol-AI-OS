@@ -33,3 +33,13 @@ def test_worldcup_next_api_route_tests_pass_without_network():
     )
 
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_worldcup_post_route_only_blocks_twitter_without_connection():
+    source = (WORLDCUP / "app/api/post/route.ts").read_text()
+
+    twitter_gate = source.index("if (platform === 'twitter')")
+    twitter_block = source[twitter_gate:]
+    assert "Connect ${platform} in Settings before posting." in twitter_block
+    assert "if (!connection)" in twitter_block
+    assert "Connect ${platform} in Settings before posting." not in source[:twitter_gate]
