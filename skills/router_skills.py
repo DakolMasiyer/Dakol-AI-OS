@@ -1,9 +1,11 @@
 import os
-import subprocess
 from dotenv import load_dotenv
+from app.core.logging import get_logger
+from skills.model_router import AllModelsUnavailableError, generate_with_fallback
 
 # Load API credentials from .env
 load_dotenv()
+logger = get_logger(__name__)
 
 def analyze_task(task: str) -> str:
     """
@@ -33,7 +35,7 @@ def run_claude(task: str) -> str:
     """
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        print("[ROUTER] Warning: ANTHROPIC_API_KEY not found in environment. Falling back...")
+        logger.warning("ANTHROPIC_API_KEY not found in environment; falling back")
         return "Error: Claude API Key not configured."
         
     try:
@@ -49,7 +51,7 @@ def run_claude(task: str) -> str:
         )
         return message.content[0].text
     except Exception as e:
-        print(f"[ROUTER] Claude API failed: {e}")
+        logger.error("Claude API failed", exc_info=True)
         return f"Error executing Claude: {e}"
 
 
@@ -59,7 +61,7 @@ def run_codex(task: str) -> str:
     """
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
-        print("[ROUTER] Warning: OPENAI_API_KEY not found in environment. Falling back...")
+        logger.warning("OPENAI_API_KEY not found in environment; falling back")
         return "Error: OpenAI API Key not configured."
         
     try:
@@ -74,22 +76,15 @@ def run_codex(task: str) -> str:
         )
         return response.choices[0].message.content
     except Exception as e:
-        print(f"[ROUTER] Codex/OpenAI API failed: {e}")
+        logger.error("Codex/OpenAI API failed", exc_info=True)
         return f"Error executing Codex: {e}"
 
 
 def run_local(task: str) -> str:
-    """
-    Sends the task to the local Ollama instance running coder-pro:latest.
-    """
+    """Execute the task through the shared fallback router."""
     try:
-        result = subprocess.run(
-            ["ollama", "run", "coder-pro:latest", task],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        return result.stdout.strip()
-    except subprocess.CalledProcessError as e:
-        print(f"[ROUTER] Local Ollama execution failed: {e}")
-        return f"Error executing local model: {e}"
+        result = generate_with_fallback(task, max_tokens=1024)
+        return result["content"].strip()
+    except AllModelsUnavailableError as exc:
+        logger.error("Fallback generation failed", exc_info=True)
+        return f"Error executing fallback model: {exc}"

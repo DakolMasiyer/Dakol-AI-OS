@@ -1,11 +1,12 @@
 import os
 import re
-import subprocess
 
 from agents.orchestrator import Orchestrator
+from app.core.logging import get_logger
 from memory.learning import update_learning_state
 from memory.log import log_event
 from scripts.semantic_router import route_task_semantically
+from skills.model_router import AllModelsUnavailableError, generate_with_fallback
 
 
 try:
@@ -15,6 +16,8 @@ except ImportError:
 
 if load_dotenv:
     load_dotenv(override=True)
+
+logger = get_logger(__name__)
 
 
 def clean_model_output(text: str) -> str:
@@ -37,7 +40,7 @@ def run_claude(task: str) -> str:
     """Execute the task through Claude via the Anthropic SDK."""
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        print("[ROUTER] Warning: ANTHROPIC_API_KEY not found in environment.")
+        logger.warning("ANTHROPIC_API_KEY not found in environment")
         return "Error: Claude API key not configured."
 
     try:
@@ -51,7 +54,7 @@ def run_claude(task: str) -> str:
         )
         return clean_model_output(message.content[0].text)
     except Exception as exc:
-        print(f"[ROUTER] Claude API failed: {exc}")
+        logger.error("Claude API failed", exc_info=True)
         return f"Error executing Claude: {exc}"
 
 
@@ -59,7 +62,7 @@ def run_codex(task: str) -> str:
     """Execute the task through OpenAI for code-oriented work."""
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
-        print("[ROUTER] Warning: OPENAI_API_KEY not found in environment.")
+        logger.warning("OPENAI_API_KEY not found in environment")
         return "Error: OpenAI API key not configured."
 
     try:
@@ -72,38 +75,33 @@ def run_codex(task: str) -> str:
         )
         return clean_model_output(response.choices[0].message.content)
     except Exception as exc:
-        print(f"[ROUTER] Codex/OpenAI API failed: {exc}")
+        logger.error("Codex/OpenAI API failed", exc_info=True)
         return f"Error executing Codex: {exc}"
 
 
 def run_local(task: str) -> str:
-    """Execute the task through the local Ollama model."""
-    model = os.getenv("OLLAMA_MODEL", "coder-pro:latest")
-
+    """Execute the task through the shared fallback router."""
     try:
-        result = subprocess.run(
-            ["ollama", "run", model, task],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        return clean_model_output(result.stdout)
-    except FileNotFoundError:
-        print("[ROUTER] Local Ollama executable not found.")
-        return "Error executing local model: Ollama executable not found."
-    except subprocess.CalledProcessError as exc:
-        print(f"[ROUTER] Local Ollama execution failed: {exc}")
-        return f"Error executing local model: {exc}"
+        result = generate_with_fallback(task, max_tokens=1024)
+        return clean_model_output(result["content"])
+    except AllModelsUnavailableError as exc:
+        logger.error("Fallback generation failed", exc_info=True)
+        return f"Error executing fallback model: {exc}"
 
 
 def route_task(task: str):
     route_decision = route_task_semantically(task)
     model = route_decision.model
 
-    print("\nSelected model:", model)
-    print("Route intent:", route_decision.intent)
-    print("Route confidence:", route_decision.confidence)
-    print("Matched terms:", ", ".join(route_decision.matched_terms) or "none")
+    logger.info(
+        "Task route selected",
+        extra={
+            "model": model,
+            "intent": route_decision.intent,
+            "confidence": route_decision.confidence,
+            "matched_terms": route_decision.matched_terms,
+        },
+    )
 
     # ----------------------------
     # EXECUTE MODEL LAYER
@@ -126,11 +124,15 @@ def route_task(task: str):
 
     fusion = agent_result.get("fusion_output", {})
 
-    print("\n--- AGENT FUSION OUTPUT ---")
-    print("Final Intent:", fusion.get("final_intent"))
-    print("Reasoning:", fusion.get("reasoning"))
-    print("Best Agent:", fusion.get("best_agent"))
-    print("Confidence:", fusion.get("confidence"))
+    logger.info(
+        "Agent fusion completed",
+        extra={
+            "final_intent": fusion.get("final_intent"),
+            "reasoning": fusion.get("reasoning"),
+            "best_agent": fusion.get("best_agent"),
+            "confidence": fusion.get("confidence"),
+        },
+    )
 
     # ----------------------------
     # MEMORY LOGGING (SAFE + CONSISTENT)
@@ -142,14 +144,22 @@ def route_task(task: str):
         agent_result
     )
 
-    print("\n--- MEMORY CONFIRMATION ---")
-    print("Logged task:", entry["task"])
-    print("Model used:", entry["model_used"])
-    print("Saved at:", entry["timestamp"])
+    logger.info(
+        "Task logged to memory",
+        extra={
+            "task": entry["task"],
+            "model_used": entry["model_used"],
+            "saved_at": entry["timestamp"],
+        },
+    )
 
     learning_state = update_learning_state()
-    print("\n--- LEARNING STATE ---")
-    print("Events analyzed:", learning_state["event_count"])
-    print("Known intents:", ", ".join(sorted(learning_state["intents"])) or "none")
+    logger.info(
+        "Learning state updated",
+        extra={
+            "event_count": learning_state["event_count"],
+            "known_intents": sorted(learning_state["intents"]),
+        },
+    )
 
     return output

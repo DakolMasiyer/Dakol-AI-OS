@@ -3,11 +3,19 @@ import asyncio
 import urllib.request
 import tempfile
 import os as _os
-from fastapi import FastAPI, HTTPException
+import time
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse
 from typing import Optional, Dict, Any
 from pydantic import BaseModel
+from slowapi import Limiter
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
+from app.core.logging import configure_logging, get_logger
 from scripts.router import route_task
 from farm.listener_pipeline import process_uploaded_track
+from skills.model_router import AllModelsUnavailableError, generate_with_fallback
+import skills.worldcup_skill as worldcup_skill
 
 try:
     from dotenv import load_dotenv
@@ -15,7 +23,55 @@ try:
 except ImportError:
     pass
 
+configure_logging()
+logger = get_logger(__name__)
 app = FastAPI(title="Dakol-AI-OS", version="1.0.0")
+
+
+def _generate_with_fallback_adapter(system_prompt: str, user_prompt: str, _content_type: str, max_tokens: int):
+    prompt = f"{system_prompt}\n\n{user_prompt}".strip()
+    routed = generate_with_fallback(prompt, max_tokens)
+    return {
+        "text": routed["content"],
+        "tokens": len(routed["content"].split()),
+        "model": routed["model"],
+        "used_fallback": routed["used_fallback"],
+    }
+
+
+worldcup_skill._generate = _generate_with_fallback_adapter
+
+
+def _user_id_rate_limit_key(request: Request) -> str:
+    user_id = request.headers.get("x-user-id")
+    if user_id:
+        return f"user:{user_id}"
+    return f"ip:{get_remote_address(request)}"
+
+
+def _retry_after_seconds(exc: RateLimitExceeded) -> int:
+    retry_after = getattr(exc, "retry_after", None)
+    if retry_after is None:
+        headers = getattr(exc, "headers", None) or {}
+        retry_after = headers.get("Retry-After")
+    try:
+        return max(1, int(float(retry_after)))
+    except (TypeError, ValueError):
+        return 60
+
+
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+
+
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded):
+    retry_after = _retry_after_seconds(exc)
+    return JSONResponse(
+        status_code=429,
+        content={"error": "rate_limit", "retry_after": retry_after},
+        headers={"Retry-After": str(retry_after)},
+    )
 
 
 # ============================================================
@@ -27,6 +83,13 @@ class WorldCupGenerateRequest(BaseModel):
     content_type: str = "twitter_thread"
     user_id: str = "anonymous"
     brand_profile: Optional[Dict[str, Any]] = None
+
+
+class WorldCupPostRequest(BaseModel):
+    user_id: str
+    platform: str
+    content: str
+    content_type: str
 
 
 class TaskRequest(BaseModel):
@@ -183,7 +246,9 @@ def debug_evaluate(payload: EvaluateRequest):
 # ============================================================
 
 @app.post("/worldcup/generate")
-async def worldcup_generate(payload: WorldCupGenerateRequest):
+@limiter.limit("10/minute", key_func=get_remote_address)
+@limiter.limit("30/minute", key_func=_user_id_rate_limit_key)
+async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
     """
     Generate AI football content for a given match.
     Chains: FootballDataAgent → WorldCupContentAgent → Gemini (quota-rotated)
@@ -194,6 +259,7 @@ async def worldcup_generate(payload: WorldCupGenerateRequest):
 
     from skills.worldcup_skill import generate_worldcup_content
     try:
+        start = time.perf_counter()
         result = await asyncio.to_thread(
             generate_worldcup_content,
             match_id=payload.match_id,
@@ -201,10 +267,37 @@ async def worldcup_generate(payload: WorldCupGenerateRequest):
             user_id=payload.user_id,
             brand_profile=payload.brand_profile,
         )
+        elapsed_ms = int((time.perf_counter() - start) * 1000)
+        logger.info(
+            "Generate request completed",
+            extra={
+                "user_id": payload.user_id,
+                "content_type": payload.content_type,
+                "llm_response_time_ms": result.get("generation_time_ms", elapsed_ms),
+            },
+        )
         if result.get("status") == "invalid_match_status":
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except AllModelsUnavailableError as e:
+        logger.warning(
+            "All generation models unavailable",
+            extra={"user_id": payload.user_id, "content_type": payload.content_type},
+        )
+        return JSONResponse(
+            status_code=503,
+            content={
+                "error": "all_models_unavailable",
+                "message": str(e),
+            },
+        )
+    except HTTPException:
+        raise
     except Exception as e:
+        logger.exception(
+            "Generate request failed",
+            extra={"user_id": payload.user_id, "content_type": payload.content_type},
+        )
         return {"error": str(e), "status": "error"}
 
 
@@ -223,3 +316,19 @@ def worldcup_content_types():
     """Return all supported content generation types."""
     from skills.worldcup_skill import list_content_types
     return {"content_types": list_content_types()}
+
+
+@app.post("/worldcup/post")
+async def worldcup_post(payload: WorldCupPostRequest):
+    """Post generated football content to a connected social account."""
+    try:
+        from skills.posting_skill import post_generated_content
+
+        return await asyncio.to_thread(
+            post_generated_content,
+            user_id=payload.user_id,
+            platform=payload.platform,
+            content=payload.content,
+        )
+    except Exception as e:
+        return {"error": str(e), "status": "error"}

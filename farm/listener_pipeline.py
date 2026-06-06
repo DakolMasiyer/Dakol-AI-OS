@@ -11,8 +11,11 @@ import tempfile
 import urllib.request
 from typing import Any
 
+from app.core.logging import get_logger
 from farm.briefs import get_active_briefs
 from farm.supabase_client import write_evaluation_log
+
+logger = get_logger(__name__)
 
 
 def process_uploaded_track(track_id: str, audio_url: str, synthetic: bool = False) -> dict[str, Any]:
@@ -161,10 +164,13 @@ Listen to the audio and respond ONLY with valid JSON:
         except Exception as e:
             err = str(e)
             if "429" in err or "RESOURCE_EXHAUSTED" in err:
-                print(f"[listener_pipeline] Key ...{api_key[-8:]} exhausted, marking and retrying")
+                logger.warning(
+                    "Gemini API key exhausted; marking and retrying",
+                    extra={"api_key_suffix": api_key[-8:]},
+                )
                 mark_exhausted(api_key)
                 continue
-            print(f"[listener_pipeline] Gemini evaluation failed: {e}")
+            logger.error("Gemini evaluation failed", exc_info=True)
             break
 
     return _evaluation_fallback("all keys exhausted or evaluation failed")

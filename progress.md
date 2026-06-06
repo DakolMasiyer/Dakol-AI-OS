@@ -15,7 +15,7 @@ graph TD
     
     ModelExecution -->|Intent: Sync/Metadata| Claude[Claude API]
     ModelExecution -->|Intent: Code/FastAPI| Codex[Codex API]
-    ModelExecution -->|Intent: General/Explain| Local[Local Ollama]
+    ModelExecution -->|Intent: General/Explain| Local[Hugging Face Fallback]
     
     Router -->|2. Multi-Agent Fusion| Orch[agents/orchestrator.py]
     Orch --> SyncA[agents/sync_agent.py]
@@ -23,7 +23,7 @@ graph TD
     Orch --> CodeA[agents/code_agent.py]
     
     SyncA & AudioA & CodeA -->|Confidence Scores| Orch
-    Orch -->|Ollama: coder-pro| Fusion[LLM Fusion Brain]
+    Orch -->|Shared fallback router| Fusion[LLM Fusion Brain]
     
     Fusion -->|Structured JSON| Router
     Router -->|3. Memory Logging| Log[memory/log.py]
@@ -38,7 +38,7 @@ graph TD
 
 ### 2. Orchestration & Fusion (`agents/orchestrator.py`)
 - Runs a multi-agent consensus system. Collects intents and confidence levels from all domain agents.
-- Queries a local Ollama model (`coder-pro:latest` based on `qwen2.5-coder:7b`) with a specialized fusion prompt to synthesize a final unified intent and reasoning.
+- Uses the shared three-model fallback router (`groq/llama3-70b-8192` → `gemini/gemini-1.5-flash` → `hf/mistralai/Mistral-7B-Instruct-v0.3`) with a specialized fusion prompt to synthesize a final unified intent and reasoning.
 
 ### 3. Memory & Learning (`memory/`)
 - **`logs.json`**: An active event logger storing historical task executions.
@@ -56,7 +56,7 @@ The script references several functions and objects that are currently reference
 - `analyze_task(task)`: Logic to select the routing destination (`claude`, `codex`, or `local`) based on the task description.
 - `run_claude(task)`: Connector to call the Anthropic API.
 - `run_codex(task)`: Connector to call the OpenAI Codex API.
-- `run_local(task)`: Connector to call the local Ollama instance.
+- `run_local(task)`: Connector to call the shared fallback router.
 - `Orchestrator` & `log_event`: Need to be explicitly imported (`from agents.orchestrator import Orchestrator` and `from memory.log import log_event`).
 
 ### 2. Missing Environment Config (`.env`)
@@ -74,7 +74,7 @@ To successfully complete the project, Codex should tackle the following mileston
 - Implement the model execution engines using the installed packages:
   - `run_claude`: Using `anthropic.Anthropic()` client.
   - `run_codex`: Using `openai.OpenAI()` client.
-  - `run_local`: Querying `http://localhost:11434/api/generate` or running local subprocess commands for Ollama.
+  - `run_local`: Querying the shared fallback router, not a local subprocess.
 
 > [!TIP]
 > Refer to the code templates in the `skills/` folder to quickly restore these functions!
@@ -84,7 +84,7 @@ To successfully complete the project, Codex should tackle the following mileston
   ```env
   ANTHROPIC_API_KEY=your-key-here
   OPENAI_API_KEY=your-key-here
-  OLLAMA_API_BASE=http://localhost:11434
+  HF_API_TOKEN=your-token-here
   ```
 
 ### 3. Implement Meta-Learning & Self-Correction (Steps 8 & 9)
@@ -99,12 +99,12 @@ Implemented first slice:
 - Updated `scripts/router.py` so `analyze_task(task)` delegates to semantic routing while still returning only `claude`, `codex`, or `local`.
 - Added route rationale output: intent, confidence, and matched terms.
 - Added `tests/test_semantic_router.py` to lock routing behavior for code, architecture, and SyncMaster metadata tasks.
-- Added optional embedding-backed routing gated by `SEMANTIC_ROUTER_EMBEDDINGS=ollama` or `SEMANTIC_ROUTER_EMBEDDINGS=openai`.
+- Added optional embedding-backed routing gated by `SEMANTIC_ROUTER_EMBEDDINGS=openai`.
 - Added profile embedding caching so profile examples are not re-embedded on every route.
 - Added compact `route_decision` metadata for memory learning without storing raw embedding vectors.
 
 Next Phase 3 steps:
-- Install or configure an embedding model for local Ollama, e.g. set `OLLAMA_EMBEDDING_MODEL=nomic-embed-text` after the model is available.
+- Install or configure OpenAI embeddings, e.g. set `OPENAI_EMBEDDING_MODEL=text-embedding-3-small`.
 - Use logged `route_decision` metadata to start Phase 4 outcome scoring and adaptive routing.
 - Expand intent profiles for SyncMaster workflows: metadata tagging, licensing recommendations, composer-to-brief matching, and audio analysis.
 - Add confidence thresholds for escalation: low-confidence local tasks should ask for fusion or route to Claude for reasoning.

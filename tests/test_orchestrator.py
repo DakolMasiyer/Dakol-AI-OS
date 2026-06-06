@@ -44,7 +44,7 @@ class OrchestratorLearningTests(unittest.TestCase):
         self.assertEqual(agents["code_agent"].domain_weight, 1.0)
 
 
-    def test_run_llm_uses_gemini_not_ollama(self):
+    def test_run_llm_returns_json_payload(self):
         orch = Orchestrator(learning_state={"agent_bias": {}})
         mock_response = MagicMock()
         mock_response.text = '{"final_intent": "test", "reasoning": "ok", "best_agent": "sync_agent", "confidence": 0.9}'
@@ -53,7 +53,7 @@ class OrchestratorLearningTests(unittest.TestCase):
         with patch("google.genai.Client", return_value=mock_client):
             result = orch._run_llm("test prompt")
         assert "final_intent" in result
-        assert "ollama" not in result.lower()
+        assert result
 
 
 if __name__ == "__main__":

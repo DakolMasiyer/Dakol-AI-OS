@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS users (
   email               TEXT UNIQUE,
   display_name        TEXT,
   tier                TEXT DEFAULT 'free' CHECK (tier IN ('free', 'pro', 'enterprise')),
-  daily_limit         INTEGER DEFAULT 10,
+  daily_limit         INTEGER DEFAULT 3,
   monthly_limit       INTEGER DEFAULT 100,
   daily_usage         INTEGER DEFAULT 0,
   monthly_usage       INTEGER DEFAULT 0,
@@ -135,29 +135,38 @@ ALTER TABLE matches ENABLE ROW LEVEL SECURITY;
 ALTER TABLE prompts ENABLE ROW LEVEL SECURITY;
 
 -- Matches & prompts are public (read-only for all)
+DROP POLICY IF EXISTS "matches_public_read" ON matches;
 CREATE POLICY "matches_public_read" ON matches FOR SELECT USING (true);
+DROP POLICY IF EXISTS "prompts_public_read" ON prompts;
 CREATE POLICY "prompts_public_read" ON prompts FOR SELECT USING (true);
 
 -- Users can only see their own data
+DROP POLICY IF EXISTS "users_own_data" ON users;
 CREATE POLICY "users_own_data" ON users
   FOR ALL USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "content_own_data" ON content_outputs;
 CREATE POLICY "content_own_data" ON content_outputs
   FOR ALL USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "usage_own_data" ON usage_logs;
 CREATE POLICY "usage_own_data" ON usage_logs
   FOR ALL USING (auth.uid() = user_id);
 
 -- Service role can do everything (for Python backend)
+DROP POLICY IF EXISTS "service_full_access_users" ON users;
 CREATE POLICY "service_full_access_users" ON users
   FOR ALL TO service_role USING (true);
 
+DROP POLICY IF EXISTS "service_full_access_content" ON content_outputs;
 CREATE POLICY "service_full_access_content" ON content_outputs
   FOR ALL TO service_role USING (true);
 
+DROP POLICY IF EXISTS "service_full_access_usage" ON usage_logs;
 CREATE POLICY "service_full_access_usage" ON usage_logs
   FOR ALL TO service_role USING (true);
 
+DROP POLICY IF EXISTS "service_full_access_matches" ON matches;
 CREATE POLICY "service_full_access_matches" ON matches
   FOR ALL TO service_role USING (true);
 

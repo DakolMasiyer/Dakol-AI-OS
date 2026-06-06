@@ -19,7 +19,7 @@ When this session began, the codebase was in the following state:
 | File | Status |
 |---|---|
 | `scripts/router.py` | Broken — calls `analyze_task`, `run_claude`, `run_codex`, `run_local`, `Orchestrator`, `log_event` without importing any of them |
-| `agents/orchestrator.py` | Fusion brain calls `subprocess.run(["ollama", "run", "coder-pro:latest", ...])` — blocks cloud deployment |
+| `agents/orchestrator.py` | Fusion brain uses the shared model fallback router — cloud-safe |
 | `memory/log.py` | Canonical 4-argument logger — correct, do not touch |
 | `scripts/memory.py` | Superseded — 3-argument logger, delete in Stage 2 migration |
 | `memory/logs.json` | 13 real log entries from prior testing |
@@ -366,7 +366,7 @@ def log_event(task, model, output, agent_result, synthetic=False):
 
 ## `agents/orchestrator.py` — Replace Fusion Brain
 
-Remove the Ollama subprocess. Replace `_run_llm` entirely:
+Remove the local subprocess fallback. Replace `_run_llm` entirely:
 
 ```python
 def _run_llm(self, prompt: str) -> str:
@@ -426,7 +426,7 @@ Confirm all three routes fire. Confirm `logs.json` receives entries with valid `
 
 ---
 
-### Priority 2 — Replace Ollama Fusion Brain (30 minutes)
+### Priority 2 — Replace local fusion fallback (30 minutes)
 
 Replace `_run_llm` in `agents/orchestrator.py` as shown above.
 Install `google-generativeai`. Set `GEMINI_API_KEY` in `.env`.

@@ -3,8 +3,10 @@
 from __future__ import annotations
 import os
 from typing import Any
+from app.core.logging import get_logger
 
 _client_instance = None
+logger = get_logger(__name__)
 
 
 def _get_client():
@@ -33,7 +35,7 @@ def get_unevaluated_tracks() -> list[dict[str, Any]]:
         tracks_res = client.table("tracks").select("id, audio_url, title").execute()
         tracks = tracks_res.data or []
     except Exception as e:
-        print(f"[supabase_client] Error fetching tracks: {e}")
+        logger.error("Error fetching tracks", exc_info=True)
         return []
 
     valid_tracks = [t for t in tracks if t.get("audio_url")]
@@ -45,9 +47,8 @@ def get_unevaluated_tracks() -> list[dict[str, Any]]:
         evals_res = client.table("evaluation_log").select("track_id").execute()
         evaluated_ids = {row["track_id"] for row in evals_res.data if row.get("track_id")}
     except Exception as e:
-        print(f"[supabase_client] Error fetching evaluation logs: {e}")
+        logger.error("Error fetching evaluation logs", exc_info=True)
         evaluated_ids = set()
 
     # Filter to only return tracks that have not been evaluated
     return [t for t in valid_tracks if t["id"] not in evaluated_ids]
-

@@ -1,17 +1,15 @@
 """
 Quota manager for Gemini API keys.
 Tracks daily usage per key, enforces rate limits, handles backoff.
-State persists in memory/quota_state.json and resets at UTC midnight.
+State persists in Supabase and resets at UTC midnight.
 """
 
 from __future__ import annotations
-import json
-import os
 import threading
 from datetime import datetime, timezone
 from typing import Any
 
-STATE_FILE = os.path.join(os.path.dirname(__file__), "..", "memory", "quota_state.json")
+QUOTA_STATE_KEY = "gemini_daily_quota"
 DAILY_LIMIT = 1400  # buffer below the 1500 free tier limit
 _lock = threading.Lock()
 
@@ -20,21 +18,38 @@ def _today() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
+def _get_client():
+    from farm.supabase_client import _get_client as get_supabase_client
+    return get_supabase_client()
+
+
 def _load_state() -> dict[str, Any]:
-    try:
-        with open(STATE_FILE) as f:
-            state = json.load(f)
-        if state.get("date") != _today():
-            return {"date": _today(), "keys": {}}
-        return state
-    except (FileNotFoundError, json.JSONDecodeError):
+    response = (
+        _get_client()
+        .table("quota_state")
+        .select("value")
+        .eq("key", QUOTA_STATE_KEY)
+        .limit(1)
+        .execute()
+    )
+    rows = response.data or []
+    if not rows:
         return {"date": _today(), "keys": {}}
+    state = rows[0].get("value") or {}
+    if state.get("date") != _today():
+        return {"date": _today(), "keys": {}}
+    return state
 
 
 def _save_state(state: dict[str, Any]) -> None:
-    os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
-    with open(STATE_FILE, "w") as f:
-        json.dump(state, f)
+    _get_client().table("quota_state").upsert(
+        {
+            "key": QUOTA_STATE_KEY,
+            "value": state,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        },
+        on_conflict="key",
+    ).execute()
 
 
 def get_available_key() -> str | None:

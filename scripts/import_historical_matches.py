@@ -9,6 +9,7 @@ import os
 import csv
 import urllib.request
 from datetime import datetime
+from app.core.logging import get_logger
 
 try:
     from dotenv import load_dotenv
@@ -17,10 +18,11 @@ except ImportError:
     pass
 
 CSV_URL = "https://raw.githubusercontent.com/martj42/international_results/master/results.csv"
+logger = get_logger(__name__)
 
 
 def download_csv(url: str) -> str:
-    print(f"Downloading CSV from: {url} ...")
+    logger.info("Downloading historical matches CSV", extra={"url": url})
     req = urllib.request.Request(
         url,
         headers={"User-Agent": "Mozilla/5.0"}
@@ -34,7 +36,7 @@ def parse_and_seed():
     supabase_key = os.environ.get("SUPABASE_KEY")
 
     if not supabase_url or not supabase_key:
-        print("Error: SUPABASE_URL and SUPABASE_KEY must be set in environment.")
+        logger.error("SUPABASE_URL and SUPABASE_KEY must be set in environment")
         return
 
     from supabase import create_client
@@ -44,7 +46,7 @@ def parse_and_seed():
     try:
         csv_data = download_csv(CSV_URL)
     except Exception as e:
-        print(f"Error downloading CSV: {e}")
+        logger.error("Error downloading CSV", exc_info=True)
         return
 
     # 2. Parse matches
@@ -52,7 +54,7 @@ def parse_and_seed():
     reader = csv.DictReader(lines)
 
     matches_to_insert = []
-    print("Parsing matches...")
+    logger.info("Parsing historical matches")
 
     for row in reader:
         # We only want final tournament FIFA World Cup matches
@@ -81,32 +83,43 @@ def parse_and_seed():
                 "neutral": neutral_val
             })
         except Exception as ex:
-            print(f"Skipping line due to parse error: {ex}")
+            logger.warning("Skipping line due to parse error", exc_info=True)
 
     total_parsed = len(matches_to_insert)
-    print(f"Parsed {total_parsed} historical World Cup matches.")
+    logger.info("Parsed historical World Cup matches", extra={"total_parsed": total_parsed})
 
     if total_parsed == 0:
-        print("No matches found to insert.")
+        logger.info("No historical matches found to insert")
         return
 
     # 3. Seed Supabase in batches of 100
     batch_size = 100
     inserted = 0
 
-    print("Uploading to Supabase...")
+    logger.info("Uploading historical matches to Supabase")
     for i in range(0, total_parsed, batch_size):
         batch = matches_to_insert[i:i + batch_size]
         try:
             res = supabase.table("historical_matches").insert(batch).execute()
             inserted += len(batch)
-            print(f"Inserted batch {i // batch_size + 1}: {inserted}/{total_parsed} matches uploaded.")
+            logger.info(
+                "Inserted historical matches batch",
+                extra={
+                    "batch": i // batch_size + 1,
+                    "inserted": inserted,
+                    "total_parsed": total_parsed,
+                },
+            )
         except Exception as e:
-            print(f"Failed to insert batch starting at index {i}: {e}")
-            print("Verify you have run the database migrations and created the 'historical_matches' table.")
+            logger.error(
+                "Failed to insert historical matches batch",
+                extra={"batch_start_index": i},
+                exc_info=True,
+            )
+            logger.error("Verify the database migrations created the historical_matches table")
             return
 
-    print(f"Successfully seeded {inserted} historical matches into Supabase!")
+    logger.info("Successfully seeded historical matches into Supabase", extra={"inserted": inserted})
 
 
 if __name__ == "__main__":

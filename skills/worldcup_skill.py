@@ -3,8 +3,8 @@ Dakol AI OS — World Cup Skill
 Chains: FootballDataAgent → WorldCupContentAgent → LLM → structured output
 
 LLM routing strategy:
-  Short content (twitter, instagram, linkedin)  → Groq first (fast) → Gemini → Ollama
-  Long content  (preview, spotlight, youtube)   → Gemini first      → Groq   → Ollama
+  Short content (twitter, instagram, linkedin)  → Groq first (fast) → Gemini → Hugging Face
+  Long content  (preview, spotlight, youtube)   → Gemini first      → Groq   → Hugging Face
 """
 
 import os
@@ -18,9 +18,12 @@ from agents.football_data_agent import (
     get_wc_standings_context, get_top_scorers_context,
 )
 from agents.worldcup_content_agent import WorldCupContentAgent
+from app.core.logging import get_logger
+from skills.model_router import generate_with_fallback
 
 _football_agent = FootballDataAgent()
 _content_agent = WorldCupContentAgent()
+logger = get_logger(__name__)
 
 # Content types that are short — route to fast APIs first
 _SHORT_CONTENT = {"twitter_thread", "instagram_caption", "linkedin_post"}
@@ -55,9 +58,12 @@ def _run_groq(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> Op
             text = data["choices"][0]["message"]["content"]
             tokens = data.get("usage", {}).get("total_tokens", len(text.split()))
             return {"text": text, "tokens": tokens, "model": "groq/llama-3.3-70b"}
-        print(f"[worldcup_skill] Groq {resp.status_code}: {resp.text[:200]}")
+        logger.warning(
+            "Groq returned non-200 status",
+            extra={"status_code": resp.status_code, "response_preview": resp.text[:200]},
+        )
     except Exception as e:
-        print(f"[worldcup_skill] Groq failed: {e}")
+        logger.error("Groq request failed", exc_info=True)
     return None
 
 
@@ -69,7 +75,7 @@ def _run_gemini(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> 
         from google import genai
         from farm.quota_manager import get_available_key, record_call
     except ImportError as e:
-        print(f"[worldcup_skill] Gemini import failed: {e}")
+        logger.error("Gemini import failed", exc_info=True)
         return None
 
     full_prompt = f"{system_prompt}\n\n{user_prompt}"
@@ -99,48 +105,19 @@ def _run_gemini(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> 
                 return {"text": text, "tokens": tokens, "model": model_name}
 
             except FuturesTimeout:
-                print(f"[worldcup_skill] Gemini {model_name} timed out after {_LLM_TIMEOUT}s")
+                logger.warning(
+                    "Gemini request timed out",
+                    extra={"model": model_name, "timeout_seconds": _LLM_TIMEOUT},
+                )
                 break  # try next model
             except Exception as e:
                 msg = str(e).lower()
                 if "429" in msg or "quota" in msg or "rate" in msg:
-                    print(f"[worldcup_skill] Gemini key rate-limited, rotating…")
+                    logger.warning("Gemini key rate-limited; rotating", extra={"model": model_name})
                     continue  # try next key
-                print(f"[worldcup_skill] Gemini {model_name} error: {e}")
+                logger.error("Gemini request failed", extra={"model": model_name}, exc_info=True)
                 break  # non-rate-limit error, try next model
 
-    return None
-
-
-# ─── Ollama (local fallback) ──────────────────────────────────────────────────
-
-def _run_ollama(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> Optional[dict]:
-    """Call local Ollama instance. Zero API cost, slower."""
-    ollama_base = os.environ.get("OLLAMA_API_BASE", "http://127.0.0.1:11434")
-    model = os.environ.get("OLLAMA_MODEL", "coder-pro:latest")
-
-    try:
-        resp = requests.post(
-            f"{ollama_base}/api/chat",
-            json={
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-                "stream": False,
-                "options": {"num_predict": max_tokens},
-            },
-            timeout=_LLM_TIMEOUT,
-        )
-        if resp.status_code == 200:
-            data = resp.json()
-            text = data.get("message", {}).get("content", "")
-            tokens = len(user_prompt.split()) + len(text.split())
-            return {"text": text, "tokens": tokens, "model": f"ollama/{model}"}
-        print(f"[worldcup_skill] Ollama {resp.status_code}")
-    except Exception as e:
-        print(f"[worldcup_skill] Ollama failed: {e}")
     return None
 
 
@@ -148,25 +125,25 @@ def _run_ollama(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> 
 
 def _generate(system_prompt: str, user_prompt: str, content_type: str, max_tokens: int) -> dict:
     """
-    Route to the right LLM based on content type.
-    Short → Groq first (fast, free). Long → Gemini first (quality).
-    Ollama is always the last resort.
+    Route to the shared fallback chain.
+    Prompt assembly already carries the content-type specific instructions.
     """
-    if content_type in _SHORT_CONTENT:
-        chain = [_run_groq, _run_gemini, _run_ollama]
-    else:
-        chain = [_run_gemini, _run_groq, _run_ollama]
+    prompt = f"{system_prompt}\n\n{user_prompt}".strip()
 
-    for fn in chain:
-        result = fn(system_prompt, user_prompt, max_tokens)
-        if result and result.get("text"):
-            return result
-
-    return {
-        "text": "Content generation temporarily unavailable. Please try again.",
-        "tokens": 0,
-        "model": "none",
-    }
+    try:
+        result = generate_with_fallback(prompt, max_tokens)
+        content = result.get("content", "")
+        return {
+            "text": content,
+            "tokens": len(prompt.split()) + len(content.split()),
+            "model": result.get("model", "none"),
+        }
+    except Exception:
+        return {
+            "text": "Content generation temporarily unavailable. Please try again.",
+            "tokens": 0,
+            "model": "none",
+        }
 
 
 # ─── Main entry point ─────────────────────────────────────────────────────────
@@ -224,7 +201,7 @@ def generate_worldcup_content(
         try:
             return fn(*args, **kwargs)
         except Exception as e:
-            print(f"[worldcup_skill] Context fetch failed ({fn.__name__}): {e}")
+            logger.error("Context fetch failed", extra={"function": fn.__name__}, exc_info=True)
             return None
 
     with ThreadPoolExecutor(max_workers=5) as pool:
@@ -243,7 +220,7 @@ def generate_worldcup_content(
     if h2h_result:
         h2h_summary = h2h_result.get("summary")
 
-    tone = (brand_profile or {}).get("tone")  # e.g. "analytical", "hype", "casual"
+    tone = brand_profile or {}
 
     system_prompt, user_prompt = _content_agent.build_prompt(
         content_type, match,

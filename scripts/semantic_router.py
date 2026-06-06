@@ -1,9 +1,6 @@
 import math
 import os
 import re
-import json
-import urllib.error
-import urllib.request
 from dataclasses import dataclass
 from typing import Optional
 
@@ -214,7 +211,6 @@ def _get_route_embeddings(task: str, provider) -> tuple[list[float], list[list[f
     provider_name = str(provider)
     cache_key = (
         provider_name,
-        os.getenv("OLLAMA_EMBEDDING_MODEL", "nomic-embed-text"),
         os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
     )
 
@@ -230,7 +226,10 @@ def _configured_embedding_provider():
     if provider in {"", "0", "false", "off", "none"}:
         return None
 
-    return provider
+    if provider == "openai":
+        return provider
+
+    return None
 
 
 def _apply_learning_bias(decision: RouteDecision) -> RouteDecision:
@@ -264,52 +263,10 @@ def _apply_learning_bias(decision: RouteDecision) -> RouteDecision:
 
 
 def _embed_texts(texts: list[str], provider: str) -> list[list[float]]:
-    if provider == "ollama":
-        return _embed_with_ollama(texts)
-
     if provider == "openai":
         return _embed_with_openai(texts)
 
     raise ValueError(f"Unsupported embedding provider: {provider}")
-
-
-def _embed_with_ollama(texts: list[str]) -> list[list[float]]:
-    base_url = os.getenv("OLLAMA_API_BASE", "http://127.0.0.1:11434").rstrip("/")
-    model = os.getenv("OLLAMA_EMBEDDING_MODEL", "nomic-embed-text")
-    timeout = float(os.getenv("SEMANTIC_ROUTER_EMBEDDING_TIMEOUT", "2"))
-
-    payload = json.dumps({"model": model, "input": texts}).encode("utf-8")
-    request = urllib.request.Request(
-        f"{base_url}/api/embed",
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            data = json.loads(response.read().decode("utf-8"))
-            embeddings = data.get("embeddings")
-            if embeddings:
-                return embeddings
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError):
-        pass
-
-    return [_embed_one_with_ollama(base_url, model, text, timeout) for text in texts]
-
-
-def _embed_one_with_ollama(base_url: str, model: str, text: str, timeout: float) -> list[float]:
-    payload = json.dumps({"model": model, "prompt": text}).encode("utf-8")
-    request = urllib.request.Request(
-        f"{base_url}/api/embeddings",
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        data = json.loads(response.read().decode("utf-8"))
-        return data.get("embedding", [])
 
 
 def _embed_with_openai(texts: list[str]) -> list[list[float]]:

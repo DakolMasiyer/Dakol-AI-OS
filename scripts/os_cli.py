@@ -206,10 +206,10 @@ def main(argv=None) -> int:
         else:
             parser.error("unsupported command")
     except ValueError as exc:
-        print(json.dumps({"error": str(exc)}, indent=2))
+        sys.stdout.write(json.dumps({"error": str(exc)}, indent=2) + "\n")
         return 1
 
-    print(json.dumps(result, indent=2))
+    sys.stdout.write(json.dumps(result, indent=2) + "\n")
     return 0
 
 

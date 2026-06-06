@@ -1,4 +1,68 @@
+from typing import Any
+
 from agents.base_agent import BaseAgent
+from skills.context_enricher import enrich_match_context
+from skills.trending_injector import get_trending_angles
+
+TONE_PRESETS = {
+    "aggressive": {
+        "label": "Pepper Them",
+        "description": "Sharp, combative. No mercy on underperformers.",
+        "prompt_instruction": "Write with sharp, combative energy. Call out underperformers directly. Do not be diplomatic. No hedging.",
+    },
+    "hype": {
+        "label": "Ballon d'Or Energy",
+        "description": "Maximum hype for standout moments.",
+        "prompt_instruction": "Write with maximum hype. Superlatives are expected. Frame every good performance as historic.",
+    },
+    "professional": {
+        "label": "Broadcast Professional",
+        "description": "Clean, neutral, credible.",
+        "prompt_instruction": "Write in a neutral broadcast tone. No slang. Factual and structured. Suitable for a mainstream sports audience.",
+    },
+    "casual": {
+        "label": "WhatsApp Group Admin",
+        "description": "Conversational and meme-aware.",
+        "prompt_instruction": "Write conversationally. Casual grammar is fine. Short sentences. High energy. Reference football culture naturally.",
+    },
+    "analytical": {
+        "label": "Pundit Mode",
+        "description": "Tactical, stats-forward analysis.",
+        "prompt_instruction": "Write with analytical authority. Reference formations, pressing stats, and xG where relevant. Sound like a studied tactical analyst.",
+    },
+    "custom": {
+        "label": "Custom",
+        "description": "Write your own instructions.",
+        "prompt_instruction": None,
+    },
+}
+
+REGION_PRESETS = {
+    "global": {
+        "label": "Global",
+        "region_instruction": None,
+    },
+    "nigeria": {
+        "label": "Nigeria",
+        "region_instruction": "Adapt language for a Nigerian football audience. Use Nigerian football Twitter slang and cultural references naturally.",
+    },
+    "uk": {
+        "label": "United Kingdom",
+        "region_instruction": "Adapt language for a British football audience. Pub culture references and British football slang are appropriate.",
+    },
+    "us": {
+        "label": "United States",
+        "region_instruction": "Adapt language for a US soccer audience. Assume some unfamiliarity with football culture outside MLS and USMNT context.",
+    },
+    "south_africa": {
+        "label": "South Africa",
+        "region_instruction": "Adapt language for a South African football audience. Reference PSL culture where relevant.",
+    },
+}
+
+LEGACY_TONE_ALIASES = {
+    "editorial": "professional",
+}
 
 # Content type → system prompt templates
 CONTENT_PROMPTS = {
@@ -498,7 +562,7 @@ class WorldCupContentAgent(BaseAgent):
         squad_away: str = None,
         standings_context: str = None,
         top_scorers_context: str = None,
-        tone: str = None,
+        tone: Any = None,
     ) -> tuple:
         """
         Build system + user prompt enriched with all available context.
@@ -511,8 +575,9 @@ class WorldCupContentAgent(BaseAgent):
             squad_away:         Away team squad + coach string.
             standings_context:  Live group standings table.
             top_scorers_context: Tournament top scorers leaderboard.
-            tone:               Brand tone (e.g. 'analytical', 'hype', 'casual'). Selects
-                                the matching few-shot example as a style reference.
+            tone:               Brand profile payload or legacy tone string. When a dict is
+                                provided, tone_key/region_key/custom_tone_instruction are
+                                used to shape the prompt and select the matching example.
         """
         config = CONTENT_PROMPTS.get(content_type, CONTENT_PROMPTS["match_preview"])
 
@@ -527,6 +592,28 @@ class WorldCupContentAgent(BaseAgent):
         }
 
         user_prompt = config["template"].format(**ctx)
+
+        live_context = enrich_match_context(ctx["home_team"], ctx["away_team"], ctx["date"])
+        if live_context.get("enriched") is True:
+            key_events = "\n".join(live_context.get("key_events") or [])
+            user_prompt += (
+                "\n\n--- MATCH CONTEXT ---\n"
+                f"Scoreline: {live_context.get('scoreline') or 'Unknown'}\n"
+                f"Key events: {key_events or 'None found'}\n"
+                "---------------------"
+            )
+
+        match_query = f"{ctx['home_team']} vs {ctx['away_team']} {ctx['date']}"
+        trending_context = get_trending_angles(match_query)
+        if trending_context.get("injected") is True:
+            hashtags = ", ".join(trending_context.get("hashtags") or [])
+            angles = "\n".join(trending_context.get("angles") or [])
+            user_prompt += (
+                "\n\n--- TRENDING ANGLES ---\n"
+                f"Hashtags: {hashtags or 'None found'}\n"
+                f"What people are saying:\n{angles or 'None found'}\n"
+                "-----------------------"
+            )
 
         # Assemble enrichment block — only include sections that have data
         enrichment_parts = []
@@ -553,56 +640,48 @@ class WorldCupContentAgent(BaseAgent):
                 "and data-rich, not like a stats dump. Prioritise the most compelling facts."
             )
 
-        # ── Tone: override system prompt with example + explicit directives ──────
+        tone_payload = tone if isinstance(tone, dict) else {}
+        tone_key = tone_payload.get("tone_key") or tone_payload.get("default_tone") or tone_payload.get("tone")
+        if not tone_key and isinstance(tone, str):
+            tone_key = tone
+        tone_key = LEGACY_TONE_ALIASES.get(str(tone_key or "").strip(), str(tone_key or "").strip())
+        if tone_key and tone_key not in TONE_PRESETS:
+            tone_key = "analytical"
+        region_key = tone_payload.get("region_key") or "global"
+        if region_key not in REGION_PRESETS:
+            region_key = "global"
+        custom_tone_instruction = tone_payload.get("custom_tone_instruction") or ""
+
+        # ── Tone + region: system example and prompt block ────────────────────
         system_prompt = config["system"]
-        if tone:
+        if tone_key:
             example = FEW_SHOT_EXAMPLES.get(
-                (content_type, tone),
+                (content_type, tone_key),
                 FEW_SHOT_EXAMPLES.get((content_type, "analytical"), _FALLBACK_EXAMPLE)
             )
-
-            # Explicit tone behavioural directives — non-negotiable instructions
-            tone_directives = {
-                "hype": (
-                    "TONE OVERRIDE — MANDATORY: Write in HYPE mode. "
-                    "Use UPPERCASE for peak moments. Short punchy sentences. "
-                    "Emojis on most tweets (🚨🔥🏆⚽). Emotional urgency throughout. "
-                    "Never write like a journalist — write like a fan who can't breathe."
-                ),
-                "analytical": (
-                    "TONE OVERRIDE — MANDATORY: Write in ANALYTICAL mode. "
-                    "No hype language. No UPPERCASE. Minimal emojis (max 1 per tweet). "
-                    "Every tweet must make ONE tactical point with evidence. "
-                    "Use terms: xG, pressing triggers, half-space, structure, transitions. "
-                    "End with a clear verdict tweet."
-                ),
-                "casual": (
-                    "TONE OVERRIDE — MANDATORY: Write in CASUAL mode. "
-                    "Sound like a funny, self-aware fan — not a journalist. "
-                    "Use lowercase for comedic effect. Arrow lists (→) and reaction format. "
-                    "Self-deprecating humour. Emojis for comic timing 😭."
-                ),
-                "professional": (
-                    "TONE OVERRIDE — MANDATORY: Write in PROFESSIONAL mode. "
-                    "Data-led. No emojis except context emoji on final tweet. "
-                    "Cite specific stats (xG, minutes, career records). "
-                    "Formal conclusion tweet summarising the key finding."
-                ),
-                "editorial": (
-                    "TONE OVERRIDE — MANDATORY: Write in EDITORIAL mode. "
-                    "Reflective, literary, slow-burn. No bullet points. "
-                    "Build narrative arc across tweets. First tweet is a scene-setter, "
-                    "last tweet is a resonant conclusion. Minimal hashtags."
-                ),
-            }
-            directive = tone_directives.get(tone, "")
             system_prompt = (
-                f"{directive}\n\n"
                 f"STUDY THIS EXAMPLE — match its structure, sentence rhythm, and voice EXACTLY:\n\n"
                 f"{example}\n\n"
                 f"--- END EXAMPLE ---\n\n"
                 + config["system"]
             )
+
+        tone_instruction = None
+        if tone_key == "custom":
+            tone_instruction = custom_tone_instruction.strip() or None
+        else:
+            tone_instruction = TONE_PRESETS.get(tone_key, TONE_PRESETS["analytical"])["prompt_instruction"]
+            if tone_instruction is None:
+                tone_instruction = TONE_PRESETS["analytical"]["prompt_instruction"]
+
+        region_instruction = REGION_PRESETS.get(region_key, REGION_PRESETS["global"])["region_instruction"]
+
+        if tone_instruction:
+            user_prompt += "\n\n--- VOICE ---\n"
+            user_prompt += tone_instruction + "\n"
+            if region_instruction:
+                user_prompt += region_instruction + "\n"
+            user_prompt += "-------------"
 
         return system_prompt, user_prompt
 

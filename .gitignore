@@ -5,6 +5,7 @@ __pycache__
 .DS_Store
 logs/*
 memory/*.log
+memory/*.json
 venv/
 .venv/
 push_to_github.sh
