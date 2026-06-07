@@ -1,0 +1,10 @@
+{
+  "app_id": "listening_farm_ai",
+  "allowed_capabilities": ["ingestion", "crawling", "trend_analysis", "scoring"],
+  "allowed_tools": ["search_repo", "read_file", "route_task"],
+  "policy_scope": "isolated",
+  "trace_namespace": "isolated",
+  "execution_profile": "standard",
+  "replay_policy": "strict",
+  "trace_retention_policy": "30_days"
+}

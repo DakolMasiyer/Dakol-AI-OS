@@ -1,0 +1,4 @@
+{
+  "ingestion_rate": 100,
+  "scoring_threshold": 0.8
+}

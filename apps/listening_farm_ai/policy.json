@@ -1,0 +1,5 @@
+{
+  "enforce_sandbox": true,
+  "max_memory_mb": 512,
+  "timeout_seconds": 60
+}

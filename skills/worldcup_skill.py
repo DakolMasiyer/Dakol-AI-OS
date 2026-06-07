@@ -95,8 +95,10 @@ def _run_gemini(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> 
                         model=model_name, contents=full_prompt
                     )
 
+                import contextvars
+                ctx = contextvars.copy_context()
                 with ThreadPoolExecutor(max_workers=1) as ex:
-                    future = ex.submit(_call)
+                    future = ex.submit(ctx.run, _call)
                     response = future.result(timeout=_LLM_TIMEOUT)
 
                 text = response.text or ""
@@ -204,12 +206,14 @@ def generate_worldcup_content(
             logger.error("Context fetch failed", extra={"function": fn.__name__}, exc_info=True)
             return None
 
+    import contextvars
+    ctx = contextvars.copy_context()
     with ThreadPoolExecutor(max_workers=5) as pool:
-        f_h2h       = pool.submit(_safe, get_historical_h2h,       home_team, away_team)
-        f_squad_h   = pool.submit(_safe, get_squad_context,         home_team)
-        f_squad_a   = pool.submit(_safe, get_squad_context,         away_team)
-        f_standings = pool.submit(_safe, get_wc_standings_context,  home_team)
-        f_scorers   = pool.submit(_safe, get_top_scorers_context)
+        f_h2h       = pool.submit(ctx.run, _safe, get_historical_h2h,       home_team, away_team)
+        f_squad_h   = pool.submit(ctx.run, _safe, get_squad_context,         home_team)
+        f_squad_a   = pool.submit(ctx.run, _safe, get_squad_context,         away_team)
+        f_standings = pool.submit(ctx.run, _safe, get_wc_standings_context,  home_team)
+        f_scorers   = pool.submit(ctx.run, _safe, get_top_scorers_context)
 
         h2h_result  = f_h2h.result(timeout=8)
         squad_home  = f_squad_h.result(timeout=8)

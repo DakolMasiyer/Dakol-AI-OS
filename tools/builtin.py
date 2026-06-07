@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any
 
-from memory.learning import update_learning_state as update_learning_state_impl
 from memory.log import record_feedback as record_feedback_impl
 from scripts.semantic_router import route_task_semantically
 from syncmaster.audio import analyze_audio_file as syncmaster_analyze_audio_file_impl
@@ -86,19 +86,6 @@ def create_default_registry(repo_root: str | Path | None = None) -> ToolRegistry
             "required": ["task"],
             "additionalProperties": False,
             "properties": {"task": {"type": "string"}},
-        },
-    )
-    registry.register_function(
-        "update_learning_state",
-        "Recompute learning state from memory logs.",
-        update_learning_state,
-        {
-            "type": "object",
-            "additionalProperties": False,
-            "properties": {
-                "logs_path": {"type": "string"},
-                "state_path": {"type": "string"},
-            },
         },
     )
     registry.register_function(
@@ -234,8 +221,8 @@ def create_default_registry(repo_root: str | Path | None = None) -> ToolRegistry
     _register_agent_alias(registry, "sync_agent")
     registry.register_function(
         "memory",
-        "Refresh learning memory.",
-        lambda task=None: update_learning_state(),
+        "Review the current task context without mutating learning state.",
+        lambda task=None: review_memory(task=task),
         {
             "type": "object",
             "additionalProperties": False,
@@ -331,13 +318,15 @@ def route_task(task: str) -> dict[str, Any]:
     return decision.to_dict()
 
 
-def update_learning_state(logs_path: str | None = None, state_path: str | None = None) -> dict[str, Any]:
-    kwargs = {}
-    if logs_path is not None:
-        kwargs["logs_path"] = logs_path
-    if state_path is not None:
-        kwargs["state_path"] = state_path
-    return update_learning_state_impl(**kwargs)
+def review_memory(task: str | None = None) -> dict[str, Any]:
+    task_text = (task or "").strip()
+    words = [word for word in re.findall(r"[A-Za-z0-9_]+", task_text.lower()) if word]
+    return {
+        "status": "reviewed",
+        "task": task_text,
+        "word_count": len(words),
+        "keywords": words[:8],
+    }
 
 
 def record_feedback(event_id: str, feedback: str, note: str | None = None) -> dict[str, Any]:

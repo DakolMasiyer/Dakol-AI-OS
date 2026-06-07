@@ -18,6 +18,10 @@ FEEDBACK_SCORE_ADJUSTMENTS = {
 
 
 def load_learning_state(path: str = LEARNING_STATE_FILE) -> dict:
+    from core.invariants import is_in_execution_path, assert_no_learning_state_direct_access
+    assert_no_learning_state_direct_access()
+    if is_in_execution_path():
+        raise RuntimeError("LEARNING SYSTEM VIOLATION")
     try:
         with open(path, "r") as file:
             data = json.load(file)
@@ -27,8 +31,36 @@ def load_learning_state(path: str = LEARNING_STATE_FILE) -> dict:
 
 
 def save_learning_state(state: dict, path: str = LEARNING_STATE_FILE) -> None:
+    from core.invariants import is_in_execution_path, assert_no_learning_state_direct_access
+    assert_no_learning_state_direct_access()
+    if is_in_execution_path():
+        raise RuntimeError("LEARNING SYSTEM VIOLATION")
     with open(path, "w") as file:
         json.dump(state, file, indent=2)
+
+
+def get_learning_recommendations() -> dict:
+    """
+    Single interface to retrieve advisory recommendations.
+    learning_state.json is read ONLY in memory/learning.py.
+    """
+    from core.invariants import is_in_execution_path
+    if is_in_execution_path():
+        raise RuntimeError("LEARNING SYSTEM VIOLATION")
+    state = load_learning_state()
+    return state.get("recommendations", {})
+
+
+def get_learning_analytics() -> dict:
+    """
+    Single interface to retrieve advisory analytics.
+    learning_state.json is read ONLY in memory/learning.py.
+    """
+    from core.invariants import is_in_execution_path
+    if is_in_execution_path():
+        raise RuntimeError("LEARNING SYSTEM VIOLATION")
+    state = load_learning_state()
+    return state.get("analytics", {})
 
 
 def update_learning_state(logs_path: str = MEMORY_FILE, state_path: str = LEARNING_STATE_FILE) -> dict:
@@ -42,8 +74,8 @@ def analyze_logs(entries: list[dict]) -> dict:
     state = _empty_learning_state()
     scored_events = [score_event(entry) for entry in entries]
 
-    state["event_count"] = len(scored_events)
-    state["updated_at"] = datetime.now().isoformat()
+    state["analytics"]["event_count"] = len(scored_events)
+    state["analytics"]["updated_at"] = datetime.now().isoformat()
 
     intent_stats = defaultdict(_stats_bucket)
     model_stats = defaultdict(_stats_bucket)
@@ -61,7 +93,7 @@ def analyze_logs(entries: list[dict]) -> dict:
             _add_event(agent_stats[best_agent], event)
 
         if event["score"] < 0.5 or event["has_error"]:
-            state["low_confidence_patterns"].append(
+            state["analytics"]["low_confidence_patterns"].append(
                 {
                     "task": event["task"],
                     "intent": intent,
@@ -72,12 +104,12 @@ def analyze_logs(entries: list[dict]) -> dict:
                 }
             )
 
-    state["intents"] = _finalize_group_stats(intent_stats)
-    state["models"] = _finalize_group_stats(model_stats)
-    state["agents"] = _finalize_group_stats(agent_stats)
-    state["model_bias"] = _build_model_bias(state["intents"])
-    state["agent_bias"] = _build_agent_bias(state["agents"])
-    state["low_confidence_patterns"] = state["low_confidence_patterns"][-20:]
+    state["analytics"]["intents"] = _finalize_group_stats(intent_stats)
+    state["analytics"]["models"] = _finalize_group_stats(model_stats)
+    state["analytics"]["agents"] = _finalize_group_stats(agent_stats)
+    state["recommendations"]["model"] = _build_model_bias(state["analytics"]["intents"])
+    state["recommendations"]["agent"] = _build_agent_bias(state["analytics"]["agents"])
+    state["analytics"]["low_confidence_patterns"] = state["analytics"]["low_confidence_patterns"][-20:]
 
     return state
 
@@ -123,19 +155,42 @@ def score_event(entry: dict) -> dict:
 
 
 def get_model_bias_for_intent(intent: str, state: Optional[dict] = None) -> dict:
+    from core.invariants import is_in_execution_path
+    if is_in_execution_path():
+        raise RuntimeError("LEARNING SYSTEM VIOLATION")
     state = state or load_learning_state()
+    recs = state.get("recommendations", {})
+    if recs:
+        return recs.get("model", {}).get(intent, {})
     return state.get("model_bias", {}).get(intent, {})
 
 
 def get_agent_weight_multiplier(agent_name: str, state: Optional[dict] = None) -> float:
+    from core.invariants import is_in_execution_path
+    if is_in_execution_path():
+        raise RuntimeError("LEARNING SYSTEM VIOLATION")
     state = state or load_learning_state()
-    bias = state.get("agent_bias", {}).get(agent_name, {})
-    sample_size = int(bias.get("sample_size", 0) or 0)
+    analytics = state.get("analytics", {})
+    agent_info = analytics.get("agents", {}).get(agent_name, {})
+    sample_size = int(agent_info.get("count", 0) or 0)
+    
+    # Check fallback for old schema
+    if not analytics and "agent_bias" in state:
+        bias = state.get("agent_bias", {}).get(agent_name, {})
+        sample_size = int(bias.get("sample_size", 0) or 0)
+        if sample_size < 3:
+            return 1.0
+        return _clamp(_as_float(bias.get("weight_multiplier"), 1.0), 0.75, 1.35)
 
     if sample_size < 3:
         return 1.0
 
-    return _clamp(_as_float(bias.get("weight_multiplier"), 1.0), 0.75, 1.35)
+    recs = state.get("recommendations", {})
+    if recs:
+        rec = recs.get("agent", {}).get(agent_name, {})
+        return _clamp(_as_float(rec.get("recommended_multiplier"), 1.0), 0.75, 1.35)
+
+    return 1.0
 
 
 def _load_logs_from_path(path: str) -> list[dict]:
@@ -152,15 +207,20 @@ def _load_logs_from_path(path: str) -> list[dict]:
 
 def _empty_learning_state() -> dict:
     return {
-        "version": 1,
-        "updated_at": None,
-        "event_count": 0,
-        "intents": {},
-        "models": {},
-        "agents": {},
-        "model_bias": {},
-        "agent_bias": {},
-        "low_confidence_patterns": [],
+        "recommendations": {
+            "model": {},
+            "agent": {},
+            "confidence": {},
+        },
+        "analytics": {
+            "version": 1,
+            "updated_at": None,
+            "event_count": 0,
+            "intents": {},
+            "models": {},
+            "agents": {},
+            "low_confidence_patterns": [],
+        }
     }
 
 
@@ -220,9 +280,9 @@ def _build_model_bias(intent_stats: dict) -> dict:
             key=lambda model: (model_scores[model], models.get(model, 0)),
         )
         bias[intent] = {
-            "preferred_model": best_model,
-            "confidence": model_scores[best_model],
-            "sample_size": models[best_model],
+            "recommended_model": best_model,
+            "confidence": float(model_scores[best_model]),
+            "reason": f"Preferred model {best_model} chosen based on historical score {model_scores[best_model]} over {models[best_model]} events.",
         }
 
     return bias
@@ -231,9 +291,9 @@ def _build_model_bias(intent_stats: dict) -> dict:
 def _build_agent_bias(agent_stats: dict) -> dict:
     return {
         agent: {
-            "average_score": stats["average_score"],
-            "sample_size": stats["count"],
-            "weight_multiplier": _agent_weight_multiplier(stats),
+            "recommended_multiplier": _agent_weight_multiplier(stats),
+            "confidence": float(stats["average_score"]),
+            "reason": f"Average score is {stats['average_score']} over {stats['count']} samples.",
         }
         for agent, stats in agent_stats.items()
     }

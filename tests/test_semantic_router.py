@@ -92,39 +92,5 @@ class SemanticRouterTests(unittest.TestCase):
         with patch.dict("os.environ", {"SEMANTIC_ROUTER_EMBEDDINGS": "none"}):
             self.assertIn(analyze_task("debug this Python script"), {"claude", "codex", "local"})
 
-    def test_learning_bias_can_override_when_history_is_strong(self):
-        with patch("memory.learning.get_model_bias_for_intent") as get_bias:
-            get_bias.return_value = {
-                "preferred_model": "local",
-                "confidence": 0.9,
-                "sample_size": 3,
-            }
-
-            decision = route_task_semantically(
-                "debug this Python script",
-                embedding_provider=lambda texts: None,
-            )
-
-        self.assertEqual(decision.model, "local")
-        self.assertEqual(decision.original_model, "codex")
-        self.assertTrue(decision.learning_applied)
-
-    def test_learning_bias_ignores_weak_history(self):
-        with patch("memory.learning.get_model_bias_for_intent") as get_bias:
-            get_bias.return_value = {
-                "preferred_model": "local",
-                "confidence": 0.9,
-                "sample_size": 2,
-            }
-
-            decision = route_task_semantically(
-                "debug this Python script",
-                embedding_provider=lambda texts: None,
-            )
-
-        self.assertEqual(decision.model, "codex")
-        self.assertFalse(decision.learning_applied)
-
-
 if __name__ == "__main__":
     unittest.main()

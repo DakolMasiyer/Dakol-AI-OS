@@ -4,7 +4,6 @@ from agents.code_agent import CodeAgent
 from agents.listener_agent import ListenerAgent
 from agents.worldcup_content_agent import WorldCupContentAgent
 from agents.football_data_agent import FootballDataAgent
-from memory.learning import get_agent_weight_multiplier, load_learning_state
 import os
 import json
 import re
@@ -25,35 +24,90 @@ class Orchestrator:
             FootballDataAgent(),
         ]
 
-        self.learning_state = learning_state if learning_state is not None else load_learning_state()
+        from core.invariants import is_in_execution_path
+        if is_in_execution_path():
+            self.learning_state = {}
+        else:
+            if learning_state is not None:
+                self.learning_state = learning_state.get("recommendations", learning_state)
+            else:
+                from memory.learning import get_learning_recommendations
+                try:
+                    self.learning_state = get_learning_recommendations()
+                except RuntimeError:
+                    self.learning_state = {}
+
         self._apply_agent_learning()
 
         self.memory = []
         self.model_learning = {}
 
     def _apply_agent_learning(self):
+        self.learning_signals = []
+        from core.invariants import is_in_execution_path
+        if is_in_execution_path():
+            # In execution path, accessing the learning state multipliers is strictly forbidden.
+            return
+
+        # self.learning_state represents recommendations dictionary
+        agent_recs = self.learning_state.get("agent", {}) if isinstance(self.learning_state, dict) else {}
+        if not agent_recs and isinstance(self.learning_state, dict) and "agent_bias" in self.learning_state:
+            agent_recs = self.learning_state.get("agent_bias", {})
+
         for agent in self.agents:
-            multiplier = get_agent_weight_multiplier(agent.name, self.learning_state)
-            agent.base_domain_weight = agent.domain_weight
-            agent.learning_multiplier = multiplier
-            agent.domain_weight = round(agent.domain_weight * multiplier, 3)
+            rec = agent_recs.get(agent.name, {})
+            # Fallback for old/new schema values
+            raw_multiplier = float(rec.get("recommended_multiplier", rec.get("weight_multiplier", 1.0)) or 1.0)
+            multiplier = round(max(0.75, min(raw_multiplier, 1.35)), 3)
+            
+            # Retrieve recommendation reason if it exists in recommendations schema
+            reason = rec.get("reason", f"Recommended multiplier {multiplier} based on average score.")
+            
+            learning_signal = {
+                "agent": agent.name,
+                "multiplier": multiplier,
+                "reason": reason
+            }
+            self.learning_signals.append(learning_signal)
 
     # ----------------------------
     # MAIN ROUTE
     # ----------------------------
     def route(self, task: str):
+        # Final System Guarantee check before execution starts
+        from core.invariants import assert_agent_immutability, assert_learning_is_advisory_only
+        assert_agent_immutability(self.agents)
+        assert_learning_is_advisory_only()
+
         results = []
 
         # ----------------------------
         # COLLECT ALL AGENT OUTPUTS
         # ----------------------------
         for agent in self.agents:
-            result = agent.run(task)
+            try:
+                result = agent.run(task)
+            except Exception as exc:
+                result = {
+                    "agent": agent.name,
+                    "intent": "error",
+                    "confidence": 0.0,
+                    "input": task,
+                    "status": "failed",
+                    "error": {
+                        "type": exc.__class__.__name__,
+                        "message": str(exc),
+                    },
+                }
 
             if "confidence" not in result:
                 result["confidence"] = 0.5
 
             results.append(result)
+
+        # Final System Guarantee check after execution ends
+        assert_agent_immutability(self.agents)
+        assert_learning_is_advisory_only()
 
         # ----------------------------
         # LLM FUSION BRAIN
@@ -65,7 +119,8 @@ class Orchestrator:
 
         return {
             "fusion_output": parsed,
-            "all_results": results
+            "all_results": results,
+            "learning_signals": self.learning_signals
         }
 
     # ----------------------------
@@ -102,7 +157,13 @@ Return ONLY valid JSON:
 
         # Get available key from quota manager instead of only primary key
         from farm.quota_manager import get_available_key
-        api_key = get_available_key() or os.environ.get("GEMINI_API_KEY", "")
+        api_key = os.environ.get("GEMINI_API_KEY", "")
+        if not api_key:
+            try:
+                api_key = get_available_key() or ""
+            except Exception as exc:
+                print(f"[orchestrator] quota manager unavailable: {exc}. Falling back to env key.")
+                api_key = os.environ.get("GEMINI_API_KEY", "")
         client = genai.Client(api_key=api_key)
         fallback = '{"final_intent": "unknown", "reasoning": "all LLM backends failed", "best_agent": "unknown", "confidence": 0.0}'
 

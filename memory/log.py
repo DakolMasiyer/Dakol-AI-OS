@@ -65,7 +65,19 @@ def log_event(task, model, output, agent_result=None):
         "agent_result": agent_result  # 🔥 IMPORTANT FOR STEP 8
     }
 
+    try:
+        from app.core.tracing import get_request_id, get_workflow_id
+        req_id = get_request_id()
+        if req_id:
+            entry["request_id"] = req_id
+        work_id = get_workflow_id()
+        if work_id:
+            entry["workflow_id"] = work_id
+    except ImportError:
+        pass
+
     memory.append(entry)
+
     save_memory(memory)
 
     # DEBUG LAYER

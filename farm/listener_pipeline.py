@@ -51,12 +51,15 @@ def process_uploaded_track(track_id: str, audio_url: str, synthetic: bool = Fals
         write_evaluation_log(log_entry)
         return {"brief": brief, **result}
 
+    import contextvars
+    ctx = contextvars.copy_context()
     from concurrent.futures import ThreadPoolExecutor, as_completed
     with ThreadPoolExecutor(max_workers=5) as executor:
-        futures = [executor.submit(_evaluate_and_log, brief) for brief in briefs]
+        futures = [executor.submit(ctx.run, _evaluate_and_log, brief) for brief in briefs]
         evaluations = [f.result() for f in as_completed(futures)]
 
     top_matches = sorted(evaluations, key=lambda x: x["fit_score"], reverse=True)[:5]
+
     return {"metadata": metadata, "top_brief_matches": top_matches}
 
 

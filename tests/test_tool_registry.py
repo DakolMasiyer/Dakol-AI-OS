@@ -16,7 +16,7 @@ class ToolRegistryTests(unittest.TestCase):
         self.assertIn("list_files", names)
         self.assertIn("search_repo", names)
         self.assertIn("route_task", names)
-        self.assertIn("update_learning_state", names)
+        self.assertIn("memory", names)
         self.assertIn("record_feedback", names)
         self.assertNotIn("run_command", names)
 

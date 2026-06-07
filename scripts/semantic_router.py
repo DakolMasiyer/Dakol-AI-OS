@@ -15,6 +15,9 @@ class RouteDecision:
     embedding_provider: str = ""
     learning_applied: bool = False
     original_model: str = ""
+    recommendation: Optional[dict] = None
+    route: str = ""
+    execution_target: str = ""
 
     def to_dict(self) -> dict:
         return {
@@ -26,6 +29,9 @@ class RouteDecision:
             "embedding_provider": self.embedding_provider,
             "learning_applied": self.learning_applied,
             "original_model": self.original_model,
+            "recommendation": self.recommendation,
+            "route": self.route,
+            "execution_target": self.execution_target,
         }
 
 
@@ -97,7 +103,31 @@ INTENT_PROFILES = (
 )
 
 
-_PROFILE_EMBEDDING_CACHE = {}
+import hashlib
+import threading
+
+class IsolatedEmbeddingCache:
+    """
+    Deterministic cache isolation strategy.
+    Keyed by (input_hash, model_version).
+    Reset per process OR versioned per run.
+    MUST NOT persist across logical runs.
+    """
+    def __init__(self):
+        self._cache = {}
+
+    def get(self, key):
+        # cache is execution-safe and does not influence learning feedback loops
+        return self._cache.get(key)
+
+    def set(self, key, value):
+        # cache is execution-safe and does not influence learning feedback loops
+        self._cache[key] = value
+
+    def clear(self):
+        self._cache.clear()
+
+_EMBEDDING_CACHE = IsolatedEmbeddingCache()
 
 
 SYNONYMS = {
@@ -125,13 +155,86 @@ SYNONYMS = {
 
 
 def route_task_semantically(task: str, embedding_provider=None) -> RouteDecision:
+    # Clear the embedding cache to ensure it MUST NOT persist across logical runs
+    _EMBEDDING_CACHE.clear()
+
     provider = embedding_provider or _configured_embedding_provider()
+    decision = None
     if provider:
         decision = _route_with_embeddings(task, provider)
-        if decision:
-            return _apply_learning_bias(decision)
 
-    return _apply_learning_bias(_route_with_lexical_similarity(task))
+    if not decision:
+        decision = _route_with_lexical_similarity(task)
+
+    # Base/static decision with initial fields populated
+    static_decision = RouteDecision(
+        model=decision.model,
+        intent=decision.intent,
+        confidence=decision.confidence,
+        matched_terms=decision.matched_terms,
+        scoring_method=decision.scoring_method,
+        embedding_provider=decision.embedding_provider,
+        learning_applied=False,
+        original_model=decision.model,
+        route=decision.intent,
+        execution_target=decision.model,
+        recommendation=None
+    )
+
+    # Construct recommendation object from learning state without modifying decision path
+    # and ONLY if we are not inside the runtime execution path.
+    from core.invariants import is_in_execution_path
+    if is_in_execution_path():
+        # During execution path, accessing the learning state is strictly forbidden.
+        rec = {
+            "recommended_model": static_decision.model,
+            "confidence": 0.0,
+            "reason": "Learning state access bypassed in execution path."
+        }
+    else:
+        try:
+            from memory.learning import get_learning_recommendations
+            recs = get_learning_recommendations()
+            model_recs = recs.get("model", {})
+            bias = model_recs.get(static_decision.intent, {})
+            preferred_model = bias.get("recommended_model")
+            confidence = float(bias.get("confidence", 0.0) or 0.0)
+            reason = bias.get("reason", "")
+
+            if preferred_model:
+                rec = {
+                    "recommended_model": preferred_model,
+                    "confidence": confidence,
+                    "reason": reason or f"Recommended model {preferred_model} for intent '{static_decision.intent}'."
+                }
+            else:
+                rec = {
+                    "recommended_model": static_decision.model,
+                    "confidence": 0.0,
+                    "reason": f"No model preference found for intent '{static_decision.intent}'."
+                }
+        except Exception as exc:
+            rec = {
+                "recommended_model": static_decision.model,
+                "confidence": 0.0,
+                "reason": f"Error retrieving recommendation: {exc}"
+            }
+
+    final_decision = RouteDecision(
+        model=static_decision.model,
+        intent=static_decision.intent,
+        confidence=static_decision.confidence,
+        matched_terms=static_decision.matched_terms,
+        scoring_method=static_decision.scoring_method,
+        embedding_provider=static_decision.embedding_provider,
+        learning_applied=False,
+        original_model=static_decision.model,
+        recommendation=rec,
+        route=static_decision.route,
+        execution_target=static_decision.execution_target
+    )
+
+    return final_decision
 
 
 def _route_with_lexical_similarity(task: str) -> RouteDecision:
@@ -209,16 +312,20 @@ def _get_route_embeddings(task: str, provider) -> tuple[list[float], list[list[f
         return embeddings[0], embeddings[1:]
 
     provider_name = str(provider)
-    cache_key = (
-        provider_name,
-        os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
-    )
+    
+    # Key cache by (input_hash, model_version)
+    model_version = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+    profile_texts_str = "".join(profile_texts)
+    input_hash = hashlib.sha256(profile_texts_str.encode('utf-8')).hexdigest()
+    cache_key = (input_hash, model_version)
 
-    if cache_key not in _PROFILE_EMBEDDING_CACHE:
-        _PROFILE_EMBEDDING_CACHE[cache_key] = _embed_texts(profile_texts, provider_name)
+    cached_val = _EMBEDDING_CACHE.get(cache_key)
+    if not cached_val:
+        cached_val = _embed_texts(profile_texts, provider_name)
+        _EMBEDDING_CACHE.set(cache_key, cached_val)
 
     task_embedding = _embed_texts([task], provider_name)[0]
-    return task_embedding, _PROFILE_EMBEDDING_CACHE[cache_key]
+    return task_embedding, cached_val
 
 
 def _configured_embedding_provider():
@@ -232,34 +339,7 @@ def _configured_embedding_provider():
     return None
 
 
-def _apply_learning_bias(decision: RouteDecision) -> RouteDecision:
-    try:
-        from memory.learning import get_model_bias_for_intent
-
-        bias = get_model_bias_for_intent(decision.intent)
-    except Exception:
-        return decision
-
-    preferred_model = bias.get("preferred_model")
-    sample_size = int(bias.get("sample_size", 0) or 0)
-    confidence = float(bias.get("confidence", 0.0) or 0.0)
-
-    if not preferred_model or preferred_model == decision.model:
-        return decision
-
-    if sample_size < 3 or confidence < 0.75:
-        return decision
-
-    return RouteDecision(
-        model=preferred_model,
-        intent=decision.intent,
-        confidence=decision.confidence,
-        matched_terms=decision.matched_terms,
-        scoring_method=decision.scoring_method,
-        embedding_provider=decision.embedding_provider,
-        learning_applied=True,
-        original_model=decision.model,
-    )
+# Removed learning bias direct mutation code path
 
 
 def _embed_texts(texts: list[str], provider: str) -> list[list[float]]:

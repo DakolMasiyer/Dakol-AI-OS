@@ -1,0 +1,15 @@
+{
+  "app_id": "syncmaster_ai",
+  "allowed_capabilities": ["metadata_analysis", "catalog_search", "recommendation_generation"],
+  "allowed_tools": [
+    "syncmaster_analyze_metadata",
+    "syncmaster_recommend_sync_fit",
+    "syncmaster_query_graph",
+    "syncmaster_save_recommendation"
+  ],
+  "policy_scope": "isolated",
+  "trace_namespace": "isolated",
+  "execution_profile": "standard",
+  "replay_policy": "strict",
+  "trace_retention_policy": "30_days"
+}

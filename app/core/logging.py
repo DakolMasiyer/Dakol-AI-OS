@@ -39,6 +39,17 @@ class JsonLogFormatter(logging.Formatter):
             "message": record.getMessage(),
         }
 
+        try:
+            from app.core.tracing import get_request_id, get_workflow_id
+            req_id = get_request_id()
+            if req_id:
+                payload["request_id"] = req_id
+            work_id = get_workflow_id()
+            if work_id:
+                payload["workflow_id"] = work_id
+        except ImportError:
+            pass
+
         for key, value in record.__dict__.items():
             if key not in _RESERVED_FIELDS and not key.startswith("_"):
                 payload[key] = value
@@ -47,6 +58,7 @@ class JsonLogFormatter(logging.Formatter):
             payload["exception"] = self.formatException(record.exc_info)
 
         return json.dumps(payload, default=str)
+
 
 
 def configure_logging() -> None:

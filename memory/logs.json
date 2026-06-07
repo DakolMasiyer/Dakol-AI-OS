@@ -82,5 +82,551 @@
     "task": "analyze bpm and structure of a track",
     "model_used": "local",
     "output": "To analyze the BPM (beats per minute) and structure of a music track, you'l\u001b[5D\u001b[K\nyou'll typically need to use audio processing libraries that can detect the\u001b[3D\u001b[K\nthese characteristics. Here's a high-level approach:\n\n1. **Extract Audio Features**: Use a library like Librosa in Python to extr\u001b[4D\u001b[K\nextract the audio features from the track.\n2. **Detect BPM**: Most audio processing libraries have built-in functions \u001b[K\nto detect BPM. Librosa's `beat.beat_track` function can be used for this pu\u001b[2D\u001b[K\npurpose.\n3. **Analyze Structure**: To analyze the structure (e.g., verses, choruses)\u001b[9D\u001b[K\nchoruses), you might need more advanced techniques like onset detection and\u001b[3D\u001b[K\nand frame classification using machine learning models trained on datasets \u001b[K\nof song structures.\n\nHere\u2019s a simple e"
+  },
+  {
+    "event_id": "5ecb886d-8f3d-4550-ba2d-972cdf62a6fd",
+    "timestamp": "2026-06-07T15:20:14.822202",
+    "task": "Hello, this is a test task for syncmaster_ai",
+    "model_used": "local",
+    "output": "Error executing fallback model: Generation temporarily unavailable. Please try again in a few minutes.",
+    "agent_result": {
+      "fusion_output": {
+        "final_intent": "general_analysis",
+        "reasoning": "The input 'Hello, this is a test task for syncmaster_ai' is a direct address to the system, indicating a general system check or introductory interaction. The 'sync_agent' correctly identified 'general_analysis' with the highest confidence (0.78), which best describes the nature of a test task for the master AI. While the 'listener_agent' also showed high confidence (0.7) suggesting an audio modality, the 'sync_agent's intent is more aligned with the explicit purpose of the task as stated in the input.",
+        "best_agent": "sync_agent",
+        "confidence": 0.78
+      },
+      "all_results": [
+        {
+          "agent": "sync_agent",
+          "intent": "general_analysis",
+          "confidence": 0.78,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "audio_agent",
+          "intent": "audio_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "code_agent",
+          "intent": "code_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "listener_agent",
+          "intent": "general_audio",
+          "confidence": 0.7,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "worldcup_content_agent",
+          "intent": "general",
+          "confidence": 0.30000000000000004,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "supported_types": [
+            "twitter_thread",
+            "instagram_caption",
+            "match_preview",
+            "post_match_analysis",
+            "player_spotlight",
+            "linkedin_post",
+            "youtube_script"
+          ]
+        },
+        {
+          "agent": "football_data_agent",
+          "intent": "general",
+          "confidence": 0.27999999999999997,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "match_count": 72,
+          "data_source": "live_api"
+        }
+      ],
+      "learning_signals": [],
+      "route_decision": {
+        "model": "local",
+        "intent": "general_explanation",
+        "confidence": 0.078,
+        "matched_terms": [
+          "task",
+          "thi"
+        ],
+        "scoring_method": "lexical",
+        "embedding_provider": "",
+        "learning_applied": false,
+        "original_model": "local",
+        "recommendation": {
+          "recommended_model": "local",
+          "confidence": 0.0,
+          "reason": "Learning state access bypassed in execution path."
+        },
+        "route": "general_explanation",
+        "execution_target": "local"
+      }
+    }
+  },
+  {
+    "event_id": "811f4414-cd98-41b2-b2ea-b551cba214b1",
+    "timestamp": "2026-06-07T15:39:45.142113",
+    "task": "Hello, this is a test task for syncmaster_ai",
+    "model_used": "local",
+    "output": "Error executing fallback model: Generation temporarily unavailable. Please try again in a few minutes.",
+    "agent_result": {
+      "fusion_output": {
+        "final_intent": "general_analysis",
+        "reasoning": "The input 'Hello, this is a test task for syncmaster_ai' is a direct instruction and greeting to the multi-agent system itself. The 'sync_agent' identified this as a 'general_analysis' task with the highest confidence (0.78) among all agents. This intent is the most appropriate for a meta-level instruction or test, indicating that the system should generally process and understand the given task rather than interpreting it as a request for specific content like audio, code, or football data, which had lower or less relevant confidence scores.",
+        "best_agent": "sync_agent",
+        "confidence": 0.78
+      },
+      "all_results": [
+        {
+          "agent": "sync_agent",
+          "intent": "general_analysis",
+          "confidence": 0.78,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "audio_agent",
+          "intent": "audio_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "code_agent",
+          "intent": "code_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "listener_agent",
+          "intent": "general_audio",
+          "confidence": 0.7,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "worldcup_content_agent",
+          "intent": "general",
+          "confidence": 0.30000000000000004,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "supported_types": [
+            "twitter_thread",
+            "instagram_caption",
+            "match_preview",
+            "post_match_analysis",
+            "player_spotlight",
+            "linkedin_post",
+            "youtube_script"
+          ]
+        },
+        {
+          "agent": "football_data_agent",
+          "intent": "general",
+          "confidence": 0.27999999999999997,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "match_count": 71,
+          "data_source": "live_api"
+        }
+      ],
+      "learning_signals": [],
+      "route_decision": {
+        "model": "local",
+        "intent": "general_explanation",
+        "confidence": 0.078,
+        "matched_terms": [
+          "task",
+          "thi"
+        ],
+        "scoring_method": "lexical",
+        "embedding_provider": "",
+        "learning_applied": false,
+        "original_model": "local",
+        "recommendation": {
+          "recommended_model": "local",
+          "confidence": 0.0,
+          "reason": "Learning state access bypassed in execution path."
+        },
+        "route": "general_explanation",
+        "execution_target": "local"
+      }
+    }
+  },
+  {
+    "event_id": "634f8343-ed71-4642-af5b-6cc577c01755",
+    "timestamp": "2026-06-07T15:42:09.661752",
+    "task": "Hello, this is a test task for syncmaster_ai",
+    "model_used": "local",
+    "output": "Error executing fallback model: Generation temporarily unavailable. Please try again in a few minutes.",
+    "agent_result": {
+      "fusion_output": {
+        "final_intent": "unknown",
+        "reasoning": "all LLM backends failed",
+        "best_agent": "unknown",
+        "confidence": 0.0
+      },
+      "all_results": [
+        {
+          "agent": "sync_agent",
+          "intent": "general_analysis",
+          "confidence": 0.78,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "audio_agent",
+          "intent": "audio_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "code_agent",
+          "intent": "code_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "listener_agent",
+          "intent": "general_audio",
+          "confidence": 0.7,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "worldcup_content_agent",
+          "intent": "general",
+          "confidence": 0.30000000000000004,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "supported_types": [
+            "twitter_thread",
+            "instagram_caption",
+            "match_preview",
+            "post_match_analysis",
+            "player_spotlight",
+            "linkedin_post",
+            "youtube_script"
+          ]
+        },
+        {
+          "agent": "football_data_agent",
+          "intent": "general",
+          "confidence": 0.27999999999999997,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "match_count": 72,
+          "data_source": "live_api"
+        }
+      ],
+      "learning_signals": [],
+      "route_decision": {
+        "model": "local",
+        "intent": "general_explanation",
+        "confidence": 0.078,
+        "matched_terms": [
+          "task",
+          "thi"
+        ],
+        "scoring_method": "lexical",
+        "embedding_provider": "",
+        "learning_applied": false,
+        "original_model": "local",
+        "recommendation": {
+          "recommended_model": "local",
+          "confidence": 0.0,
+          "reason": "Learning state access bypassed in execution path."
+        },
+        "route": "general_explanation",
+        "execution_target": "local"
+      }
+    }
+  },
+  {
+    "event_id": "a8f1a21d-b848-4c4f-ad8e-ff880841f5f2",
+    "timestamp": "2026-06-07T16:21:52.130789",
+    "task": "Hello, this is a test task for syncmaster_ai",
+    "model_used": "local",
+    "output": "Error executing fallback model: Generation temporarily unavailable. Please try again in a few minutes.",
+    "agent_result": {
+      "fusion_output": {
+        "final_intent": "general_analysis",
+        "reasoning": "The input 'Hello, this is a test task for syncmaster_ai' is a general statement about a system test. The 'sync_agent' provided the highest confidence score (0.78) with an intent of 'general_analysis', which is the most appropriate interpretation for this type of meta-communication regarding a system test. Other agents had lower confidence or intents specific to domains (audio, code, football data) not directly indicated by the input, suggesting they are not the primary fit for this general system-level inquiry.",
+        "best_agent": "sync_agent",
+        "confidence": 0.78
+      },
+      "all_results": [
+        {
+          "agent": "sync_agent",
+          "intent": "general_analysis",
+          "confidence": 0.78,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "audio_agent",
+          "intent": "audio_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "code_agent",
+          "intent": "code_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "listener_agent",
+          "intent": "general_audio",
+          "confidence": 0.7,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "worldcup_content_agent",
+          "intent": "general",
+          "confidence": 0.30000000000000004,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "supported_types": [
+            "twitter_thread",
+            "instagram_caption",
+            "match_preview",
+            "post_match_analysis",
+            "player_spotlight",
+            "linkedin_post",
+            "youtube_script"
+          ]
+        },
+        {
+          "agent": "football_data_agent",
+          "intent": "general",
+          "confidence": 0.27999999999999997,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "match_count": 72,
+          "data_source": "live_api"
+        }
+      ],
+      "learning_signals": [],
+      "route_decision": {
+        "model": "local",
+        "intent": "general_explanation",
+        "confidence": 0.078,
+        "matched_terms": [
+          "task",
+          "thi"
+        ],
+        "scoring_method": "lexical",
+        "embedding_provider": "",
+        "learning_applied": false,
+        "original_model": "local",
+        "recommendation": {
+          "recommended_model": "local",
+          "confidence": 0.0,
+          "reason": "Learning state access bypassed in execution path."
+        },
+        "route": "general_explanation",
+        "execution_target": "local"
+      }
+    }
+  },
+  {
+    "event_id": "398338a5-6b0a-4d26-89c3-8c8971dcb0a0",
+    "timestamp": "2026-06-07T16:25:40.904873",
+    "task": "Hello, this is a test task for syncmaster_ai",
+    "model_used": "local",
+    "output": "Error executing fallback model: Generation temporarily unavailable. Please try again in a few minutes.",
+    "agent_result": {
+      "fusion_output": {
+        "final_intent": "general_analysis",
+        "reasoning": "The input 'Hello, this is a test task for syncmaster_ai' is a generic greeting and a statement about a test task. The 'sync_agent' identified this with the highest confidence (0.78) as 'general_analysis', which is the most fitting intent for understanding the nature of a general test message. While 'listener_agent' also had a high confidence (0.7) for 'general_audio', the core intent of the message itself is more about a 'test task' rather than an audio-specific query. Other agents had significantly lower confidence or irrelevant intents for this generic input.",
+        "best_agent": "sync_agent",
+        "confidence": 0.78
+      },
+      "all_results": [
+        {
+          "agent": "sync_agent",
+          "intent": "general_analysis",
+          "confidence": 0.78,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "audio_agent",
+          "intent": "audio_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "code_agent",
+          "intent": "code_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "listener_agent",
+          "intent": "general_audio",
+          "confidence": 0.7,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "worldcup_content_agent",
+          "intent": "general",
+          "confidence": 0.30000000000000004,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "supported_types": [
+            "twitter_thread",
+            "instagram_caption",
+            "match_preview",
+            "post_match_analysis",
+            "player_spotlight",
+            "linkedin_post",
+            "youtube_script"
+          ]
+        },
+        {
+          "agent": "football_data_agent",
+          "intent": "general",
+          "confidence": 0.27999999999999997,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "match_count": 71,
+          "data_source": "live_api"
+        }
+      ],
+      "learning_signals": [],
+      "route_decision": {
+        "model": "local",
+        "intent": "general_explanation",
+        "confidence": 0.078,
+        "matched_terms": [
+          "task",
+          "thi"
+        ],
+        "scoring_method": "lexical",
+        "embedding_provider": "",
+        "learning_applied": false,
+        "original_model": "local",
+        "recommendation": {
+          "recommended_model": "local",
+          "confidence": 0.0,
+          "reason": "Learning state access bypassed in execution path."
+        },
+        "route": "general_explanation",
+        "execution_target": "local"
+      }
+    }
+  },
+  {
+    "event_id": "4ec07a1a-b372-4bf0-95da-283c27a1c806",
+    "timestamp": "2026-06-07T16:27:01.875209",
+    "task": "Hello, this is a test task for syncmaster_ai",
+    "model_used": "local",
+    "output": "Error executing fallback model: Generation temporarily unavailable. Please try again in a few minutes.",
+    "agent_result": {
+      "fusion_output": {
+        "final_intent": "general_analysis",
+        "reasoning": "The input explicitly states 'Hello, this is a test task for syncmaster_ai', which most directly indicates a general system inquiry or a request for the system to perform a general analysis. The `sync_agent` provided the highest confidence (0.78) for the `general_analysis` intent, making it the most fitting and relevant interpretation of the input. While audio-related agents also had moderate confidence, their intents were less specific to the 'test task' nature of the message itself.",
+        "best_agent": "sync_agent",
+        "confidence": 0.78
+      },
+      "all_results": [
+        {
+          "agent": "sync_agent",
+          "intent": "general_analysis",
+          "confidence": 0.78,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "audio_agent",
+          "intent": "audio_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "code_agent",
+          "intent": "code_general",
+          "confidence": 0.5,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "listener_agent",
+          "intent": "general_audio",
+          "confidence": 0.7,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed"
+        },
+        {
+          "agent": "worldcup_content_agent",
+          "intent": "general",
+          "confidence": 0.30000000000000004,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "supported_types": [
+            "twitter_thread",
+            "instagram_caption",
+            "match_preview",
+            "post_match_analysis",
+            "player_spotlight",
+            "linkedin_post",
+            "youtube_script"
+          ]
+        },
+        {
+          "agent": "football_data_agent",
+          "intent": "general",
+          "confidence": 0.27999999999999997,
+          "input": "Hello, this is a test task for syncmaster_ai",
+          "status": "processed",
+          "match_count": 72,
+          "data_source": "live_api"
+        }
+      ],
+      "learning_signals": [],
+      "route_decision": {
+        "model": "local",
+        "intent": "general_explanation",
+        "confidence": 0.078,
+        "matched_terms": [
+          "task",
+          "thi"
+        ],
+        "scoring_method": "lexical",
+        "embedding_provider": "",
+        "learning_applied": false,
+        "original_model": "local",
+        "recommendation": {
+          "recommended_model": "local",
+          "confidence": 0.0,
+          "reason": "Learning state access bypassed in execution path."
+        },
+        "route": "general_explanation",
+        "execution_target": "local"
+      }
+    }
   }
 ]

@@ -25,9 +25,14 @@ class AllModelsUnavailableError(RuntimeError):
     pass
 
 
-def _run_with_timeout(fn: Callable[[], str]) -> str:
+import contextvars
+import time
+from typing import Dict
+
+def _run_with_timeout(fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     executor = ThreadPoolExecutor(max_workers=1)
-    future = executor.submit(fn)
+    ctx = contextvars.copy_context()
+    future = executor.submit(ctx.run, fn)
     try:
         return future.result(timeout=_MODEL_TIMEOUT_SECONDS)
     finally:
@@ -63,12 +68,12 @@ def _extract_choice_text(response: Any) -> str:
     return ""
 
 
-def _run_groq(prompt: str, max_tokens: int) -> str:
+def _run_groq(prompt: str, max_tokens: int) -> dict[str, Any]:
     api_key = os.getenv("GROQ_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("Missing GROQ_API_KEY")
 
-    def _call() -> str:
+    def _call() -> dict[str, Any]:
         response = requests.post(
             _GROQ_URL,
             headers={
@@ -96,12 +101,14 @@ def _run_groq(prompt: str, max_tokens: int) -> str:
         )
         if not content.strip():
             raise RuntimeError("Groq returned empty content")
-        return content
+        
+        token_count = payload.get("usage", {}).get("total_tokens")
+        return {"content": content, "token_count": token_count}
 
     return _run_with_timeout(_call)
 
 
-def _run_gemini(prompt: str, max_tokens: int) -> str:
+def _run_gemini(prompt: str, max_tokens: int) -> dict[str, Any]:
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("Missing GEMINI_API_KEY")
@@ -111,7 +118,7 @@ def _run_gemini(prompt: str, max_tokens: int) -> str:
     except ImportError as exc:
         raise RuntimeError("Gemini client is unavailable") from exc
 
-    def _call() -> str:
+    def _call() -> dict[str, Any]:
         client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
             model="gemini-1.5-flash",
@@ -120,12 +127,16 @@ def _run_gemini(prompt: str, max_tokens: int) -> str:
         content = getattr(response, "text", "") or ""
         if not content.strip():
             raise RuntimeError("Gemini returned empty content")
-        return content
+        
+        token_count = None
+        if hasattr(response, "usage_metadata") and response.usage_metadata:
+            token_count = response.usage_metadata.total_token_count
+        return {"content": content, "token_count": token_count}
 
     return _run_with_timeout(_call)
 
 
-def _run_hf(prompt: str, max_tokens: int) -> str:
+def _run_hf(prompt: str, max_tokens: int) -> dict[str, Any]:
     token = os.getenv("HF_API_TOKEN", "").strip()
     if not token:
         raise RuntimeError("Missing HF_API_TOKEN")
@@ -135,7 +146,7 @@ def _run_hf(prompt: str, max_tokens: int) -> str:
     except ImportError as exc:
         raise RuntimeError("Hugging Face client is unavailable") from exc
 
-    def _call() -> str:
+    def _call() -> dict[str, Any]:
         client = InferenceClient(api_key=token)
         response = client.chat_completion(
             model="mistralai/Mistral-7B-Instruct-v0.3",
@@ -145,9 +156,32 @@ def _run_hf(prompt: str, max_tokens: int) -> str:
         content = _extract_choice_text(response)
         if not content.strip():
             raise RuntimeError("Hugging Face returned empty content")
-        return content
+        
+        # Estimate token count if not available from Hugging Face hub response
+        token_count = len(prompt.split()) + len(content.split())
+        return {"content": content, "token_count": token_count}
 
     return _run_with_timeout(_call)
+
+
+MODEL_PRICING: dict[str, float] = {
+    "groq": float(os.getenv("PRICE_GROQ_PER_1M", "0.70")),
+    "gemini": float(os.getenv("PRICE_GEMINI_PER_1M", "0.15")),
+}
+
+
+def _estimate_cost(provider: str, token_count: Optional[int]) -> Optional[float]:
+    if token_count is None:
+        return None
+    try:
+        rate = MODEL_PRICING.get(provider.lower())
+        if rate is not None:
+            return (token_count / 1_000_000.0) * rate
+    except Exception:
+        pass
+    return None
+
+
 
 
 def generate_with_fallback(prompt: str, max_tokens: int) -> dict[str, Any]:
@@ -156,18 +190,31 @@ def generate_with_fallback(prompt: str, max_tokens: int) -> dict[str, Any]:
     for index, model in enumerate(MODEL_CHAIN):
         provider, _ = model.split("/", 1)
         try:
+            start_time = time.perf_counter()
             if provider == "groq":
-                content = _run_groq(prompt, max_tokens)
+                res = _run_groq(prompt, max_tokens)
             elif provider == "gemini":
-                content = _run_gemini(prompt, max_tokens)
+                res = _run_gemini(prompt, max_tokens)
             elif provider == "hf":
-                content = _run_hf(prompt, max_tokens)
+                res = _run_hf(prompt, max_tokens)
             else:
                 raise RuntimeError(f"Unsupported provider: {provider}")
 
+            latency_ms = int((time.perf_counter() - start_time) * 1000)
+            content = res["content"]
+            token_count = res.get("token_count")
+            estimated_cost = _estimate_cost(provider, token_count)
+
             logger.info(
                 "Model generation succeeded",
-                extra={"model": model, "used_fallback": index > 0},
+                extra={
+                    "model": model,
+                    "provider": provider,
+                    "used_fallback": index > 0,
+                    "latency_ms": latency_ms,
+                    "token_count": token_count,
+                    "estimated_cost": estimated_cost,
+                },
             )
             return {
                 "content": content,
@@ -183,3 +230,4 @@ def generate_with_fallback(prompt: str, max_tokens: int) -> dict[str, Any]:
             )
 
     raise AllModelsUnavailableError(_ALL_MODELS_UNAVAILABLE_MESSAGE) from last_error
+

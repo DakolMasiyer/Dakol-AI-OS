@@ -24,15 +24,46 @@ class WorkflowEngine:
         self.registry = registry
 
     def execute(self, steps: list[WorkflowStep | dict[str, Any]]) -> dict[str, Any]:
-        normalized = [self._normalize_step(step) for step in steps]
-        ordered = self._order_steps(normalized)
-        outputs: dict[str, Any] = {}
+        """
+        Execute a list of workflow steps in dependency order.
+        
+        Nested Workflow Tracing Policy:
+        ------------------------------
+        Each workflow execution (parent or nested) generates its own unique, internal workflow_id.
+        Using contextvars context managers, the nested execution temporarily overrides the
+        workflow_id context variable. Once the nested run completes, the parent workflow_id is
+        restored automatically.
+        """
+        import uuid
+        from app.core.tracing import set_workflow_id, reset_workflow_id, get_request_id
 
-        for step in ordered:
-            resolved_args = self._resolve_value(step.args, outputs)
-            outputs[step.id] = self.registry.execute(step.tool, resolved_args)
+        # Generate workflow_id internally
+        workflow_id = str(uuid.uuid4())
+        token = set_workflow_id(workflow_id)
 
-        return outputs
+
+        try:
+            normalized = [self._normalize_step(step) for step in steps]
+            ordered = self._order_steps(normalized)
+            outputs: dict[str, Any] = {}
+
+            for step in ordered:
+                resolved_args = self._resolve_value(step.args, outputs)
+                outputs[step.id] = self.registry.execute(step.tool, resolved_args)
+
+            req_id = get_request_id()
+            self.execution_metadata = {
+                "request_id": req_id,
+                "workflow_id": workflow_id,
+            }
+
+            from app.core.tracing import assert_clean_outputs
+            assert_clean_outputs(outputs)
+            return outputs
+        finally:
+
+            reset_workflow_id(token)
+
 
     def validate(self, steps: list[WorkflowStep | dict[str, Any]]) -> list[WorkflowStep]:
         normalized = [self._normalize_step(step) for step in steps]

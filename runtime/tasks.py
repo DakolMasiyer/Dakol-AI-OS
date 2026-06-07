@@ -42,11 +42,24 @@ def save_tasks(tasks, tasks_path=None):
 def submit_task(task, metadata=None, tasks_path=None):
     tasks = load_tasks(tasks_path)
     timestamp = _now()
+    meta = dict(metadata or {})
+
+    try:
+        from app.core.tracing import get_request_id, get_workflow_id
+        req_id = get_request_id()
+        if req_id:
+            meta["request_id"] = req_id
+        work_id = get_workflow_id()
+        if work_id:
+            meta["workflow_id"] = work_id
+    except ImportError:
+        pass
+
     entry = {
         "task_id": str(uuid4()),
         "status": "queued",
         "task": task,
-        "metadata": metadata or {},
+        "metadata": meta,
         "result": None,
         "error": None,
         "created_at": timestamp,
@@ -56,6 +69,7 @@ def submit_task(task, metadata=None, tasks_path=None):
     tasks.append(entry)
     save_tasks(tasks, tasks_path)
     return entry
+
 
 
 def list_tasks(status=None, tasks_path=None):

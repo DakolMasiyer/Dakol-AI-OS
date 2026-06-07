@@ -12,7 +12,8 @@ from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 from app.core.logging import configure_logging, get_logger
-from scripts.router import route_task
+from app.core.tracing import TracingMiddleware
+from core.api import route_task
 from farm.listener_pipeline import process_uploaded_track
 from skills.model_router import AllModelsUnavailableError, generate_with_fallback
 import skills.worldcup_skill as worldcup_skill
@@ -26,6 +27,8 @@ except ImportError:
 configure_logging()
 logger = get_logger(__name__)
 app = FastAPI(title="Dakol-AI-OS", version="1.0.0")
+app.add_middleware(TracingMiddleware)
+
 
 
 def _generate_with_fallback_adapter(system_prompt: str, user_prompt: str, _content_type: str, max_tokens: int):
@@ -256,6 +259,52 @@ async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
     """
     if not payload.match_id:
         return {"error": "match_id is required"}
+
+    user_id = payload.user_id
+    if user_id and user_id != "anonymous":
+        from farm.supabase_client import get_user, get_monthly_output_count, increment_user_usage
+        from datetime import datetime, timezone
+
+        # 1. Daily Usage Check (Existing implicit requirement)
+        usage = increment_user_usage(user_id, tokens=0)
+        if not usage.get("allowed", True):
+            daily_limit = usage.get("daily_limit", 0)
+            return JSONResponse(
+                status_code=402,
+                content={
+                    "error": f"You have reached your daily limit of {daily_limit} free generations. Please upgrade to Pro for unlimited access.",
+                    "status": "error",
+                    "code": "LIMIT_REACHED"
+                }
+            )
+
+        # 2. Monthly Limit Check (Fix 2)
+        db_user = get_user(user_id)
+        if db_user and db_user.get("tier") != "pro":
+            tier = db_user.get("tier", "free")
+            custom_limit = db_user.get("monthly_limit")
+            
+            # free=30, starter=200, pro=skip
+            limits = {"free": 30, "starter": 200}
+            monthly_limit = custom_limit if custom_limit is not None else limits.get(tier)
+
+            if monthly_limit is not None:
+                now = datetime.now(timezone.utc)
+                start = datetime(now.year, now.month, 1, tzinfo=timezone.utc)
+                if now.month == 12:
+                    reset = datetime(now.year + 1, 1, 1, tzinfo=timezone.utc)
+                else:
+                    reset = datetime(now.year, now.month + 1, 1, tzinfo=timezone.utc)
+                
+                count = get_monthly_output_count(user_id, start.isoformat())
+                if count >= monthly_limit:
+                    return JSONResponse(
+                        status_code=402,
+                        content={
+                            "error": "monthly_limit_exceeded",
+                            "reset_at": reset.isoformat()
+                        }
+                    )
 
     from skills.worldcup_skill import generate_worldcup_content
     try:

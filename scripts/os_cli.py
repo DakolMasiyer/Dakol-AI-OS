@@ -1,4 +1,5 @@
 import argparse
+import importlib
 import json
 import os
 import sys
@@ -9,7 +10,6 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 from memory.graph import MemoryGraph
-from memory.learning import update_learning_state
 from memory.log import record_feedback
 from planning.providers import create_plan, select_planning_provider
 from runtime.tasks import get_task, list_tasks, run_task, submit_task
@@ -48,6 +48,11 @@ def process_queue(limit: Optional[int] = None) -> list[dict]:
     if limit is not None:
         queued = queued[:limit]
     return [_run_planned_task(task) for task in queued]
+
+
+def _refresh_learning_state() -> dict:
+    learning_module = importlib.import_module("memory.learning")
+    return learning_module.update_learning_state()
 
 
 def _run_planned_task(task: dict) -> dict:
@@ -196,7 +201,7 @@ def main(argv=None) -> int:
         elif args.command == "tasks":
             result = list_tasks()
         elif args.command == "learn":
-            result = update_learning_state()
+            result = _refresh_learning_state()
         elif args.command == "feedback":
             result = record_feedback(args.event_id, args.feedback, args.note)
         elif args.command == "memory" and args.memory_command == "search":
