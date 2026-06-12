@@ -4,7 +4,6 @@
 # Install after ffmpeg is available when deeper local DSP is needed:
 #   venv/bin/python -m pip install -r requirements-audio.txt
 
-numpy
-soundfile
-librosa
-
+numpy==1.26.4
+soundfile==0.12.1
+librosa==0.10.2

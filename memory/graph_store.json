@@ -1,763 +1,2560 @@
 {
-  "edges": [
+  "codebase_graph": [
     {
-      "properties": {},
-      "relation": "PLANNED_BY",
-      "source": "task:ab666e5d-9242-4836-a4e1-99f2cee0fd87",
-      "target": "plan:plan_analyze_this_repo_router"
+      "node_id": "Dakol-AI-OS/.venv311/bin/activate_this.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 59,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_analyze_this_repo_router",
-      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1"
+      "node_id": "Dakol-AI-OS/agents/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 0,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
-      "target": "tool:local_model"
+      "node_id": "Dakol-AI-OS/agents/audio_agent.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "AudioAgent",
+        "analyze_task"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "AudioAgent",
+        "analyze_task"
+      ],
+      "known_issues": [],
+      "loc": 20,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
-      "target": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1"
+      "node_id": "Dakol-AI-OS/agents/base_agent.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "BaseAgent",
+        "domain_weight",
+        "analyze_task",
+        "run"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "BaseAgent",
+        "domain_weight",
+        "analyze_task",
+        "run"
+      ],
+      "known_issues": [],
+      "loc": 33,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_analyze_this_repo_router",
-      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2"
+      "node_id": "Dakol-AI-OS/agents/code_agent.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "CodeAgent",
+        "analyze_task"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "CodeAgent",
+        "analyze_task"
+      ],
+      "known_issues": [],
+      "loc": 20,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
-      "target": "tool:local_model"
+      "node_id": "Dakol-AI-OS/agents/football_data_agent.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "get_matches",
+        "get_match_by_id",
+        "get_historical_h2h",
+        "get_wc_team_id",
+        "get_squad_context",
+        "get_wc_standings_context",
+        "get_top_scorers_context",
+        "FootballDataAgent",
+        "analyze_task",
+        "run"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_matches",
+        "get_match_by_id",
+        "get_historical_h2h",
+        "get_wc_team_id",
+        "get_squad_context"
+      ],
+      "known_issues": [],
+      "loc": 637,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "DEPENDS_ON",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
-      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1"
+      "node_id": "Dakol-AI-OS/agents/listener_agent.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "ListenerAgent",
+        "analyze_task"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "ListenerAgent",
+        "analyze_task"
+      ],
+      "known_issues": [],
+      "loc": 14,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
-      "target": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2"
+      "node_id": "Dakol-AI-OS/agents/orchestrator.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "Orchestrator",
+        "route"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "Orchestrator",
+        "route"
+      ],
+      "known_issues": [],
+      "loc": 220,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_analyze_this_repo_router",
-      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3"
+      "node_id": "Dakol-AI-OS/agents/sync_agent.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "SyncAgent",
+        "analyze_task"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "SyncAgent",
+        "analyze_task"
+      ],
+      "known_issues": [],
+      "loc": 40,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
-      "target": "tool:memory"
+      "node_id": "Dakol-AI-OS/agents/worldcup_content_agent.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "agents",
+      "exports": [
+        "WorldCupContentAgent",
+        "analyze_task",
+        "build_prompt",
+        "get_max_tokens",
+        "run"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "WorldCupContentAgent",
+        "analyze_task",
+        "build_prompt",
+        "get_max_tokens",
+        "run"
+      ],
+      "known_issues": [],
+      "loc": 702,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "DEPENDS_ON",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
-      "target": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2"
+      "node_id": "Dakol-AI-OS/api/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "api",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 0,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
-      "target": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3"
+      "node_id": "Dakol-AI-OS/api/control_plane/routes.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "api",
+      "exports": [
+        "get_metrics",
+        "list_workflows"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_metrics",
+        "list_workflows"
+      ],
+      "known_issues": [],
+      "loc": 129,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PLANNED_BY",
-      "source": "task:82b48cb5-4374-4d51-9f0a-25b41c015ca4",
-      "target": "plan:plan_inspect_queued_router_task"
+      "node_id": "Dakol-AI-OS/api/gateway/auth.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "api",
+      "exports": [
+        "get_supabase_jwt_secret",
+        "get_current_user",
+        "require_auth",
+        "require_app_auth"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_supabase_jwt_secret",
+        "get_current_user",
+        "require_auth",
+        "require_app_auth"
+      ],
+      "known_issues": [],
+      "loc": 102,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_inspect_queued_router_task",
-      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1"
+      "node_id": "Dakol-AI-OS/api/gateway/middleware.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "api",
+      "exports": [
+        "GatewayMiddleware",
+        "dispatch"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "GatewayMiddleware",
+        "dispatch"
+      ],
+      "known_issues": [],
+      "loc": 26,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
-      "target": "tool:local_model"
+      "node_id": "Dakol-AI-OS/api/gateway/router.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "api",
+      "exports": [
+        "GatewayEvaluateRequest",
+        "gateway_syncmaster_evaluate"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "GatewayEvaluateRequest",
+        "gateway_syncmaster_evaluate"
+      ],
+      "known_issues": [],
+      "loc": 53,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
-      "target": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1"
+      "node_id": "Dakol-AI-OS/api/gateway/safety.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "api",
+      "exports": [
+        "enforce_immutable_approvals",
+        "validate_cross_app_access"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "enforce_immutable_approvals",
+        "validate_cross_app_access"
+      ],
+      "known_issues": [],
+      "loc": 25,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_inspect_queued_router_task",
-      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2"
+      "node_id": "Dakol-AI-OS/api/main.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "api",
+      "exports": [
+        "rate_limit_exceeded_handler",
+        "WorldCupGenerateRequest",
+        "WorldCupPostRequest",
+        "TaskRequest",
+        "EvaluateRequest",
+        "health",
+        "handle_task",
+        "evaluate_track",
+        "SyncmasterSubmitRequest",
+        "submit_catalog"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "rate_limit_exceeded_handler",
+        "WorldCupGenerateRequest",
+        "WorldCupPostRequest",
+        "TaskRequest",
+        "EvaluateRequest"
+      ],
+      "known_issues": [],
+      "loc": 456,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
-      "target": "tool:local_model"
+      "node_id": "Dakol-AI-OS/app/core/logging.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "JsonLogFormatter",
+        "configure_logging",
+        "get_logger",
+        "format"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "JsonLogFormatter",
+        "configure_logging",
+        "get_logger",
+        "format"
+      ],
+      "known_issues": [],
+      "loc": 87,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "DEPENDS_ON",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
-      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1"
+      "node_id": "Dakol-AI-OS/app/core/tracing.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "get_request_id",
+        "get_workflow_id",
+        "set_request_id",
+        "set_workflow_id",
+        "reset_request_id",
+        "reset_workflow_id",
+        "assert_clean_outputs",
+        "TracingMiddleware",
+        "dispatch",
+        "body_stream"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_request_id",
+        "get_workflow_id",
+        "set_request_id",
+        "set_workflow_id",
+        "reset_request_id"
+      ],
+      "known_issues": [],
+      "loc": 173,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
-      "target": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2"
+      "node_id": "Dakol-AI-OS/apps/base_app/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 4,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_inspect_queued_router_task",
-      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3"
+      "node_id": "Dakol-AI-OS/apps/base_app/adapter.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "AppRuntimeAdapter",
+        "execute_task",
+        "execute_tool"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "AppRuntimeAdapter",
+        "execute_task",
+        "execute_tool"
+      ],
+      "known_issues": [],
+      "loc": 14,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
-      "target": "tool:memory"
+      "node_id": "Dakol-AI-OS/apps/base_app/manifest.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "AppManifest",
+        "from_file"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "AppManifest",
+        "from_file"
+      ],
+      "known_issues": [],
+      "loc": 30,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "DEPENDS_ON",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
-      "target": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2"
+      "node_id": "Dakol-AI-OS/apps/listening_farm_ai/app.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "ListeningFarmAI",
+        "ingest_music_metadata",
+        "analyze_trends",
+        "score_tracks"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "ListeningFarmAI",
+        "ingest_music_metadata",
+        "analyze_trends",
+        "score_tracks"
+      ],
+      "known_issues": [],
+      "loc": 23,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
-      "target": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3"
+      "node_id": "Dakol-AI-OS/apps/listening_farm_ai/workflow.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "ListeningFarmWorkflow",
+        "execute",
+        "stage_metadata_extraction",
+        "stage_trend_analysis",
+        "stage_similarity_scoring",
+        "stage_recommendation_simulation",
+        "stage_signal_ranking"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "ListeningFarmWorkflow",
+        "execute",
+        "stage_metadata_extraction",
+        "stage_trend_analysis",
+        "stage_similarity_scoring"
+      ],
+      "known_issues": [],
+      "loc": 50,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PLANNED_BY",
-      "source": "task:2a76913c-1c4a-4d5c-a96a-48eed314d664",
-      "target": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da"
+      "node_id": "Dakol-AI-OS/apps/syncmaster_ai/app.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "SyncMasterAI",
+        "execute"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "SyncMasterAI",
+        "execute"
+      ],
+      "known_issues": [],
+      "loc": 14,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
-      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1"
+      "node_id": "Dakol-AI-OS/apps/syncmaster_ai/workflow.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "SyncMasterOrchestratedWorkflow",
+        "execute",
+        "stage_metadata_validation",
+        "stage_genre_classification",
+        "stage_mood_analysis",
+        "stage_sync_scoring",
+        "stage_recommendation_generation",
+        "stage_human_approval",
+        "stage_report_generation"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "SyncMasterOrchestratedWorkflow",
+        "execute",
+        "stage_metadata_validation",
+        "stage_genre_classification",
+        "stage_mood_analysis"
+      ],
+      "known_issues": [],
+      "loc": 68,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
-      "target": "tool:local_model"
+      "node_id": "Dakol-AI-OS/core/api.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "route_task",
+        "execute_task",
+        "execute_tool",
+        "create_execution_snapshot",
+        "write_execution_trace",
+        "load_execution_trace",
+        "verify_replay",
+        "classify_certification",
+        "build_import_graph",
+        "validate_import_graph_snapshot"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "route_task",
+        "execute_task",
+        "execute_tool",
+        "create_execution_snapshot",
+        "write_execution_trace"
+      ],
+      "known_issues": [],
+      "loc": 147,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
-      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1"
+      "node_id": "Dakol-AI-OS/core/capabilities.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "AppCapability"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "AppCapability"
+      ],
+      "known_issues": [],
+      "loc": 24,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
-      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+      "node_id": "Dakol-AI-OS/core/execution_audit.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "ExecutionSnapshot",
+        "utc_now",
+        "stable_json_dumps",
+        "stable_hash",
+        "build_route_fingerprint",
+        "build_invariant_fingerprint",
+        "build_execution_result_hash",
+        "build_execution_fingerprint",
+        "create_execution_snapshot",
+        "write_execution_trace"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "ExecutionSnapshot",
+        "utc_now",
+        "stable_json_dumps",
+        "stable_hash",
+        "build_route_fingerprint"
+      ],
+      "known_issues": [],
+      "loc": 300,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
-      "target": "tool:syncmaster_analyze_metadata"
+      "node_id": "Dakol-AI-OS/core/governance/quotas.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "QuotaExhaustedError",
+        "SupabaseQuotaClient",
+        "consume_quota",
+        "get_remaining_quota"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "QuotaExhaustedError",
+        "SupabaseQuotaClient",
+        "consume_quota",
+        "get_remaining_quota"
+      ],
+      "known_issues": [],
+      "loc": 83,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "DEPENDS_ON",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
-      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1"
+      "node_id": "Dakol-AI-OS/core/grading/overrides.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "OverrideRecord",
+        "OverrideHistory",
+        "serialize",
+        "deserialize",
+        "append_override",
+        "get_finalized_decision",
+        "serialize"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "OverrideRecord",
+        "OverrideHistory",
+        "serialize",
+        "deserialize",
+        "append_override"
+      ],
+      "known_issues": [],
+      "loc": 66,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
-      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+      "node_id": "Dakol-AI-OS/core/grading/queue.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "DuplicateGradingError",
+        "GradingQueueManager",
+        "dispatch"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "DuplicateGradingError",
+        "GradingQueueManager",
+        "dispatch"
+      ],
+      "known_issues": [],
+      "loc": 46,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_METADATA_ANALYSIS",
-      "source": "track:track",
-      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+      "node_id": "Dakol-AI-OS/core/grading/rubrics.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "RubricMutationError",
+        "Rubric",
+        "serialize",
+        "deserialize"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "RubricMutationError",
+        "Rubric",
+        "serialize",
+        "deserialize"
+      ],
+      "known_issues": [],
+      "loc": 34,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "HAS_STEP",
-      "source": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
-      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3"
+      "node_id": "Dakol-AI-OS/core/grading/scoring.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "SectionScore",
+        "FinalGrade",
+        "WeightedScoringEngine",
+        "evaluate"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "SectionScore",
+        "FinalGrade",
+        "WeightedScoringEngine",
+        "evaluate"
+      ],
+      "known_issues": [],
+      "loc": 56,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "CALLED_TOOL",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
-      "target": "tool:memory"
+      "node_id": "Dakol-AI-OS/core/grading/workflows.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "GradingWorkflow",
+        "execute",
+        "stage_submission_received",
+        "stage_rubric_validation",
+        "stage_section_scoring",
+        "stage_final_score_aggregation",
+        "stage_pass_fail_evaluation",
+        "stage_review_checkpoint",
+        "stage_grade_finalization"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "GradingWorkflow",
+        "execute",
+        "stage_submission_received",
+        "stage_rubric_validation",
+        "stage_section_scoring"
+      ],
+      "known_issues": [],
+      "loc": 84,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "DEPENDS_ON",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
-      "target": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2"
+      "node_id": "Dakol-AI-OS/core/invariants.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "is_in_execution_path",
+        "ExecutionPathContext",
+        "assert_routing_determinism",
+        "assert_agent_immutability",
+        "assert_learning_is_advisory_only",
+        "assert_no_learning_state_direct_access"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "is_in_execution_path",
+        "ExecutionPathContext",
+        "assert_routing_determinism",
+        "assert_agent_immutability",
+        "assert_learning_is_advisory_only"
+      ],
+      "known_issues": [],
+      "loc": 87,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     },
     {
-      "properties": {},
-      "relation": "PRODUCED_OUTPUT",
-      "source": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
-      "target": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3"
+      "node_id": "Dakol-AI-OS/core/queue_manager.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "RedisQueueManager",
+        "enqueue",
+        "claim",
+        "recover_expired_leases",
+        "queue_depth"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "RedisQueueManager",
+        "enqueue",
+        "claim",
+        "recover_expired_leases",
+        "queue_depth"
+      ],
+      "known_issues": [],
+      "loc": 109,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/queue/jobs.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "JobLease",
+        "JobState",
+        "serialize",
+        "deserialize",
+        "lock",
+        "mark_completed",
+        "mark_failed"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "JobLease",
+        "JobState",
+        "serialize",
+        "deserialize",
+        "lock"
+      ],
+      "known_issues": [],
+      "loc": 60,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/queue/retry_policy.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "RetryPolicy",
+        "calculate_delay"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "RetryPolicy",
+        "calculate_delay"
+      ],
+      "known_issues": [],
+      "loc": 16,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/queue/worker.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "DistributedWorker",
+        "register_handler",
+        "enqueue",
+        "process_job"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "DistributedWorker",
+        "register_handler",
+        "enqueue",
+        "process_job"
+      ],
+      "known_issues": [],
+      "loc": 73,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/storage/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 1,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/storage/local_storage.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "LocalStorageBackend",
+        "save_file",
+        "load_file",
+        "delete_file",
+        "generate_storage_path",
+        "file_exists",
+        "get_metadata",
+        "get_absolute_path"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "LocalStorageBackend",
+        "save_file",
+        "load_file",
+        "delete_file",
+        "generate_storage_path"
+      ],
+      "known_issues": [],
+      "loc": 115,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/storage/storage_adapter.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "StorageAdapter",
+        "save_file",
+        "load_file",
+        "delete_file",
+        "generate_storage_path",
+        "file_exists",
+        "get_metadata"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "StorageAdapter",
+        "save_file",
+        "load_file",
+        "delete_file",
+        "generate_storage_path"
+      ],
+      "known_issues": [],
+      "loc": 71,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/tool_policy.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "ToolPolicyViolation",
+        "verify_tool_execution"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "ToolPolicyViolation",
+        "verify_tool_execution"
+      ],
+      "known_issues": [],
+      "loc": 35,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/workflow_policy.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "WorkflowFailure",
+        "WorkflowPolicyEngine",
+        "verify_transition",
+        "verify_depth",
+        "verify_timeout",
+        "fail_closed_corruption",
+        "fail_closed_replay_mismatch"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "WorkflowFailure",
+        "WorkflowPolicyEngine",
+        "verify_transition",
+        "verify_depth",
+        "verify_timeout"
+      ],
+      "known_issues": [],
+      "loc": 35,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/workflow_state.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "WorkflowState",
+        "serialize",
+        "deserialize"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "WorkflowState",
+        "serialize",
+        "deserialize"
+      ],
+      "known_issues": [],
+      "loc": 25,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/core/workflows.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "WorkflowEngine",
+        "register_stage",
+        "register_concurrent_stage",
+        "execute",
+        "resume_from_checkpoint"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "WorkflowEngine",
+        "register_stage",
+        "register_concurrent_stage",
+        "execute",
+        "resume_from_checkpoint"
+      ],
+      "known_issues": [],
+      "loc": 162,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/farm/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "farm",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 0,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/farm/briefs.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "farm",
+      "exports": [
+        "get_active_briefs"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_active_briefs"
+      ],
+      "known_issues": [],
+      "loc": 31,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/farm/key_rotator.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "farm",
+      "exports": [
+        "get_next_key",
+        "key_count"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_next_key",
+        "key_count"
+      ],
+      "known_issues": [],
+      "loc": 45,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/farm/listener_pipeline.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "farm",
+      "exports": [
+        "process_uploaded_track"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "process_uploaded_track"
+      ],
+      "known_issues": [],
+      "loc": 238,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/farm/quota_manager.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "farm",
+      "exports": [
+        "get_available_key",
+        "record_call",
+        "mark_exhausted",
+        "quota_summary"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_available_key",
+        "record_call",
+        "mark_exhausted",
+        "quota_summary"
+      ],
+      "known_issues": [],
+      "loc": 116,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/farm/supabase_client.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "farm",
+      "exports": [
+        "write_evaluation_log",
+        "get_unevaluated_tracks",
+        "get_user",
+        "get_monthly_output_count",
+        "increment_user_usage"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "write_evaluation_log",
+        "get_unevaluated_tracks",
+        "get_user",
+        "get_monthly_output_count",
+        "increment_user_usage"
+      ],
+      "known_issues": [],
+      "loc": 88,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/memory/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "memory",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 0,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/memory/graph.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "memory",
+      "exports": [
+        "load_graph",
+        "save_graph",
+        "create_node",
+        "get_node",
+        "list_nodes",
+        "add_edge",
+        "list_edges",
+        "query_relations",
+        "MemoryGraph",
+        "matches"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "load_graph",
+        "save_graph",
+        "create_node",
+        "get_node",
+        "list_nodes"
+      ],
+      "known_issues": [],
+      "loc": 246,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/memory/learning.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "memory",
+      "exports": [
+        "load_learning_state",
+        "save_learning_state",
+        "get_learning_recommendations",
+        "get_learning_analytics",
+        "update_learning_state",
+        "analyze_logs",
+        "score_event",
+        "get_model_bias_for_intent",
+        "get_agent_weight_multiplier"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "load_learning_state",
+        "save_learning_state",
+        "get_learning_recommendations",
+        "get_learning_analytics",
+        "update_learning_state"
+      ],
+      "known_issues": [],
+      "loc": 339,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/memory/log.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "memory",
+      "exports": [
+        "load_memory",
+        "save_memory",
+        "record_feedback",
+        "log_event"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "load_memory",
+        "save_memory",
+        "record_feedback",
+        "log_event"
+      ],
+      "known_issues": [],
+      "loc": 97,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/planning/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 24,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/planning/providers.py",
+      "type": "module",
+      "status": "PARTIALLY_BUILT",
+      "domain": "core",
+      "exports": [
+        "PlanningProviderUnavailable",
+        "PlanningProvider",
+        "DeterministicPlanningProvider",
+        "ClaudePlanningProvider",
+        "select_planning_provider",
+        "create_plan",
+        "create_plan",
+        "create_plan",
+        "is_available",
+        "create_plan"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "PlanningProviderUnavailable",
+        "PlanningProvider",
+        "DeterministicPlanningProvider",
+        "ClaudePlanningProvider",
+        "select_planning_provider"
+      ],
+      "known_issues": [],
+      "loc": 200,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/planning/schema.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "PlanStep",
+        "Plan",
+        "from_dict",
+        "to_dict",
+        "from_dict",
+        "to_dict"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "PlanStep",
+        "Plan",
+        "from_dict",
+        "to_dict",
+        "from_dict"
+      ],
+      "known_issues": [],
+      "loc": 55,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/planning/validator.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "PlanValidationError",
+        "validate_plan",
+        "visit"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "PlanValidationError",
+        "validate_plan",
+        "visit"
+      ],
+      "known_issues": [],
+      "loc": 79,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/platform/app_registry.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "AppRegistry",
+        "register",
+        "get_manifest",
+        "reset"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "AppRegistry",
+        "register",
+        "get_manifest",
+        "reset"
+      ],
+      "known_issues": [],
+      "loc": 34,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/platform/cloud_run.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "CloudRunServer",
+        "startup",
+        "health_check",
+        "readiness_check"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "CloudRunServer",
+        "startup",
+        "health_check",
+        "readiness_check"
+      ],
+      "known_issues": [],
+      "loc": 47,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/projects/worldcup-ai/node_modules/flatted/python/flatted.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "parse",
+        "stringify",
+        "resolver"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "parse",
+        "stringify",
+        "resolver"
+      ],
+      "known_issues": [],
+      "loc": 144,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/runtime/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "runtime",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 28,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/runtime/environment.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "runtime",
+      "exports": [
+        "build_runtime_manifest",
+        "runtime_fingerprint",
+        "ensure_runtime_environment"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "build_runtime_manifest",
+        "runtime_fingerprint",
+        "ensure_runtime_environment"
+      ],
+      "known_issues": [],
+      "loc": 136,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/runtime/task_runner.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "runtime",
+      "exports": [
+        "TaskRunner",
+        "run"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "TaskRunner",
+        "run"
+      ],
+      "known_issues": [],
+      "loc": 22,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/runtime/task_store.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "runtime",
+      "exports": [
+        "TaskStore",
+        "submit",
+        "load",
+        "save",
+        "list",
+        "get",
+        "update"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "TaskStore",
+        "submit",
+        "load",
+        "save",
+        "list"
+      ],
+      "known_issues": [],
+      "loc": 79,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/runtime/tasks.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "runtime",
+      "exports": [
+        "load_tasks",
+        "save_tasks",
+        "submit_task",
+        "list_tasks",
+        "get_task",
+        "update_task",
+        "run_task"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "load_tasks",
+        "save_tasks",
+        "submit_task",
+        "list_tasks",
+        "get_task"
+      ],
+      "known_issues": [],
+      "loc": 151,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/runtime/worker_service.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "runtime",
+      "exports": [
+        "main"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "main"
+      ],
+      "known_issues": [],
+      "loc": 44,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 0,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/freeze_check.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "scan_directory"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "scan_directory"
+      ],
+      "known_issues": [],
+      "loc": 57,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/import_graph_snapshot.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "ImportEdge",
+        "build_import_graph",
+        "validate_snapshot",
+        "load_snapshot",
+        "write_snapshot",
+        "main",
+        "to_dict"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "ImportEdge",
+        "build_import_graph",
+        "validate_snapshot",
+        "load_snapshot",
+        "write_snapshot"
+      ],
+      "known_issues": [],
+      "loc": 166,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/import_historical_matches.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "download_csv",
+        "parse_and_seed"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "download_csv",
+        "parse_and_seed"
+      ],
+      "known_issues": [],
+      "loc": 126,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/memory.py",
+      "type": "module",
+      "status": "SUPERSEDED",
+      "domain": "core",
+      "exports": [
+        "load_memory",
+        "save_memory",
+        "log_event",
+        "record_feedback"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "load_memory",
+        "save_memory",
+        "log_event",
+        "record_feedback"
+      ],
+      "known_issues": [],
+      "loc": 36,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/os_cli.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "plan_objective",
+        "run_objective",
+        "process_queue",
+        "memory_search",
+        "main",
+        "execute"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "plan_objective",
+        "run_objective",
+        "process_queue",
+        "memory_search",
+        "main"
+      ],
+      "known_issues": [],
+      "loc": 270,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/replay_execution.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "replay_trace",
+        "main"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "replay_trace",
+        "main"
+      ],
+      "known_issues": [],
+      "loc": 49,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/router.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "clean_model_output",
+        "analyze_task",
+        "run_claude",
+        "run_codex",
+        "run_local",
+        "route_task",
+        "execute_task"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "clean_model_output",
+        "analyze_task",
+        "run_claude",
+        "run_codex",
+        "run_local"
+      ],
+      "known_issues": [],
+      "loc": 263,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/runtime_smoke.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "main"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "main"
+      ],
+      "known_issues": [],
+      "loc": 65,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/semantic_router.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "RouteDecision",
+        "IntentProfile",
+        "IsolatedEmbeddingCache",
+        "route_task_semantically",
+        "to_dict",
+        "get",
+        "set",
+        "clear"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "RouteDecision",
+        "IntentProfile",
+        "IsolatedEmbeddingCache",
+        "route_task_semantically",
+        "to_dict"
+      ],
+      "known_issues": [],
+      "loc": 453,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/upgrade_user.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "main"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "main"
+      ],
+      "known_issues": [],
+      "loc": 68,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/scripts/validate_traces.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "validate_trace_data",
+        "validate_trace_file",
+        "main"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "validate_trace_data",
+        "validate_trace_file",
+        "main"
+      ],
+      "known_issues": [],
+      "loc": 99,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/skills/context_enricher.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "worldcup",
+      "exports": [
+        "enrich_match_context"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "enrich_match_context"
+      ],
+      "known_issues": [],
+      "loc": 141,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/skills/model_router.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "worldcup",
+      "exports": [
+        "AllModelsUnavailableError",
+        "generate_with_fallback"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "AllModelsUnavailableError",
+        "generate_with_fallback"
+      ],
+      "known_issues": [],
+      "loc": 233,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/skills/posting_skill.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "worldcup",
+      "exports": [
+        "parse_thread",
+        "post_twitter_thread",
+        "post_to_platform",
+        "post_generated_content"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "parse_thread",
+        "post_twitter_thread",
+        "post_to_platform",
+        "post_generated_content"
+      ],
+      "known_issues": [],
+      "loc": 267,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/skills/router_skills.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "worldcup",
+      "exports": [
+        "analyze_task",
+        "run_claude",
+        "run_codex",
+        "run_local"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "analyze_task",
+        "run_claude",
+        "run_codex",
+        "run_local"
+      ],
+      "known_issues": [],
+      "loc": 90,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/skills/trending_injector.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "worldcup",
+      "exports": [
+        "get_trending_angles"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "get_trending_angles"
+      ],
+      "known_issues": [],
+      "loc": 227,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/skills/worldcup_skill.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "worldcup",
+      "exports": [
+        "generate_worldcup_content",
+        "list_available_matches",
+        "list_content_types"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "generate_worldcup_content",
+        "list_available_matches",
+        "list_content_types"
+      ],
+      "known_issues": [],
+      "loc": 274,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/syncmaster/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "syncmaster",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 40,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/syncmaster/audio.py",
+      "type": "module",
+      "status": "PARTIALLY_BUILT",
+      "domain": "syncmaster",
+      "exports": [
+        "analyze_audio_file",
+        "analyze_audio_intelligence",
+        "analyze_audio_with_optional_model",
+        "dumps_compact"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "analyze_audio_file",
+        "analyze_audio_intelligence",
+        "analyze_audio_with_optional_model",
+        "dumps_compact"
+      ],
+      "known_issues": [],
+      "loc": 405,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/syncmaster/graph.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "syncmaster",
+      "exports": [
+        "save_track",
+        "save_brief",
+        "save_recommendation",
+        "query_graph"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "save_track",
+        "save_brief",
+        "save_recommendation",
+        "query_graph"
+      ],
+      "known_issues": [],
+      "loc": 67,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/syncmaster/licensing.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "syncmaster",
+      "exports": [
+        "recommend_sync_fit",
+        "recommend_licensing"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "recommend_sync_fit",
+        "recommend_licensing"
+      ],
+      "known_issues": [],
+      "loc": 317,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/syncmaster/matching.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "syncmaster",
+      "exports": [
+        "match_to_brief",
+        "rank_matches"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "match_to_brief",
+        "rank_matches"
+      ],
+      "known_issues": [],
+      "loc": 330,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/syncmaster/metadata.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "syncmaster",
+      "exports": [
+        "analyze_metadata",
+        "tag_metadata"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "analyze_metadata",
+        "tag_metadata"
+      ],
+      "known_issues": [],
+      "loc": 260,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/syncmaster/schema.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "syncmaster",
+      "exports": [
+        "TrackMetadata",
+        "MetadataAnalysis",
+        "Brief",
+        "ComposerProfile",
+        "from_dict",
+        "to_dict",
+        "vocal",
+        "from_dict",
+        "to_dict",
+        "from_dict"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "TrackMetadata",
+        "MetadataAnalysis",
+        "Brief",
+        "ComposerProfile",
+        "from_dict"
+      ],
+      "known_issues": [],
+      "loc": 175,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/tools/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "tools",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 10,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/tools/builtin.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "tools",
+      "exports": [
+        "create_default_registry",
+        "read_file",
+        "list_files",
+        "search_repo",
+        "route_task",
+        "review_memory",
+        "record_feedback",
+        "syncmaster_analyze_metadata",
+        "syncmaster_analyze_audio",
+        "syncmaster_recommend_sync_fit"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "create_default_registry",
+        "read_file",
+        "list_files",
+        "search_repo",
+        "route_task"
+      ],
+      "known_issues": [],
+      "loc": 406,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/tools/registry.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "tools",
+      "exports": [
+        "ToolRegistryError",
+        "ToolValidationError",
+        "Tool",
+        "ToolRegistry",
+        "validate",
+        "execute",
+        "register",
+        "register_function",
+        "get",
+        "execute"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "ToolRegistryError",
+        "ToolValidationError",
+        "Tool",
+        "ToolRegistry",
+        "validate"
+      ],
+      "known_issues": [],
+      "loc": 128,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/workflows/__init__.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [],
+      "known_issues": [],
+      "loc": 13,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/workflows/definitions.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "create_worldcup_generation_workflow",
+        "create_listening_farm_ingestion_workflow",
+        "create_syncmaster_submission_workflow",
+        "generate_stage",
+        "publish_stage",
+        "ingest_stage",
+        "evaluate_stage",
+        "submit_stage",
+        "generate_rec_stage",
+        "human_review_stage"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "create_worldcup_generation_workflow",
+        "create_listening_farm_ingestion_workflow",
+        "create_syncmaster_submission_workflow",
+        "generate_stage",
+        "publish_stage"
+      ],
+      "known_issues": [],
+      "loc": 121,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/workflows/engine.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "WorkflowEngineError",
+        "WorkflowStep",
+        "WorkflowEngine",
+        "execute",
+        "validate",
+        "replace",
+        "visit"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "WorkflowEngineError",
+        "WorkflowStep",
+        "WorkflowEngine",
+        "execute",
+        "validate"
+      ],
+      "known_issues": [],
+      "loc": 208,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
+    },
+    {
+      "node_id": "Dakol-AI-OS/workflows/media_pipelines.py",
+      "type": "module",
+      "status": "PRODUCTION_READY",
+      "domain": "core",
+      "exports": [
+        "create_publishing_job",
+        "handle_rendering_job"
+      ],
+      "imports": [],
+      "depends_on": [],
+      "depended_by": [],
+      "critical_functions": [
+        "create_publishing_job",
+        "handle_rendering_job"
+      ],
+      "known_issues": [],
+      "loc": 30,
+      "last_audited": "2026-06-09",
+      "audit_notes": ""
     }
   ],
-  "nodes": {
-    "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1": {
-      "id": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
-      "properties": {
-        "value": {
-          "confidence": 0.363,
-          "embedding_provider": "",
-          "intent": "sync_metadata",
-          "learning_applied": false,
-          "matched_terms": [
-            "bpm",
-            "bpm_key",
-            "key_mood",
-            "mood_genre",
-            "analyze",
-            "genre",
-            "key",
-            "metadata"
-          ],
-          "model": "local",
-          "original_model": "",
-          "scoring_method": "lexical"
-        }
-      },
-      "type": "output"
-    },
-    "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2": {
-      "id": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
-      "properties": {
-        "value": {
-          "confidence": {
-            "bpm": 1.0,
-            "energy": 0.85,
-            "genre": 0.9,
-            "key": 0.0,
-            "mood": 0.9,
-            "vocals": 0.9
-          },
-          "matched_terms": {
-            "bpm": [
-              "120 bpm"
-            ],
-            "energy": [
-              "120"
-            ],
-            "genre": [
-              "cinematic"
-            ],
-            "key": [],
-            "mood": [
-              "dark"
-            ],
-            "vocals": [
-              "instrumental"
-            ]
-          },
-          "metadata": {
-            "artist": "",
-            "bpm": 120,
-            "energy": "medium",
-            "genre": [
-              "cinematic"
-            ],
-            "key": "",
-            "mood": [
-              "dark"
-            ],
-            "source_text": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
-            "tags": [
-              "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
-            ],
-            "title": "",
-            "vocals": "instrumental"
-          },
-          "warnings": []
-        }
-      },
-      "type": "output"
-    },
-    "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3": {
-      "id": "output:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
-      "properties": {
-        "value": {
-          "agent_bias": {},
-          "agents": {},
-          "event_count": 14,
-          "intents": {
-            "unknown": {
-              "agents": {
-                "unknown": 14
-              },
-              "average_score": 0.5,
-              "count": 14,
-              "error_rate": 0.0,
-              "model_scores": {
-                "claude": 0.5,
-                "codex": 0.5,
-                "local": 0.5
-              },
-              "models": {
-                "claude": 5,
-                "codex": 4,
-                "local": 5
-              }
-            }
-          },
-          "low_confidence_patterns": [],
-          "model_bias": {},
-          "models": {
-            "claude": {
-              "agents": {
-                "unknown": 5
-              },
-              "average_score": 0.5,
-              "count": 5,
-              "error_rate": 0.0,
-              "model_scores": {
-                "claude": 0.5
-              },
-              "models": {
-                "claude": 5
-              }
-            },
-            "codex": {
-              "agents": {
-                "unknown": 4
-              },
-              "average_score": 0.5,
-              "count": 4,
-              "error_rate": 0.0,
-              "model_scores": {
-                "codex": 0.5
-              },
-              "models": {
-                "codex": 4
-              }
-            },
-            "local": {
-              "agents": {
-                "unknown": 5
-              },
-              "average_score": 0.5,
-              "count": 5,
-              "error_rate": 0.0,
-              "model_scores": {
-                "local": 0.5
-              },
-              "models": {
-                "local": 5
-              }
-            }
-          },
-          "updated_at": "2026-05-25T21:46:09.465063",
-          "version": 1
-        }
-      },
-      "type": "output"
-    },
-    "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1": {
-      "id": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
-      "properties": {
-        "value": {
-          "confidence": 0.045,
-          "embedding_provider": "",
-          "intent": "general_explanation",
-          "learning_applied": false,
-          "matched_terms": [
-            "task"
-          ],
-          "model": "local",
-          "original_model": "",
-          "scoring_method": "lexical"
-        }
-      },
-      "type": "output"
-    },
-    "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2": {
-      "id": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
-      "properties": {
-        "value": {
-          "confidence": 0.045,
-          "embedding_provider": "",
-          "intent": "general_explanation",
-          "learning_applied": false,
-          "matched_terms": [
-            "task"
-          ],
-          "model": "local",
-          "original_model": "",
-          "scoring_method": "lexical"
-        }
-      },
-      "type": "output"
-    },
-    "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3": {
-      "id": "output:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
-      "properties": {
-        "value": {
-          "agent_bias": {},
-          "agents": {},
-          "event_count": 14,
-          "intents": {
-            "unknown": {
-              "agents": {
-                "unknown": 14
-              },
-              "average_score": 0.5,
-              "count": 14,
-              "error_rate": 0.0,
-              "model_scores": {
-                "claude": 0.5,
-                "codex": 0.5,
-                "local": 0.5
-              },
-              "models": {
-                "claude": 5,
-                "codex": 4,
-                "local": 5
-              }
-            }
-          },
-          "low_confidence_patterns": [],
-          "model_bias": {},
-          "models": {
-            "claude": {
-              "agents": {
-                "unknown": 5
-              },
-              "average_score": 0.5,
-              "count": 5,
-              "error_rate": 0.0,
-              "model_scores": {
-                "claude": 0.5
-              },
-              "models": {
-                "claude": 5
-              }
-            },
-            "codex": {
-              "agents": {
-                "unknown": 4
-              },
-              "average_score": 0.5,
-              "count": 4,
-              "error_rate": 0.0,
-              "model_scores": {
-                "codex": 0.5
-              },
-              "models": {
-                "codex": 4
-              }
-            },
-            "local": {
-              "agents": {
-                "unknown": 5
-              },
-              "average_score": 0.5,
-              "count": 5,
-              "error_rate": 0.0,
-              "model_scores": {
-                "local": 0.5
-              },
-              "models": {
-                "local": 5
-              }
-            }
-          },
-          "updated_at": "2026-05-25T21:23:01.108587",
-          "version": 1
-        }
-      },
-      "type": "output"
-    },
-    "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1": {
-      "id": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
-      "properties": {
-        "value": {
-          "confidence": 0.045,
-          "embedding_provider": "",
-          "intent": "general_explanation",
-          "learning_applied": false,
-          "matched_terms": [
-            "thi"
-          ],
-          "model": "local",
-          "original_model": "",
-          "scoring_method": "lexical"
-        }
-      },
-      "type": "output"
-    },
-    "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2": {
-      "id": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
-      "properties": {
-        "value": {
-          "confidence": 0.045,
-          "embedding_provider": "",
-          "intent": "general_explanation",
-          "learning_applied": false,
-          "matched_terms": [
-            "thi"
-          ],
-          "model": "local",
-          "original_model": "",
-          "scoring_method": "lexical"
-        }
-      },
-      "type": "output"
-    },
-    "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3": {
-      "id": "output:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
-      "properties": {
-        "value": {
-          "agent_bias": {},
-          "agents": {},
-          "event_count": 14,
-          "intents": {
-            "unknown": {
-              "agents": {
-                "unknown": 14
-              },
-              "average_score": 0.5,
-              "count": 14,
-              "error_rate": 0.0,
-              "model_scores": {
-                "claude": 0.5,
-                "codex": 0.5,
-                "local": 0.5
-              },
-              "models": {
-                "claude": 5,
-                "codex": 4,
-                "local": 5
-              }
-            }
-          },
-          "low_confidence_patterns": [],
-          "model_bias": {},
-          "models": {
-            "claude": {
-              "agents": {
-                "unknown": 5
-              },
-              "average_score": 0.5,
-              "count": 5,
-              "error_rate": 0.0,
-              "model_scores": {
-                "claude": 0.5
-              },
-              "models": {
-                "claude": 5
-              }
-            },
-            "codex": {
-              "agents": {
-                "unknown": 4
-              },
-              "average_score": 0.5,
-              "count": 4,
-              "error_rate": 0.0,
-              "model_scores": {
-                "codex": 0.5
-              },
-              "models": {
-                "codex": 4
-              }
-            },
-            "local": {
-              "agents": {
-                "unknown": 5
-              },
-              "average_score": 0.5,
-              "count": 5,
-              "error_rate": 0.0,
-              "model_scores": {
-                "local": 0.5
-              },
-              "models": {
-                "local": 5
-              }
-            }
-          },
-          "updated_at": "2026-05-25T21:20:59.241065",
-          "version": 1
-        }
-      },
-      "type": "output"
-    },
-    "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da": {
-      "id": "plan:plan_analyze_bpm_key_mood_and_genre_metadata_for_a_da",
-      "properties": {
-        "provider": "deterministic"
-      },
-      "type": "plan"
-    },
-    "plan:plan_analyze_this_repo_router": {
-      "id": "plan:plan_analyze_this_repo_router",
-      "properties": {
-        "provider": "deterministic"
-      },
-      "type": "plan"
-    },
-    "plan:plan_inspect_queued_router_task": {
-      "id": "plan:plan_inspect_queued_router_task",
-      "properties": {
-        "provider": "deterministic"
-      },
-      "type": "plan"
-    },
-    "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1": {
-      "id": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_1",
-      "properties": {
-        "description": "Clarify the requested outcome and constraints."
-      },
-      "type": "step"
-    },
-    "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2": {
-      "id": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_2",
-      "properties": {
-        "description": "Execute the primary work for the task."
-      },
-      "type": "step"
-    },
-    "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3": {
-      "id": "step:2a76913c-1c4a-4d5c-a96a-48eed314d664:step_3",
-      "properties": {
-        "description": "Review the result and prepare a concise handoff."
-      },
-      "type": "step"
-    },
-    "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1": {
-      "id": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_1",
-      "properties": {
-        "description": "Clarify the requested outcome and constraints."
-      },
-      "type": "step"
-    },
-    "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2": {
-      "id": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_2",
-      "properties": {
-        "description": "Execute the primary work for the task."
-      },
-      "type": "step"
-    },
-    "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3": {
-      "id": "step:82b48cb5-4374-4d51-9f0a-25b41c015ca4:step_3",
-      "properties": {
-        "description": "Review the result and prepare a concise handoff."
-      },
-      "type": "step"
-    },
-    "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1": {
-      "id": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_1",
-      "properties": {
-        "description": "Clarify the requested outcome and constraints."
-      },
-      "type": "step"
-    },
-    "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2": {
-      "id": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_2",
-      "properties": {
-        "description": "Execute the primary work for the task."
-      },
-      "type": "step"
-    },
-    "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3": {
-      "id": "step:ab666e5d-9242-4836-a4e1-99f2cee0fd87:step_3",
-      "properties": {
-        "description": "Review the result and prepare a concise handoff."
-      },
-      "type": "step"
-    },
-    "task:2a76913c-1c4a-4d5c-a96a-48eed314d664": {
-      "id": "task:2a76913c-1c4a-4d5c-a96a-48eed314d664",
-      "properties": {
-        "objective": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
-      },
-      "type": "task"
-    },
-    "task:82b48cb5-4374-4d51-9f0a-25b41c015ca4": {
-      "id": "task:82b48cb5-4374-4d51-9f0a-25b41c015ca4",
-      "properties": {
-        "objective": "inspect queued router task"
-      },
-      "type": "task"
-    },
-    "task:ab666e5d-9242-4836-a4e1-99f2cee0fd87": {
-      "id": "task:ab666e5d-9242-4836-a4e1-99f2cee0fd87",
-      "properties": {
-        "objective": "analyze this repo router"
-      },
-      "type": "task"
-    },
-    "tool:local_model": {
-      "id": "tool:local_model",
-      "properties": {
-        "name": "local_model"
-      },
-      "type": "tool"
-    },
-    "tool:memory": {
-      "id": "tool:memory",
-      "properties": {
-        "name": "memory"
-      },
-      "type": "tool"
-    },
-    "tool:syncmaster_analyze_metadata": {
-      "id": "tool:syncmaster_analyze_metadata",
-      "properties": {
-        "name": "syncmaster_analyze_metadata"
-      },
-      "type": "tool"
-    },
-    "track:track": {
-      "id": "track:track",
-      "properties": {
-        "artist": "",
-        "bpm": 120,
-        "energy": "medium",
-        "genre": [
-          "cinematic"
-        ],
-        "key": "",
-        "mood": [
-          "dark"
-        ],
-        "source_text": "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track",
-        "tags": [
-          "analyze BPM key mood and genre metadata for a dark cinematic 120 bpm instrumental track"
-        ],
-        "title": "",
-        "vocals": "instrumental"
-      },
-      "type": "track"
-    }
-  }
+  "domain_map": {
+    "core": [
+      "Dakol-AI-OS/.venv311/bin/activate_this.py",
+      "Dakol-AI-OS/app/core/logging.py",
+      "Dakol-AI-OS/app/core/tracing.py",
+      "Dakol-AI-OS/apps/base_app/__init__.py",
+      "Dakol-AI-OS/apps/base_app/adapter.py",
+      "Dakol-AI-OS/apps/base_app/manifest.py",
+      "Dakol-AI-OS/apps/listening_farm_ai/app.py",
+      "Dakol-AI-OS/apps/listening_farm_ai/workflow.py",
+      "Dakol-AI-OS/apps/syncmaster_ai/app.py",
+      "Dakol-AI-OS/apps/syncmaster_ai/workflow.py",
+      "Dakol-AI-OS/core/api.py",
+      "Dakol-AI-OS/core/capabilities.py",
+      "Dakol-AI-OS/core/execution_audit.py",
+      "Dakol-AI-OS/core/governance/quotas.py",
+      "Dakol-AI-OS/core/grading/overrides.py",
+      "Dakol-AI-OS/core/grading/queue.py",
+      "Dakol-AI-OS/core/grading/rubrics.py",
+      "Dakol-AI-OS/core/grading/scoring.py",
+      "Dakol-AI-OS/core/grading/workflows.py",
+      "Dakol-AI-OS/core/invariants.py",
+      "Dakol-AI-OS/core/queue_manager.py",
+      "Dakol-AI-OS/core/queue/jobs.py",
+      "Dakol-AI-OS/core/queue/retry_policy.py",
+      "Dakol-AI-OS/core/queue/worker.py",
+      "Dakol-AI-OS/core/storage/__init__.py",
+      "Dakol-AI-OS/core/storage/local_storage.py",
+      "Dakol-AI-OS/core/storage/storage_adapter.py",
+      "Dakol-AI-OS/core/tool_policy.py",
+      "Dakol-AI-OS/core/workflow_policy.py",
+      "Dakol-AI-OS/core/workflow_state.py",
+      "Dakol-AI-OS/core/workflows.py",
+      "Dakol-AI-OS/planning/__init__.py",
+      "Dakol-AI-OS/planning/providers.py",
+      "Dakol-AI-OS/planning/schema.py",
+      "Dakol-AI-OS/planning/validator.py",
+      "Dakol-AI-OS/platform/app_registry.py",
+      "Dakol-AI-OS/platform/cloud_run.py",
+      "Dakol-AI-OS/projects/worldcup-ai/node_modules/flatted/python/flatted.py",
+      "Dakol-AI-OS/scripts/__init__.py",
+      "Dakol-AI-OS/scripts/freeze_check.py",
+      "Dakol-AI-OS/scripts/import_graph_snapshot.py",
+      "Dakol-AI-OS/scripts/import_historical_matches.py",
+      "Dakol-AI-OS/scripts/memory.py",
+      "Dakol-AI-OS/scripts/os_cli.py",
+      "Dakol-AI-OS/scripts/replay_execution.py",
+      "Dakol-AI-OS/scripts/router.py",
+      "Dakol-AI-OS/scripts/runtime_smoke.py",
+      "Dakol-AI-OS/scripts/semantic_router.py",
+      "Dakol-AI-OS/scripts/upgrade_user.py",
+      "Dakol-AI-OS/scripts/validate_traces.py",
+      "Dakol-AI-OS/workflows/__init__.py",
+      "Dakol-AI-OS/workflows/definitions.py",
+      "Dakol-AI-OS/workflows/engine.py",
+      "Dakol-AI-OS/workflows/media_pipelines.py"
+    ],
+    "agents": [
+      "Dakol-AI-OS/agents/__init__.py",
+      "Dakol-AI-OS/agents/audio_agent.py",
+      "Dakol-AI-OS/agents/base_agent.py",
+      "Dakol-AI-OS/agents/code_agent.py",
+      "Dakol-AI-OS/agents/football_data_agent.py",
+      "Dakol-AI-OS/agents/listener_agent.py",
+      "Dakol-AI-OS/agents/orchestrator.py",
+      "Dakol-AI-OS/agents/sync_agent.py",
+      "Dakol-AI-OS/agents/worldcup_content_agent.py"
+    ],
+    "api": [
+      "Dakol-AI-OS/api/__init__.py",
+      "Dakol-AI-OS/api/control_plane/routes.py",
+      "Dakol-AI-OS/api/gateway/auth.py",
+      "Dakol-AI-OS/api/gateway/middleware.py",
+      "Dakol-AI-OS/api/gateway/router.py",
+      "Dakol-AI-OS/api/gateway/safety.py",
+      "Dakol-AI-OS/api/main.py"
+    ],
+    "farm": [
+      "Dakol-AI-OS/farm/__init__.py",
+      "Dakol-AI-OS/farm/briefs.py",
+      "Dakol-AI-OS/farm/key_rotator.py",
+      "Dakol-AI-OS/farm/listener_pipeline.py",
+      "Dakol-AI-OS/farm/quota_manager.py",
+      "Dakol-AI-OS/farm/supabase_client.py"
+    ],
+    "memory": [
+      "Dakol-AI-OS/memory/__init__.py",
+      "Dakol-AI-OS/memory/graph.py",
+      "Dakol-AI-OS/memory/learning.py",
+      "Dakol-AI-OS/memory/log.py"
+    ],
+    "runtime": [
+      "Dakol-AI-OS/runtime/__init__.py",
+      "Dakol-AI-OS/runtime/environment.py",
+      "Dakol-AI-OS/runtime/task_runner.py",
+      "Dakol-AI-OS/runtime/task_store.py",
+      "Dakol-AI-OS/runtime/tasks.py",
+      "Dakol-AI-OS/runtime/worker_service.py"
+    ],
+    "worldcup": [
+      "Dakol-AI-OS/skills/context_enricher.py",
+      "Dakol-AI-OS/skills/model_router.py",
+      "Dakol-AI-OS/skills/posting_skill.py",
+      "Dakol-AI-OS/skills/router_skills.py",
+      "Dakol-AI-OS/skills/trending_injector.py",
+      "Dakol-AI-OS/skills/worldcup_skill.py"
+    ],
+    "syncmaster": [
+      "Dakol-AI-OS/syncmaster/__init__.py",
+      "Dakol-AI-OS/syncmaster/audio.py",
+      "Dakol-AI-OS/syncmaster/graph.py",
+      "Dakol-AI-OS/syncmaster/licensing.py",
+      "Dakol-AI-OS/syncmaster/matching.py",
+      "Dakol-AI-OS/syncmaster/metadata.py",
+      "Dakol-AI-OS/syncmaster/schema.py"
+    ],
+    "tools": [
+      "Dakol-AI-OS/tools/__init__.py",
+      "Dakol-AI-OS/tools/builtin.py",
+      "Dakol-AI-OS/tools/registry.py"
+    ]
+  },
+  "broken_nodes": [],
+  "missing_nodes": [],
+  "partially_built_nodes": [
+    "Dakol-AI-OS/planning/providers.py",
+    "Dakol-AI-OS/syncmaster/audio.py"
+  ],
+  "audit_ready": true,
+  "graphified_at": "2026-06-09T02:33:45.518388",
+  "total_files": 102,
+  "graphified_files": 102
 }

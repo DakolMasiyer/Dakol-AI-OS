@@ -10,3 +10,5 @@ venv/
 .venv/
 push_to_github.sh
 projects/worldcup-ai/
+dakol-deployer-key.json
+.data/

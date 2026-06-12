@@ -7,9 +7,11 @@ Moat: write every evaluation to evaluation_log via Supabase.
 
 from __future__ import annotations
 import os
-import tempfile
 import urllib.request
 from typing import Any
+import io
+
+from core.storage.local_storage import LocalStorageBackend
 
 from app.core.logging import get_logger
 from farm.briefs import get_active_briefs
@@ -20,16 +22,34 @@ logger = get_logger(__name__)
 
 def process_uploaded_track(track_id: str, audio_url: str, synthetic: bool = False) -> dict[str, Any]:
     """Full pipeline: download → Layer 1 → Layer 2 × all briefs → moat write → return top 5."""
-    ext = os.path.splitext(audio_url.split("?")[0])[1] or ".mp3"
-    with tempfile.NamedTemporaryFile(suffix=ext, delete=False) as tmp:
-        local_path = tmp.name
-    urllib.request.urlretrieve(audio_url, local_path)
+    storage = LocalStorageBackend()
+    
+    if audio_url == "local://test":
+        import wave, struct, math, io
+        logical_path = storage.generate_storage_path("farm/tracks", f"{track_id}.wav")
+        if not storage.file_exists(logical_path):
+            with io.BytesIO() as bio:
+                with wave.open(bio, "wb") as f:
+                    f.setnchannels(1)
+                    f.setsampwidth(2)
+                    f.setframerate(44100)
+                    samples = [int(32767 * math.sin(2 * math.pi * 440 * i / 44100)) for i in range(44100 * 3)]
+                    f.writeframes(struct.pack(f"{len(samples)}h", *samples))
+                storage.save_file(logical_path, bio.getvalue())
+    else:
+        ext = os.path.splitext(audio_url.split("?")[0])[1] or ".mp3"
+        logical_path = storage.generate_storage_path("farm/tracks", f"{track_id}{ext}")
+        
+        if not storage.file_exists(logical_path):
+            with urllib.request.urlopen(audio_url) as resp:
+                content = resp.read()
+            storage.save_file(logical_path, content)
 
-    metadata = _layer1_extract(local_path)
+    metadata = _layer1_extract(logical_path, storage)
     briefs = get_active_briefs()
 
     def _evaluate_and_log(brief):
-        result = _layer2_evaluate(local_path, brief, metadata)
+        result = _layer2_evaluate(logical_path, brief, metadata, storage)
         log_entry = {
             "track_id": track_id,
             "track_source": "generated" if synthetic else "artist_upload",
@@ -48,14 +68,42 @@ def process_uploaded_track(track_id: str, audio_url: str, synthetic: bool = Fals
             "listener_model": "gemini-2.5-flash",
             "synthetic": synthetic,
         }
-        write_evaluation_log(log_entry)
-        return {"brief": brief, **result}
+        # Persisting to the moat is best-effort: a transient Supabase outage or a
+        # missing table must not take down the (already computed) evaluation. We
+        # surface the failure explicitly via `persisted`/`persistence_error`
+        # instead of swallowing it silently.
+        persisted = False
+        persistence_error = None
+        try:
+            write_evaluation_log(log_entry)
+            persisted = True
+        except Exception as exc:  # noqa: BLE001 - persistence is non-fatal here
+            persistence_error = str(exc)
+            logger.error(
+                "Failed to persist evaluation_log entry",
+                exc_info=True,
+                extra={"track_id": track_id, "brief_id": brief["brief_id"]},
+            )
+        return {
+            "brief": brief,
+            "persisted": persisted,
+            "persistence_error": persistence_error,
+            **result,
+        }
 
     import contextvars
-    ctx = contextvars.copy_context()
     from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    # Each worker thread needs its OWN copy of the request context. A single
+    # contextvars.Context cannot be entered more than once concurrently (or
+    # re-entered while already active), which raises
+    # "cannot enter context: <Context> is already entered". Copying per task
+    # propagates request_id/workflow_id into each thread safely.
     with ThreadPoolExecutor(max_workers=5) as executor:
-        futures = [executor.submit(ctx.run, _evaluate_and_log, brief) for brief in briefs]
+        futures = [
+            executor.submit(contextvars.copy_context().run, _evaluate_and_log, brief)
+            for brief in briefs
+        ]
         evaluations = [f.result() for f in as_completed(futures)]
 
     top_matches = sorted(evaluations, key=lambda x: x["fit_score"], reverse=True)[:5]
@@ -63,8 +111,9 @@ def process_uploaded_track(track_id: str, audio_url: str, synthetic: bool = Fals
     return {"metadata": metadata, "top_brief_matches": top_matches}
 
 
-def _layer1_extract(audio_path: str) -> dict[str, Any]:
+def _layer1_extract(logical_path: str, storage: LocalStorageBackend) -> dict[str, Any]:
     """Extract DSP features. Uses librosa when available, falls back to stdlib WAV."""
+    audio_path = storage.get_absolute_path(logical_path)
     try:
         import librosa
         import numpy as np
@@ -97,17 +146,16 @@ def _layer1_wav_fallback(audio_path: str) -> dict[str, Any]:
         return {"bpm": 0.0, "energy": 0.0, "key": "unknown", "backend": "error"}
 
 
-def _layer2_evaluate(audio_path: str, brief: dict[str, Any], metadata: dict[str, Any]) -> dict[str, Any]:
+def _layer2_evaluate(logical_path: str, brief: dict[str, Any], metadata: dict[str, Any], storage: LocalStorageBackend) -> dict[str, Any]:
     """Call Gemini Flash with audio + brief context. Rotates API keys automatically."""
     import json, re
     from google import genai
 
-    ext = os.path.splitext(audio_path)[1].lower()
+    ext = os.path.splitext(logical_path)[1].lower()
     mime_map = {".mp3": "audio/mpeg", ".wav": "audio/wav", ".ogg": "audio/ogg", ".flac": "audio/flac", ".m4a": "audio/mp4"}
     mime_type = mime_map.get(ext, "audio/mpeg")
 
-    with open(audio_path, "rb") as f:
-        audio_bytes = f.read()
+    audio_bytes = storage.load_file(logical_path)
 
     prompt = f"""You are a music supervisor evaluating a track for a sync placement.
 

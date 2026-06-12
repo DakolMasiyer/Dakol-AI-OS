@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: ci
+      FARM_TEST_MODE: "true"
+      PORT: "8080"
+      SUPABASE_URL: http://localhost
+      SUPABASE_KEY: ci-test-key
+      SUPABASE_JWT_SECRET: ci-test-jwt-secret
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Verify runtime manifest
+        run: python -c "from runtime.environment import ensure_runtime_environment; print(ensure_runtime_environment(component='ci')['fingerprint'])"
+
+      - name: Smoke test web bootstrap
+        env:
+          ENVIRONMENT: production
+          PORT: "8080"
+          SUPABASE_URL: http://localhost
+          SUPABASE_KEY: ci-test-key
+          SUPABASE_JWT_SECRET: ci-test-jwt-secret
+        run: python -m scripts.runtime_smoke --component web
+
+      - name: Smoke test worker bootstrap
+        env:
+          ENVIRONMENT: production
+          PORT: "8080"
+          SUPABASE_URL: http://localhost
+          SUPABASE_KEY: ci-test-key
+          SUPABASE_JWT_SECRET: ci-test-jwt-secret
+        run: python -m scripts.runtime_smoke --component worker
+
+      - name: Run core reproducibility tests
+        run: |
+          pytest \
+            tests/test_runtime_environment.py \
+            tests/test_dependency_manifests.py \
+            tests/test_api.py \
+            tests/test_api_gateway.py \
+            tests/test_distributed_queue.py \
+            tests/test_retry_integrity.py \
+            tests/test_worker_recovery.py \
+            tests/test_workflow_replay.py \
+            tests/test_replay_engine.py \
+            tests/test_orchestrator.py \
+            tests/test_workflow_orchestration.py \
+            tests/test_live_*.py
+
+      - name: Build container image
+        run: docker build -t dakol-ai-os:ci .
+
+      - name: Smoke test container bootstrap
+        run: |
+          docker run --rm \
+            -e ENVIRONMENT=production \
+            -e PORT=8080 \
+            -e SUPABASE_URL=http://localhost \
+            -e SUPABASE_KEY=ci-test-key \
+            -e SUPABASE_JWT_SECRET=ci-test-jwt-secret \
+            dakol-ai-os:ci \
+            python -m scripts.runtime_smoke --component both

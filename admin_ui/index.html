@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dakol-AI-OS | Mission Control</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --text: #c9d1d9;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --danger: #f85149;
+            --success: #2ea043;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h1 { margin: 0; font-size: 24px; font-weight: 600; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+        }
+        .card h2 { margin-top: 0; font-size: 16px; color: var(--accent); }
+        .metric { font-size: 32px; font-weight: bold; margin: 10px 0; }
+        .label { font-size: 12px; color: #8b949e; text-transform: uppercase; }
+        .success-text { color: var(--success); }
+        .danger-text { color: var(--danger); }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); font-size: 14px; }
+        th { color: #8b949e; font-weight: normal; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Dakol-AI-OS Control Plane</h1>
+        <div>Status: <span class="success-text" id="status-indicator">● Operational</span></div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Worker Health</h2>
+            <div class="metric" id="workers-healthy">--</div>
+            <div class="label">Healthy Workers / Total (<span id="workers-total">--</span>)</div>
+        </div>
+        <div class="card">
+            <h2>Queue Depth</h2>
+            <div class="metric" id="queue-depth">--</div>
+            <div class="label">Total Pending Tasks across all products</div>
+        </div>
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>Recent Incidents</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Type</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody id="incidents-body">
+                    <tr><td colspan="3">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>Active Workflows</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Workflow ID</th>
+                        <th>State</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody id="workflows-body">
+                    <tr><td colspan="4">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function fetchMetrics() {
+            try {
+                const res = await fetch('/api/control-plane/metrics');
+                if (!res.ok) throw new Error('Network error');
+                const data = await res.json();
+                
+                document.getElementById('workers-healthy').textContent = data.workers.healthy;
+                document.getElementById('workers-total').textContent = data.workers.total;
+                
+                const totalQueued = Object.values(data.queues).reduce((a, b) => a + b, 0);
+                document.getElementById('queue-depth').textContent = totalQueued;
+                
+                const tbody = document.getElementById('incidents-body');
+                tbody.innerHTML = '';
+                if (data.incidents.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3">No incidents</td></tr>';
+                } else {
+                    data.incidents.forEach(inc => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${new Date(inc.timestamp).toLocaleString()}</td>
+                            <td><span class="danger-text">${inc.type}</span></td>
+                            <td>${inc.message}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+                
+                const wfRes = await fetch('/api/control-plane/workflows');
+                if (wfRes.ok) {
+                    const wfData = await wfRes.json();
+                    const wfBody = document.getElementById('workflows-body');
+                    wfBody.innerHTML = '';
+                    if (wfData.workflows.length === 0) {
+                        wfBody.innerHTML = '<tr><td colspan="4">No active workflows</td></tr>';
+                    } else {
+                        wfData.workflows.forEach(wf => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>${wf.workflow_id}</td>
+                                <td>${wf.state}</td>
+                                <td>${wf.status}</td>
+                                <td>${new Date(wf.timestamp).toLocaleString()}</td>
+                            `;
+                            wfBody.appendChild(tr);
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to fetch metrics:', err);
+                document.getElementById('status-indicator').textContent = '● Degraded';
+                document.getElementById('status-indicator').className = 'danger-text';
+            }
+        }
+
+        // Fetch immediately and poll every 5 seconds
+        fetchMetrics();
+        setInterval(fetchMetrics, 5000);
+    </script>
+</body>
+</html>

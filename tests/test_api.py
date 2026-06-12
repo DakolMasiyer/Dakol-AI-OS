@@ -30,7 +30,10 @@ class TestApi(unittest.TestCase):
     def test_evaluate_endpoint_returns_result(self):
         from api.main import app
         client = TestClient(app)
-        with patch("api.main.process_uploaded_track") as mock_pipeline:
+        # /syncmaster/evaluate routes through the listening-farm ingestion
+        # workflow, whose evaluate stage imports process_uploaded_track from
+        # farm.listener_pipeline at call time. Patch it at the source module.
+        with patch("farm.listener_pipeline.process_uploaded_track") as mock_pipeline:
             mock_pipeline.return_value = {"metadata": {}, "top_brief_matches": []}
             response = client.post("/syncmaster/evaluate", json={
                 "track_id": "abc-123",

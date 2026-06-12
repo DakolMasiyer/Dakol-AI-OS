@@ -11,3 +11,5 @@ Rules:
 Approved kernel surface:
 - `core.api`
 
+Payment integrations should be routed through the shared Flutterwave service configured by `FLUTTERWAVE_ROUTER_URL`.
+

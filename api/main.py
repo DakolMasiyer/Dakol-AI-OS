@@ -6,8 +6,12 @@ import os as _os
 import time
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from typing import Optional, Dict, Any
 from pydantic import BaseModel
+from runtime.environment import ensure_runtime_environment
+
+RUNTIME_MANIFEST = ensure_runtime_environment(component="web")
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
@@ -17,6 +21,9 @@ from core.api import route_task
 from farm.listener_pipeline import process_uploaded_track
 from skills.model_router import AllModelsUnavailableError, generate_with_fallback
 import skills.worldcup_skill as worldcup_skill
+from api.gateway.router import gateway_router
+from api.control_plane.routes import control_plane_router
+from api.gateway.middleware import GatewayMiddleware
 
 try:
     from dotenv import load_dotenv
@@ -28,8 +35,25 @@ configure_logging()
 logger = get_logger(__name__)
 app = FastAPI(title="Dakol-AI-OS", version="1.0.0")
 app.add_middleware(TracingMiddleware)
+app.add_middleware(GatewayMiddleware)
+app.state.runtime_manifest = RUNTIME_MANIFEST
+logger.info(
+    "Runtime environment validated",
+    extra={
+        "runtime_fingerprint": RUNTIME_MANIFEST["fingerprint"],
+        "python_version": RUNTIME_MANIFEST["python_version"],
+        "environment": RUNTIME_MANIFEST["environment"],
+        "dependencies": RUNTIME_MANIFEST["dependencies"],
+    },
+)
 
+app.include_router(gateway_router, prefix="/api")
+app.include_router(control_plane_router, prefix="/api")
 
+# Mount control plane UI securely (basic mounting for now)
+import os
+admin_ui_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "admin_ui")
+app.mount("/admin", StaticFiles(directory=admin_ui_path, html=True), name="admin_ui")
 
 def _generate_with_fallback_adapter(system_prompt: str, user_prompt: str, _content_type: str, max_tokens: int):
     prompt = f"{system_prompt}\n\n{user_prompt}".strip()
@@ -125,15 +149,44 @@ def evaluate_track(payload: EvaluateRequest):
         uuid.UUID(track_id)
     except ValueError:
         track_id = str(uuid.uuid4())
+        
+    from workflows.definitions import create_listening_farm_ingestion_workflow
     try:
-        result = process_uploaded_track(
-            track_id,
-            payload.audio_url,
-            synthetic=payload.synthetic,
-        )
-        return result
+        engine = create_listening_farm_ingestion_workflow("listening_farm", workflow_id=track_id)
+        # Execute workflow synchronously for now
+        res = engine.execute({
+            "track_id": track_id,
+            "audio_url": payload.audio_url,
+            "synthetic": payload.synthetic
+        })
+        
+        # If it completed, the evaluation result is in the payload
+        if res.get("status") == "COMPLETED":
+            return res.get("payload", {}).get("evaluation_result", {})
+            
+        return {"status": "error", "message": f"Workflow ended with status: {res.get('status')}"}
     except Exception as e:
         return {"error": str(e), "track_id": track_id}
+
+
+class SyncmasterSubmitRequest(BaseModel):
+    catalog_id: str
+    items: list[dict[str, Any]]
+
+
+@app.post("/syncmaster/submit")
+def submit_catalog(payload: SyncmasterSubmitRequest):
+    from workflows.definitions import create_syncmaster_submission_workflow
+    try:
+        engine = create_syncmaster_submission_workflow("syncmaster")
+        res = engine.execute({
+            "catalog_id": payload.catalog_id,
+            "items": payload.items
+        })
+        
+        return res
+    except Exception as e:
+        return {"error": str(e), "status": "failed"}
 
 
 @app.post("/syncmaster/batch-run")
@@ -188,34 +241,43 @@ def quota_status():
 
 @app.post("/syncmaster/debug")
 def debug_evaluate(payload: EvaluateRequest):
-    import wave, struct, math
+    import wave, struct, math, io
+    from core.storage.local_storage import LocalStorageBackend
+    
+    storage = LocalStorageBackend()
     report = {"audio_url": payload.audio_url, "steps": {}, "test_mode": _os.environ.get("FARM_TEST_MODE") == "true"}
 
-    # Generate a tiny 3-second WAV locally — no download needed for infra testing
     use_generated = payload.audio_url == "local://test"
     if use_generated:
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
-            local_path = tmp.name
-        with wave.open(local_path, "w") as f:
+        track_id = "debug_gen_" + str(int(time.time()))
+        logical_path = storage.generate_storage_path("farm/debug", f"{track_id}.wav")
+        buffer = io.BytesIO()
+        with wave.open(buffer, "w") as f:
             f.setnchannels(1); f.setsampwidth(2); f.setframerate(44100)
             samples = [int(32767 * math.sin(2 * math.pi * 440 * i / 44100)) for i in range(44100 * 3)]
             f.writeframes(struct.pack(f"{len(samples)}h", *samples))
-        report["steps"]["download"] = {"status": "ok", "size_kb": _os.path.getsize(local_path) // 1024, "source": "generated"}
+        
+        content = buffer.getvalue()
+        storage.save_file(logical_path, content)
+        report["steps"]["download"] = {"status": "ok", "size_kb": len(content) // 1024, "source": "generated"}
     else:
         try:
             ext = _os.path.splitext(payload.audio_url.split("?")[0])[1] or ".mp3"
-            with tempfile.NamedTemporaryFile(suffix=ext, delete=False) as tmp:
-                local_path = tmp.name
-            urllib.request.urlretrieve(payload.audio_url, local_path)
-            size_kb = _os.path.getsize(local_path) // 1024
-            report["steps"]["download"] = {"status": "ok", "size_kb": size_kb}
+            track_id = "debug_dl_" + str(int(time.time()))
+            logical_path = storage.generate_storage_path("farm/debug", f"{track_id}{ext}")
+            
+            with urllib.request.urlopen(payload.audio_url) as resp:
+                content = resp.read()
+            storage.save_file(logical_path, content)
+            
+            report["steps"]["download"] = {"status": "ok", "size_kb": len(content) // 1024}
         except Exception as e:
             report["steps"]["download"] = {"status": "failed", "error": str(e)}
             return report
 
     try:
         from farm.listener_pipeline import _layer1_extract
-        metadata = _layer1_extract(local_path)
+        metadata = _layer1_extract(logical_path, storage)
         report["steps"]["layer1_dsp"] = {"status": "ok", "metadata": metadata}
     except Exception as e:
         report["steps"]["layer1_dsp"] = {"status": "failed", "error": str(e)}
@@ -224,7 +286,7 @@ def debug_evaluate(payload: EvaluateRequest):
     try:
         from farm.listener_pipeline import _layer2_evaluate
         from farm.briefs import BRIEF_LIBRARY
-        result = _layer2_evaluate(local_path, BRIEF_LIBRARY[0], metadata)
+        result = _layer2_evaluate(logical_path, BRIEF_LIBRARY[0], metadata, storage)
         report["steps"]["layer2_gemini"] = {"status": "ok", "result": result}
     except Exception as e:
         report["steps"]["layer2_gemini"] = {"status": "failed", "error": str(e)}
@@ -306,19 +368,30 @@ async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
                         }
                     )
 
-    from skills.worldcup_skill import generate_worldcup_content
+    from workflows.definitions import create_worldcup_generation_workflow
     try:
         start = time.perf_counter()
-        result = await asyncio.to_thread(
-            generate_worldcup_content,
-            match_id=payload.match_id,
-            content_type=payload.content_type,
-            user_id=payload.user_id,
-            brand_profile=payload.brand_profile,
+        engine = create_worldcup_generation_workflow("worldcup_ai")
+        
+        res = await asyncio.to_thread(
+            engine.execute,
+            {
+                "match_id": payload.match_id,
+                "content_type": payload.content_type,
+                "user_id": payload.user_id,
+                "brand_profile": payload.brand_profile,
+                "auto_publish": False, # set to True when auto-publishing
+            }
         )
         elapsed_ms = int((time.perf_counter() - start) * 1000)
+        
+        if res.get("status") == "COMPLETED":
+            result = res.get("payload", {}).get("generation_result", {})
+        else:
+            result = {"status": "error", "error": f"Workflow failed or paused: {res.get('status')}"}
+
         logger.info(
-            "Generate request completed",
+            "Generate workflow completed",
             extra={
                 "user_id": payload.user_id,
                 "content_type": payload.content_type,

@@ -31,6 +31,7 @@ class WorkflowEngine:
         )
         self.state.stage_history.append(initial_stage)
         self.stage_handlers: dict[str, Callable] = {}
+        self.async_stage_handlers: dict[str, list[str]] = {}
         
         self.checkpoints_dir = self.root_dir / "logs" / "workflows" / self.workflow_id / "checkpoints"
         self.checkpoints_dir.mkdir(parents=True, exist_ok=True)
@@ -38,6 +39,9 @@ class WorkflowEngine:
 
     def register_stage(self, stage_name: str, handler: Callable) -> None:
         self.stage_handlers[stage_name] = handler
+
+    def register_concurrent_stage(self, group_name: str, stages: list[str]) -> None:
+        self.async_stage_handlers[group_name] = stages
 
     def execute(self, payload: dict[str, Any]) -> dict[str, Any]:
         """Main execution loop."""
@@ -47,12 +51,33 @@ class WorkflowEngine:
                 self.policy.verify_timeout(time.perf_counter() - self._started_perf)
 
                 current_stage = self.state.current_stage
-                handler = self.stage_handlers.get(current_stage)
-                if not handler:
-                    self.policy.fail_closed_corruption(f"No handler registered for stage {current_stage}")
-
-                # Execute stage
-                result = handler(payload)
+                
+                # Check if this is a concurrent group
+                if current_stage in self.async_stage_handlers:
+                    stages_to_run = self.async_stage_handlers[current_stage]
+                    group_results = {}
+                    for async_st in stages_to_run:
+                        h = self.stage_handlers.get(async_st)
+                        if not h:
+                            self.policy.fail_closed_corruption(f"Handler missing for async stage {async_st}")
+                        group_results[async_st] = h(payload.copy())
+                    
+                    # Deterministic aggregation of async results
+                    result = {"status": "success", "async_results": group_results}
+                    # We assume the policy or a specific aggregator maps next_stage
+                    # For determinism, we just transition to the first transition mapped
+                    next_stages = self.policy.allowed_transitions.get(current_stage, [])
+                    if next_stages:
+                        result["next_stage"] = next_stages[0]
+                    else:
+                        result["next_stage"] = "COMPLETED"
+                else:
+                    handler = self.stage_handlers.get(current_stage)
+                    if not handler:
+                        self.policy.fail_closed_corruption(f"No handler registered for stage {current_stage}")
+        
+                    # Execute stage
+                    result = handler(payload)
                 
                 # Check for Human Review Pause
                 if result.get("status") == "WAITING_FOR_APPROVAL":
@@ -67,7 +92,7 @@ class WorkflowEngine:
                     self.state.current_stage = "COMPLETED"
                     self._fingerprint_workflow(payload, result)
                     self._create_checkpoint("COMPLETED", payload, result)
-                    return {"status": "COMPLETED", "result": result, "workflow_id": self.workflow_id}
+                    return {"status": "COMPLETED", "result": result, "workflow_id": self.workflow_id, "payload": payload}
 
                 # Verify and Transition
                 self.policy.verify_transition(current_stage, next_stage)

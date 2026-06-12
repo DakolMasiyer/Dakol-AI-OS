@@ -1,5 +1,5 @@
 {
-  "edge_count": 394,
+  "edge_count": 576,
   "edges": [
     {
       "line": 1,
@@ -172,12 +172,137 @@
       "target": "typing"
     },
     {
-      "line": 14,
+      "line": 7,
+      "source": "api/control_plane/routes.py",
+      "target": "app.core.logging"
+    },
+    {
+      "line": 5,
+      "source": "api/control_plane/routes.py",
+      "target": "fastapi"
+    },
+    {
+      "line": 1,
+      "source": "api/control_plane/routes.py",
+      "target": "json"
+    },
+    {
+      "line": 2,
+      "source": "api/control_plane/routes.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 3,
+      "source": "api/control_plane/routes.py",
+      "target": "typing"
+    },
+    {
+      "line": 3,
+      "source": "api/gateway/auth.py",
+      "target": "fastapi"
+    },
+    {
+      "line": 4,
+      "source": "api/gateway/auth.py",
+      "target": "fastapi.security"
+    },
+    {
+      "line": 5,
+      "source": "api/gateway/auth.py",
+      "target": "jwt"
+    },
+    {
+      "line": 1,
+      "source": "api/gateway/auth.py",
+      "target": "os"
+    },
+    {
+      "line": 2,
+      "source": "api/gateway/auth.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "api/gateway/middleware.py",
+      "target": "fastapi"
+    },
+    {
+      "line": 2,
+      "source": "api/gateway/middleware.py",
+      "target": "starlette.middleware.base"
+    },
+    {
+      "line": 4,
+      "source": "api/gateway/middleware.py",
+      "target": "time"
+    },
+    {
+      "line": 3,
+      "source": "api/gateway/middleware.py",
+      "target": "typing"
+    },
+    {
+      "line": 7,
+      "source": "api/gateway/router.py",
+      "target": "api.gateway.auth"
+    },
+    {
+      "line": 4,
+      "source": "api/gateway/router.py",
+      "target": "fastapi"
+    },
+    {
+      "line": 5,
+      "source": "api/gateway/router.py",
+      "target": "pydantic"
+    },
+    {
+      "line": 2,
+      "source": "api/gateway/router.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "api/gateway/router.py",
+      "target": "uuid"
+    },
+    {
+      "line": 35,
+      "source": "api/gateway/router.py",
+      "target": "workflows.definitions"
+    },
+    {
+      "line": 1,
+      "source": "api/gateway/safety.py",
+      "target": "fastapi"
+    },
+    {
+      "line": 2,
+      "source": "api/gateway/safety.py",
+      "target": "typing"
+    },
+    {
+      "line": 25,
+      "source": "api/main.py",
+      "target": "api.control_plane.routes"
+    },
+    {
+      "line": 26,
+      "source": "api/main.py",
+      "target": "api.gateway.middleware"
+    },
+    {
+      "line": 24,
+      "source": "api/main.py",
+      "target": "api.gateway.router"
+    },
+    {
+      "line": 18,
       "source": "api/main.py",
       "target": "app.core.logging"
     },
     {
-      "line": 15,
+      "line": 19,
       "source": "api/main.py",
       "target": "app.core.tracing"
     },
@@ -187,62 +312,67 @@
       "target": "asyncio"
     },
     {
-      "line": 16,
+      "line": 20,
       "source": "api/main.py",
       "target": "core.api"
     },
     {
-      "line": 266,
+      "line": 245,
+      "source": "api/main.py",
+      "target": "core.storage.local_storage"
+    },
+    {
+      "line": 328,
       "source": "api/main.py",
       "target": "datetime"
     },
     {
-      "line": 22,
+      "line": 29,
       "source": "api/main.py",
       "target": "dotenv"
     },
     {
-      "line": 226,
+      "line": 288,
       "source": "api/main.py",
       "target": "farm.briefs"
     },
     {
-      "line": 17,
+      "line": 21,
       "source": "api/main.py",
       "target": "farm.listener_pipeline"
     },
     {
-      "line": 143,
+      "line": 196,
       "source": "api/main.py",
       "target": "farm.listener_pipeline"
     },
     {
-      "line": 217,
+      "line": 279,
       "source": "api/main.py",
       "target": "farm.listener_pipeline"
     },
     {
-      "line": 225,
+      "line": 287,
       "source": "api/main.py",
       "target": "farm.listener_pipeline"
     },
     {
-      "line": 185,
+      "line": 238,
       "source": "api/main.py",
       "target": "farm.quota_manager"
     },
     {
-      "line": 142,
+      "line": 195,
       "source": "api/main.py",
       "target": "farm.supabase_client"
     },
     {
-      "line": 233,
+      "line": 295,
       "source": "api/main.py",
       "target": "farm.supabase_client"
     },
     {
-      "line": 265,
+      "line": 327,
       "source": "api/main.py",
       "target": "farm.supabase_client"
     },
@@ -257,7 +387,17 @@
       "target": "fastapi.responses"
     },
     {
-      "line": 191,
+      "line": 9,
+      "source": "api/main.py",
+      "target": "fastapi.staticfiles"
+    },
+    {
+      "line": 244,
+      "source": "api/main.py",
+      "target": "io"
+    },
+    {
+      "line": 244,
       "source": "api/main.py",
       "target": "math"
     },
@@ -267,57 +407,62 @@
       "target": "os"
     },
     {
-      "line": 10,
+      "line": 54,
       "source": "api/main.py",
-      "target": "pydantic"
-    },
-    {
-      "line": 18,
-      "source": "api/main.py",
-      "target": "skills.model_router"
-    },
-    {
-      "line": 374,
-      "source": "api/main.py",
-      "target": "skills.posting_skill"
-    },
-    {
-      "line": 19,
-      "source": "api/main.py",
-      "target": "skills.worldcup_skill"
-    },
-    {
-      "line": 309,
-      "source": "api/main.py",
-      "target": "skills.worldcup_skill"
-    },
-    {
-      "line": 356,
-      "source": "api/main.py",
-      "target": "skills.worldcup_skill"
-    },
-    {
-      "line": 366,
-      "source": "api/main.py",
-      "target": "skills.worldcup_skill"
+      "target": "os"
     },
     {
       "line": 11,
       "source": "api/main.py",
-      "target": "slowapi"
+      "target": "pydantic"
     },
     {
       "line": 12,
       "source": "api/main.py",
+      "target": "runtime.environment"
+    },
+    {
+      "line": 22,
+      "source": "api/main.py",
+      "target": "skills.model_router"
+    },
+    {
+      "line": 447,
+      "source": "api/main.py",
+      "target": "skills.posting_skill"
+    },
+    {
+      "line": 23,
+      "source": "api/main.py",
+      "target": "skills.worldcup_skill"
+    },
+    {
+      "line": 429,
+      "source": "api/main.py",
+      "target": "skills.worldcup_skill"
+    },
+    {
+      "line": 439,
+      "source": "api/main.py",
+      "target": "skills.worldcup_skill"
+    },
+    {
+      "line": 15,
+      "source": "api/main.py",
+      "target": "slowapi"
+    },
+    {
+      "line": 16,
+      "source": "api/main.py",
       "target": "slowapi.errors"
     },
     {
-      "line": 13,
+      "line": 17,
       "source": "api/main.py",
       "target": "slowapi.util"
     },
     {
-      "line": 191,
+      "line": 244,
       "source": "api/main.py",
       "target": "struct"
     },
@@ -332,7 +477,7 @@
       "target": "time"
     },
     {
-      "line": 9,
+      "line": 10,
       "source": "api/main.py",
       "target": "typing"
     },
@@ -347,9 +492,24 @@
       "target": "uuid"
     },
     {
-      "line": 191,
+      "line": 244,
       "source": "api/main.py",
       "target": "wave"
+    },
+    {
+      "line": 153,
+      "source": "api/main.py",
+      "target": "workflows.definitions"
+    },
+    {
+      "line": 179,
+      "source": "api/main.py",
+      "target": "workflows.definitions"
+    },
+    {
+      "line": 371,
+      "source": "api/main.py",
+      "target": "workflows.definitions"
     },
     {
       "line": 43,
@@ -423,38 +583,163 @@
     },
     {
       "line": 1,
+      "source": "apps/base_app/__init__.py",
+      "target": "apps.base_app.adapter"
+    },
+    {
+      "line": 2,
+      "source": "apps/base_app/__init__.py",
+      "target": "apps.base_app.manifest"
+    },
+    {
+      "line": 3,
+      "source": "apps/base_app/adapter.py",
+      "target": "core.api"
+    },
+    {
+      "line": 1,
+      "source": "apps/base_app/adapter.py",
+      "target": "typing"
+    },
+    {
+      "line": 2,
+      "source": "apps/base_app/manifest.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 1,
+      "source": "apps/base_app/manifest.py",
+      "target": "json"
+    },
+    {
+      "line": 3,
+      "source": "apps/base_app/manifest.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 4,
+      "source": "apps/base_app/manifest.py",
+      "target": "typing"
+    },
+    {
+      "line": 4,
+      "source": "apps/listening_farm_ai/app.py",
+      "target": "apps.base_app"
+    },
+    {
+      "line": 1,
+      "source": "apps/listening_farm_ai/app.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 2,
+      "source": "apps/listening_farm_ai/app.py",
+      "target": "typing"
+    },
+    {
+      "line": 4,
+      "source": "apps/listening_farm_ai/workflow.py",
+      "target": "apps.listening_farm_ai.app"
+    },
+    {
+      "line": 5,
+      "source": "apps/listening_farm_ai/workflow.py",
+      "target": "core.api"
+    },
+    {
+      "line": 2,
+      "source": "apps/listening_farm_ai/workflow.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "apps/listening_farm_ai/workflow.py",
+      "target": "uuid"
+    },
+    {
+      "line": 3,
+      "source": "apps/syncmaster_ai/app.py",
+      "target": "apps.base_app"
+    },
+    {
+      "line": 1,
+      "source": "apps/syncmaster_ai/app.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 4,
+      "source": "apps/syncmaster_ai/workflow.py",
+      "target": "apps.syncmaster_ai.app"
+    },
+    {
+      "line": 5,
+      "source": "apps/syncmaster_ai/workflow.py",
+      "target": "core.api"
+    },
+    {
+      "line": 2,
+      "source": "apps/syncmaster_ai/workflow.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "apps/syncmaster_ai/workflow.py",
+      "target": "uuid"
+    },
+    {
+      "line": 1,
       "source": "core/api.py",
       "target": "__future__"
     },
     {
-      "line": 31,
+      "line": 92,
       "source": "core/api.py",
       "target": "core.execution_audit"
     },
     {
-      "line": 37,
+      "line": 98,
       "source": "core/api.py",
       "target": "core.execution_audit"
     },
     {
-      "line": 43,
+      "line": 104,
       "source": "core/api.py",
       "target": "core.execution_audit"
     },
     {
-      "line": 49,
+      "line": 110,
       "source": "core/api.py",
       "target": "core.execution_audit"
     },
     {
-      "line": 55,
+      "line": 116,
       "source": "core/api.py",
       "target": "core.execution_audit"
     },
     {
-      "line": 73,
+      "line": 134,
       "source": "core/api.py",
       "target": "core.execution_audit"
+    },
+    {
+      "line": 39,
+      "source": "core/api.py",
+      "target": "core.tool_policy"
+    },
+    {
+      "line": 145,
+      "source": "core/api.py",
+      "target": "core.workflow_policy"
+    },
+    {
+      "line": 140,
+      "source": "core/api.py",
+      "target": "core.workflows"
+    },
+    {
+      "line": 41,
+      "source": "core/api.py",
+      "target": "datetime"
     },
     {
       "line": 3,
@@ -462,12 +747,12 @@
       "target": "pathlib"
     },
     {
-      "line": 61,
+      "line": 122,
       "source": "core/api.py",
       "target": "scripts.import_graph_snapshot"
     },
     {
-      "line": 67,
+      "line": 128,
       "source": "core/api.py",
       "target": "scripts.import_graph_snapshot"
     },
@@ -477,14 +762,39 @@
       "target": "scripts.router"
     },
     {
-      "line": 20,
+      "line": 23,
       "source": "core/api.py",
       "target": "scripts.router"
+    },
+    {
+      "line": 42,
+      "source": "core/api.py",
+      "target": "time"
+    },
+    {
+      "line": 40,
+      "source": "core/api.py",
+      "target": "tools.builtin"
     },
     {
       "line": 4,
       "source": "core/api.py",
       "target": "typing"
+    },
+    {
+      "line": 13,
+      "source": "core/api.py",
+      "target": "typing"
+    },
+    {
+      "line": 43,
+      "source": "core/api.py",
+      "target": "uuid"
+    },
+    {
+      "line": 1,
+      "source": "core/capabilities.py",
+      "target": "dataclasses"
     },
     {
       "line": 1,
@@ -532,6 +842,136 @@
       "target": "typing"
     },
     {
+      "line": 3,
+      "source": "core/governance/quotas.py",
+      "target": "datetime"
+    },
+    {
+      "line": 4,
+      "source": "core/governance/quotas.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 1,
+      "source": "core/governance/quotas.py",
+      "target": "sqlite3"
+    },
+    {
+      "line": 5,
+      "source": "core/governance/quotas.py",
+      "target": "typing"
+    },
+    {
+      "line": 2,
+      "source": "core/governance/quotas.py",
+      "target": "uuid"
+    },
+    {
+      "line": 4,
+      "source": "core/grading/overrides.py",
+      "target": "core.grading.scoring"
+    },
+    {
+      "line": 2,
+      "source": "core/grading/overrides.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 3,
+      "source": "core/grading/overrides.py",
+      "target": "datetime"
+    },
+    {
+      "line": 1,
+      "source": "core/grading/overrides.py",
+      "target": "json"
+    },
+    {
+      "line": 1,
+      "source": "core/grading/queue.py",
+      "target": "json"
+    },
+    {
+      "line": 2,
+      "source": "core/grading/queue.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 3,
+      "source": "core/grading/queue.py",
+      "target": "typing"
+    },
+    {
+      "line": 2,
+      "source": "core/grading/rubrics.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 3,
+      "source": "core/grading/rubrics.py",
+      "target": "datetime"
+    },
+    {
+      "line": 1,
+      "source": "core/grading/rubrics.py",
+      "target": "json"
+    },
+    {
+      "line": 4,
+      "source": "core/grading/rubrics.py",
+      "target": "typing"
+    },
+    {
+      "line": 3,
+      "source": "core/grading/scoring.py",
+      "target": "core.grading.rubrics"
+    },
+    {
+      "line": 1,
+      "source": "core/grading/scoring.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 2,
+      "source": "core/grading/scoring.py",
+      "target": "typing"
+    },
+    {
+      "line": 5,
+      "source": "core/grading/workflows.py",
+      "target": "core.api"
+    },
+    {
+      "line": 6,
+      "source": "core/grading/workflows.py",
+      "target": "core.grading.rubrics"
+    },
+    {
+      "line": 7,
+      "source": "core/grading/workflows.py",
+      "target": "core.grading.scoring"
+    },
+    {
+      "line": 4,
+      "source": "core/grading/workflows.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 3,
+      "source": "core/grading/workflows.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 2,
+      "source": "core/grading/workflows.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "core/grading/workflows.py",
+      "target": "uuid"
+    },
+    {
       "line": 37,
       "source": "core/invariants.py",
       "target": "agents.orchestrator"
@@ -550,6 +990,241 @@
       "line": 1,
       "source": "core/invariants.py",
       "target": "threading"
+    },
+    {
+      "line": 2,
+      "source": "core/queue/jobs.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 3,
+      "source": "core/queue/jobs.py",
+      "target": "datetime"
+    },
+    {
+      "line": 1,
+      "source": "core/queue/jobs.py",
+      "target": "json"
+    },
+    {
+      "line": 4,
+      "source": "core/queue/jobs.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "core/queue/retry_policy.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 7,
+      "source": "core/queue/worker.py",
+      "target": "core.queue.jobs"
+    },
+    {
+      "line": 8,
+      "source": "core/queue/worker.py",
+      "target": "core.queue.retry_policy"
+    },
+    {
+      "line": 1,
+      "source": "core/queue/worker.py",
+      "target": "json"
+    },
+    {
+      "line": 4,
+      "source": "core/queue/worker.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 9,
+      "source": "core/queue/worker.py",
+      "target": "runtime.environment"
+    },
+    {
+      "line": 3,
+      "source": "core/queue/worker.py",
+      "target": "time"
+    },
+    {
+      "line": 5,
+      "source": "core/queue/worker.py",
+      "target": "typing"
+    },
+    {
+      "line": 2,
+      "source": "core/queue/worker.py",
+      "target": "uuid"
+    },
+    {
+      "line": 11,
+      "source": "core/queue_manager.py",
+      "target": "__future__"
+    },
+    {
+      "line": 19,
+      "source": "core/queue_manager.py",
+      "target": "core.queue.jobs"
+    },
+    {
+      "line": 20,
+      "source": "core/queue_manager.py",
+      "target": "core.queue.retry_policy"
+    },
+    {
+      "line": 15,
+      "source": "core/queue_manager.py",
+      "target": "datetime"
+    },
+    {
+      "line": 13,
+      "source": "core/queue_manager.py",
+      "target": "os"
+    },
+    {
+      "line": 16,
+      "source": "core/queue_manager.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 17,
+      "source": "core/queue_manager.py",
+      "target": "typing"
+    },
+    {
+      "line": 14,
+      "source": "core/queue_manager.py",
+      "target": "uuid"
+    },
+    {
+      "line": 8,
+      "source": "core/storage/local_storage.py",
+      "target": ".storage_adapter"
+    },
+    {
+      "line": 5,
+      "source": "core/storage/local_storage.py",
+      "target": "datetime"
+    },
+    {
+      "line": 2,
+      "source": "core/storage/local_storage.py",
+      "target": "json"
+    },
+    {
+      "line": 1,
+      "source": "core/storage/local_storage.py",
+      "target": "os"
+    },
+    {
+      "line": 4,
+      "source": "core/storage/local_storage.py",
+      "target": "tempfile"
+    },
+    {
+      "line": 6,
+      "source": "core/storage/local_storage.py",
+      "target": "typing"
+    },
+    {
+      "line": 3,
+      "source": "core/storage/local_storage.py",
+      "target": "uuid"
+    },
+    {
+      "line": 1,
+      "source": "core/storage/storage_adapter.py",
+      "target": "abc"
+    },
+    {
+      "line": 2,
+      "source": "core/storage/storage_adapter.py",
+      "target": "typing"
+    },
+    {
+      "line": 4,
+      "source": "core/tool_policy.py",
+      "target": "importlib.util"
+    },
+    {
+      "line": 2,
+      "source": "core/tool_policy.py",
+      "target": "logging"
+    },
+    {
+      "line": 6,
+      "source": "core/tool_policy.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 5,
+      "source": "core/tool_policy.py",
+      "target": "sys"
+    },
+    {
+      "line": 1,
+      "source": "core/tool_policy.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "core/workflow_policy.py",
+      "target": "typing"
+    },
+    {
+      "line": 2,
+      "source": "core/workflow_state.py",
+      "target": "dataclasses"
+    },
+    {
+      "line": 1,
+      "source": "core/workflow_state.py",
+      "target": "json"
+    },
+    {
+      "line": 3,
+      "source": "core/workflow_state.py",
+      "target": "typing"
+    },
+    {
+      "line": 9,
+      "source": "core/workflows.py",
+      "target": "core.workflow_policy"
+    },
+    {
+      "line": 8,
+      "source": "core/workflows.py",
+      "target": "core.workflow_state"
+    },
+    {
+      "line": 4,
+      "source": "core/workflows.py",
+      "target": "datetime"
+    },
+    {
+      "line": 1,
+      "source": "core/workflows.py",
+      "target": "hashlib"
+    },
+    {
+      "line": 2,
+      "source": "core/workflows.py",
+      "target": "json"
+    },
+    {
+      "line": 5,
+      "source": "core/workflows.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 3,
+      "source": "core/workflows.py",
+      "target": "time"
+    },
+    {
+      "line": 6,
+      "source": "core/workflows.py",
+      "target": "typing"
     },
     {
       "line": 3,
@@ -582,62 +1257,82 @@
       "target": "__future__"
     },
     {
-      "line": 14,
+      "line": 16,
       "source": "farm/listener_pipeline.py",
       "target": "app.core.logging"
     },
     {
-      "line": 56,
+      "line": 95,
       "source": "farm/listener_pipeline.py",
       "target": "concurrent.futures"
     },
     {
-      "line": 54,
+      "line": 94,
       "source": "farm/listener_pipeline.py",
       "target": "contextvars"
     },
     {
-      "line": 15,
+      "line": 14,
+      "source": "farm/listener_pipeline.py",
+      "target": "core.storage.local_storage"
+    },
+    {
+      "line": 17,
       "source": "farm/listener_pipeline.py",
       "target": "farm.briefs"
     },
     {
-      "line": 147,
+      "line": 195,
       "source": "farm/listener_pipeline.py",
       "target": "farm.quota_manager"
     },
     {
-      "line": 16,
+      "line": 18,
       "source": "farm/listener_pipeline.py",
       "target": "farm.supabase_client"
     },
     {
-      "line": 103,
+      "line": 152,
       "source": "farm/listener_pipeline.py",
       "target": "google"
     },
     {
-      "line": 146,
+      "line": 194,
       "source": "farm/listener_pipeline.py",
       "target": "google.genai"
     },
     {
-      "line": 102,
+      "line": 12,
+      "source": "farm/listener_pipeline.py",
+      "target": "io"
+    },
+    {
+      "line": 28,
+      "source": "farm/listener_pipeline.py",
+      "target": "io"
+    },
+    {
+      "line": 151,
       "source": "farm/listener_pipeline.py",
       "target": "json"
     },
     {
-      "line": 69,
+      "line": 118,
       "source": "farm/listener_pipeline.py",
       "target": "librosa"
     },
     {
-      "line": 89,
+      "line": 28,
       "source": "farm/listener_pipeline.py",
       "target": "math"
     },
     {
-      "line": 70,
+      "line": 138,
+      "source": "farm/listener_pipeline.py",
+      "target": "math"
+    },
+    {
+      "line": 119,
       "source": "farm/listener_pipeline.py",
       "target": "numpy"
     },
@@ -647,32 +1342,37 @@
       "target": "os"
     },
     {
-      "line": 102,
+      "line": 151,
       "source": "farm/listener_pipeline.py",
       "target": "re"
     },
     {
-      "line": 89,
+      "line": 28,
       "source": "farm/listener_pipeline.py",
       "target": "struct"
     },
     {
-      "line": 10,
+      "line": 138,
       "source": "farm/listener_pipeline.py",
-      "target": "tempfile"
-    },
-    {
-      "line": 12,
-      "source": "farm/listener_pipeline.py",
-      "target": "typing"
+      "target": "struct"
     },
     {
       "line": 11,
       "source": "farm/listener_pipeline.py",
+      "target": "typing"
+    },
+    {
+      "line": 10,
+      "source": "farm/listener_pipeline.py",
       "target": "urllib.request"
     },
     {
-      "line": 89,
+      "line": 28,
+      "source": "farm/listener_pipeline.py",
+      "target": "wave"
+    },
+    {
+      "line": 138,
       "source": "farm/listener_pipeline.py",
       "target": "wave"
     },
@@ -897,6 +1597,46 @@
       "target": "typing"
     },
     {
+      "line": 4,
+      "source": "platform/app_registry.py",
+      "target": "apps.base_app"
+    },
+    {
+      "line": 1,
+      "source": "platform/app_registry.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 2,
+      "source": "platform/app_registry.py",
+      "target": "typing"
+    },
+    {
+      "line": 4,
+      "source": "platform/cloud_run.py",
+      "target": "logging"
+    },
+    {
+      "line": 1,
+      "source": "platform/cloud_run.py",
+      "target": "os"
+    },
+    {
+      "line": 2,
+      "source": "platform/cloud_run.py",
+      "target": "signal"
+    },
+    {
+      "line": 3,
+      "source": "platform/cloud_run.py",
+      "target": "sys"
+    },
+    {
+      "line": 5,
+      "source": "platform/cloud_run.py",
+      "target": "typing"
+    },
+    {
       "line": 1,
       "source": "runtime/__init__.py",
       "target": "runtime.task_runner"
@@ -910,6 +1650,46 @@
       "line": 3,
       "source": "runtime/__init__.py",
       "target": "runtime.tasks"
+    },
+    {
+      "line": 1,
+      "source": "runtime/environment.py",
+      "target": "__future__"
+    },
+    {
+      "line": 3,
+      "source": "runtime/environment.py",
+      "target": "hashlib"
+    },
+    {
+      "line": 8,
+      "source": "runtime/environment.py",
+      "target": "importlib"
+    },
+    {
+      "line": 4,
+      "source": "runtime/environment.py",
+      "target": "json"
+    },
+    {
+      "line": 5,
+      "source": "runtime/environment.py",
+      "target": "os"
+    },
+    {
+      "line": 6,
+      "source": "runtime/environment.py",
+      "target": "platform"
+    },
+    {
+      "line": 7,
+      "source": "runtime/environment.py",
+      "target": "sys"
+    },
+    {
+      "line": 9,
+      "source": "runtime/environment.py",
+      "target": "typing"
     },
     {
       "line": 1,
@@ -970,6 +1750,36 @@
       "line": 4,
       "source": "runtime/tasks.py",
       "target": "uuid"
+    },
+    {
+      "line": 1,
+      "source": "runtime/worker_service.py",
+      "target": "__future__"
+    },
+    {
+      "line": 6,
+      "source": "runtime/worker_service.py",
+      "target": "app.core.logging"
+    },
+    {
+      "line": 7,
+      "source": "runtime/worker_service.py",
+      "target": "core.queue.worker"
+    },
+    {
+      "line": 8,
+      "source": "runtime/worker_service.py",
+      "target": "runtime.environment"
+    },
+    {
+      "line": 3,
+      "source": "runtime/worker_service.py",
+      "target": "signal"
+    },
+    {
+      "line": 4,
+      "source": "runtime/worker_service.py",
+      "target": "time"
     },
     {
       "line": 3,
@@ -1222,7 +2032,7 @@
       "target": "core.execution_audit"
     },
     {
-      "line": 113,
+      "line": 116,
       "source": "scripts/router.py",
       "target": "core.invariants"
     },
@@ -1252,6 +2062,11 @@
       "target": "os"
     },
     {
+      "line": 235,
+      "source": "scripts/router.py",
+      "target": "pathlib"
+    },
+    {
       "line": 2,
       "source": "scripts/router.py",
       "target": "re"
@@ -1272,9 +2087,54 @@
       "target": "time"
     },
     {
+      "line": 106,
+      "source": "scripts/router.py",
+      "target": "typing"
+    },
+    {
       "line": 5,
       "source": "scripts/router.py",
       "target": "uuid"
+    },
+    {
+      "line": 2,
+      "source": "scripts/runtime_smoke.py",
+      "target": "__future__"
+    },
+    {
+      "line": 16,
+      "source": "scripts/runtime_smoke.py",
+      "target": "api.main"
+    },
+    {
+      "line": 4,
+      "source": "scripts/runtime_smoke.py",
+      "target": "argparse"
+    },
+    {
+      "line": 37,
+      "source": "scripts/runtime_smoke.py",
+      "target": "core.queue.worker"
+    },
+    {
+      "line": 8,
+      "source": "scripts/runtime_smoke.py",
+      "target": "fastapi.testclient"
+    },
+    {
+      "line": 6,
+      "source": "scripts/runtime_smoke.py",
+      "target": "pathlib"
+    },
+    {
+      "line": 10,
+      "source": "scripts/runtime_smoke.py",
+      "target": "runtime.environment"
+    },
+    {
+      "line": 5,
+      "source": "scripts/runtime_smoke.py",
+      "target": "tempfile"
     },
     {
       "line": 186,
@@ -1927,9 +2787,49 @@
       "target": "typing"
     },
     {
+      "line": 2,
+      "source": "workflows/__init__.py",
+      "target": "workflows.definitions"
+    },
+    {
       "line": 1,
       "source": "workflows/__init__.py",
       "target": "workflows.engine"
+    },
+    {
+      "line": 4,
+      "source": "workflows/definitions.py",
+      "target": "core.workflow_policy"
+    },
+    {
+      "line": 3,
+      "source": "workflows/definitions.py",
+      "target": "core.workflows"
+    },
+    {
+      "line": 64,
+      "source": "workflows/definitions.py",
+      "target": "farm.listener_pipeline"
+    },
+    {
+      "line": 20,
+      "source": "workflows/definitions.py",
+      "target": "skills.worldcup_skill"
+    },
+    {
+      "line": 2,
+      "source": "workflows/definitions.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "workflows/definitions.py",
+      "target": "uuid"
+    },
+    {
+      "line": 5,
+      "source": "workflows/definitions.py",
+      "target": "workflows.media_pipelines"
     },
     {
       "line": 1,
@@ -1970,12 +2870,22 @@
       "line": 37,
       "source": "workflows/engine.py",
       "target": "uuid"
+    },
+    {
+      "line": 2,
+      "source": "workflows/media_pipelines.py",
+      "target": "typing"
+    },
+    {
+      "line": 1,
+      "source": "workflows/media_pipelines.py",
+      "target": "uuid"
     }
   ],
-  "fingerprint": "bc21be856de79c4d014561cdf0c14eaabc57860633abb67f4b46f3462d072868",
+  "fingerprint": "4d75394672249b67e223d50de467410c313a46606a5fdd7c56635e6cc6626fe0",
   "forbidden_learning_imports": [],
-  "generated_at": "2026-06-07T13:50:22.148853+00:00",
-  "module_count": 63,
+  "generated_at": "2026-06-09T01:47:14.445638+00:00",
+  "module_count": 100,
   "modules": [
     "agents/__init__.py",
     "agents/audio_agent.py",
@@ -1987,12 +2897,42 @@
     "agents/sync_agent.py",
     "agents/worldcup_content_agent.py",
     "api/__init__.py",
+    "api/control_plane/routes.py",
+    "api/gateway/auth.py",
+    "api/gateway/middleware.py",
+    "api/gateway/router.py",
+    "api/gateway/safety.py",
     "api/main.py",
     "app/core/logging.py",
     "app/core/tracing.py",
+    "apps/base_app/__init__.py",
+    "apps/base_app/adapter.py",
+    "apps/base_app/manifest.py",
+    "apps/listening_farm_ai/app.py",
+    "apps/listening_farm_ai/workflow.py",
+    "apps/syncmaster_ai/app.py",
+    "apps/syncmaster_ai/workflow.py",
     "core/api.py",
+    "core/capabilities.py",
     "core/execution_audit.py",
+    "core/governance/quotas.py",
+    "core/grading/overrides.py",
+    "core/grading/queue.py",
+    "core/grading/rubrics.py",
+    "core/grading/scoring.py",
+    "core/grading/workflows.py",
     "core/invariants.py",
+    "core/queue/jobs.py",
+    "core/queue/retry_policy.py",
+    "core/queue/worker.py",
+    "core/queue_manager.py",
+    "core/storage/__init__.py",
+    "core/storage/local_storage.py",
+    "core/storage/storage_adapter.py",
+    "core/tool_policy.py",
+    "core/workflow_policy.py",
+    "core/workflow_state.py",
+    "core/workflows.py",
     "farm/__init__.py",
     "farm/briefs.py",
     "farm/key_rotator.py",
@@ -2007,10 +2947,14 @@
     "planning/providers.py",
     "planning/schema.py",
     "planning/validator.py",
+    "platform/app_registry.py",
+    "platform/cloud_run.py",
     "runtime/__init__.py",
+    "runtime/environment.py",
     "runtime/task_runner.py",
     "runtime/task_store.py",
     "runtime/tasks.py",
+    "runtime/worker_service.py",
     "scripts/__init__.py",
     "scripts/freeze_check.py",
     "scripts/import_graph_snapshot.py",
@@ -2019,6 +2963,7 @@
     "scripts/os_cli.py",
     "scripts/replay_execution.py",
     "scripts/router.py",
+    "scripts/runtime_smoke.py",
     "scripts/semantic_router.py",
     "scripts/upgrade_user.py",
     "scripts/validate_traces.py",
@@ -2039,7 +2984,9 @@
     "tools/builtin.py",
     "tools/registry.py",
     "workflows/__init__.py",
-    "workflows/engine.py"
+    "workflows/definitions.py",
+    "workflows/engine.py",
+    "workflows/media_pipelines.py"
   ],
   "root": "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS",
   "schema_version": 1
