@@ -63,6 +63,8 @@ jobs:
             tests/test_replay_engine.py \
             tests/test_orchestrator.py \
             tests/test_workflow_orchestration.py \
+            tests/test_worldcup_critical_paths.py \
+            tests/test_worldcup_next_routes.py \
             tests/test_live_*.py
 
       - name: Build container image

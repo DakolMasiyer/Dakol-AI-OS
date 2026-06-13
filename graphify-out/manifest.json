@@ -1,0 +1,1212 @@
+{
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/farm/briefs.py": {
+    "mtime": 1780402316.66347,
+    "ast_hash": "f25afb2846120dc56b157de707af8f6d",
+    "semantic_hash": "f25afb2846120dc56b157de707af8f6d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/farm/key_rotator.py": {
+    "mtime": 1780482870.0161083,
+    "ast_hash": "f6525b6eb2d39566b81fca47c19fb84e",
+    "semantic_hash": "f6525b6eb2d39566b81fca47c19fb84e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/farm/listener_pipeline.py": {
+    "mtime": 1780968792.2434707,
+    "ast_hash": "c0a2154b14cd9e7e1ae129eedfdc02c4",
+    "semantic_hash": "c0a2154b14cd9e7e1ae129eedfdc02c4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/farm/__init__.py": {
+    "mtime": 1780402295.9855793,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/farm/quota_manager.py": {
+    "mtime": 1780746121.2505655,
+    "ast_hash": "3cdcde1b3403deea9ddfeac7e018ba67",
+    "semantic_hash": "3cdcde1b3403deea9ddfeac7e018ba67"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/farm/supabase_client.py": {
+    "mtime": 1780817799.1413171,
+    "ast_hash": "f3f68d3b519b309ff89b9ce5533a7e23",
+    "semantic_hash": "f3f68d3b519b309ff89b9ce5533a7e23"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/artifacts/import_graph_snapshot.json": {
+    "mtime": 1780969634.4527893,
+    "ast_hash": "814e1c25e1bbca274db15b2491702788",
+    "semantic_hash": "814e1c25e1bbca274db15b2491702788"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/artifacts/import_graph.json": {
+    "mtime": 1780839193.1311574,
+    "ast_hash": "a5a61d96888edc53154c195abefc8c0a",
+    "semantic_hash": "a5a61d96888edc53154c195abefc8c0a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tools/registry.py": {
+    "mtime": 1779740285.2348437,
+    "ast_hash": "091708b5cb2481b7b457e0b49dbe662d",
+    "semantic_hash": "091708b5cb2481b7b457e0b49dbe662d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tools/__init__.py": {
+    "mtime": 1779740285.0580428,
+    "ast_hash": "55a57aaf6459aba618c358e981e3c86e",
+    "semantic_hash": "55a57aaf6459aba618c358e981e3c86e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tools/builtin.py": {
+    "mtime": 1780838452.6735122,
+    "ast_hash": "2640cd10c96e4955034a3703ec8f347a",
+    "semantic_hash": "2640cd10c96e4955034a3703ec8f347a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/execution_audit.py": {
+    "mtime": 1780838865.3940327,
+    "ast_hash": "6e162d25272c768ababfec5f497ba2ac",
+    "semantic_hash": "6e162d25272c768ababfec5f497ba2ac"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/api.py": {
+    "mtime": 1780845861.5720851,
+    "ast_hash": "bfe4ba16b2a9507f878b71a36caceb21",
+    "semantic_hash": "bfe4ba16b2a9507f878b71a36caceb21"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/capabilities.py": {
+    "mtime": 1780842774.6796613,
+    "ast_hash": "44c63eeb219be71218feca81c67541ba",
+    "semantic_hash": "44c63eeb219be71218feca81c67541ba"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/workflow_state.py": {
+    "mtime": 1780845090.85269,
+    "ast_hash": "c3828566c148e85cd0104253f895d914",
+    "semantic_hash": "c3828566c148e85cd0104253f895d914"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/workflows.py": {
+    "mtime": 1780852508.6548,
+    "ast_hash": "88c2e5906d3898e3bbbb053666046a21",
+    "semantic_hash": "88c2e5906d3898e3bbbb053666046a21"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/workflow_policy.py": {
+    "mtime": 1780845314.4871993,
+    "ast_hash": "5dc1d7ccf89bf0bb5b1dd60784813db4",
+    "semantic_hash": "5dc1d7ccf89bf0bb5b1dd60784813db4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/tool_policy.py": {
+    "mtime": 1780842907.0119784,
+    "ast_hash": "54455d8e0bc420f6eba4941d0fcaac00",
+    "semantic_hash": "54455d8e0bc420f6eba4941d0fcaac00"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/queue_manager.py": {
+    "mtime": 1780968290.3734198,
+    "ast_hash": "ae682d277df51a236778ed07816294c4",
+    "semantic_hash": "ae682d277df51a236778ed07816294c4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/invariants.py": {
+    "mtime": 1780834555.9056125,
+    "ast_hash": "ed50c38ce5130b1a5f28fc53a91ed3e5",
+    "semantic_hash": "ed50c38ce5130b1a5f28fc53a91ed3e5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/grading/queue.py": {
+    "mtime": 1780847716.29349,
+    "ast_hash": "f572ac0064038916a1c66cd78661f4a6",
+    "semantic_hash": "f572ac0064038916a1c66cd78661f4a6"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/grading/scoring.py": {
+    "mtime": 1780847477.485227,
+    "ast_hash": "a8b6a0349333bda9ac80fbc47582f0c7",
+    "semantic_hash": "a8b6a0349333bda9ac80fbc47582f0c7"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/grading/overrides.py": {
+    "mtime": 1780847500.131562,
+    "ast_hash": "de50c9b7c2fdb6460ebe281fc3c017b4",
+    "semantic_hash": "de50c9b7c2fdb6460ebe281fc3c017b4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/grading/workflows.py": {
+    "mtime": 1780847742.6346967,
+    "ast_hash": "8b3775418b84a93963cd77f33ee106e5",
+    "semantic_hash": "8b3775418b84a93963cd77f33ee106e5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/grading/rubrics.py": {
+    "mtime": 1780847459.5081954,
+    "ast_hash": "21c5a96cd57a04cfbd7c8d2d3658f91f",
+    "semantic_hash": "21c5a96cd57a04cfbd7c8d2d3658f91f"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/storage/__init__.py": {
+    "mtime": 1780852563.8630178,
+    "ast_hash": "9e9175f2bc1430dc95bbaa66abfb6a8f",
+    "semantic_hash": "9e9175f2bc1430dc95bbaa66abfb6a8f"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/storage/local_storage.py": {
+    "mtime": 1780852772.4403064,
+    "ast_hash": "bb33e12e720972e8daa33d4d5c36ca08",
+    "semantic_hash": "bb33e12e720972e8daa33d4d5c36ca08"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/storage/storage_adapter.py": {
+    "mtime": 1780852652.8875434,
+    "ast_hash": "df175f8822d3cc873e75a57e6c5c8a9a",
+    "semantic_hash": "df175f8822d3cc873e75a57e6c5c8a9a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/queue/worker.py": {
+    "mtime": 1780862941.9647372,
+    "ast_hash": "a0976604c56794bf95de3e907fa66a6a",
+    "semantic_hash": "a0976604c56794bf95de3e907fa66a6a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/queue/jobs.py": {
+    "mtime": 1780849235.834538,
+    "ast_hash": "25b325e8f6e4459d9469d0b89f72b71b",
+    "semantic_hash": "25b325e8f6e4459d9469d0b89f72b71b"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/queue/retry_policy.py": {
+    "mtime": 1780849176.2311676,
+    "ast_hash": "69f463405aa3e79212670363a4e5ad4e",
+    "semantic_hash": "69f463405aa3e79212670363a4e5ad4e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/core/governance/quotas.py": {
+    "mtime": 1780849297.2800343,
+    "ast_hash": "93f87aa8e3a0232a0b2d6cadcf690e80",
+    "semantic_hash": "93f87aa8e3a0232a0b2d6cadcf690e80"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/app/core/logging.py": {
+    "mtime": 1780820132.8179145,
+    "ast_hash": "cb8cdff1c72b46518415890368db8ff3",
+    "semantic_hash": "cb8cdff1c72b46518415890368db8ff3"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/app/core/tracing.py": {
+    "mtime": 1780830770.0347412,
+    "ast_hash": "1d63de9189c8f142cd7923f0ccf37365",
+    "semantic_hash": "1d63de9189c8f142cd7923f0ccf37365"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/memory/log.py": {
+    "mtime": 1780820182.7148013,
+    "ast_hash": "b59b3e3d69e12bb2347e8ace3c1fe876",
+    "semantic_hash": "b59b3e3d69e12bb2347e8ace3c1fe876"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/memory/graph.py": {
+    "mtime": 1779740206.688428,
+    "ast_hash": "77de8d092a6bd368c946199cda02cc66",
+    "semantic_hash": "77de8d092a6bd368c946199cda02cc66"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/memory/__init__.py": {
+    "mtime": 1779701636.910748,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/memory/learning.py": {
+    "mtime": 1780834606.3748288,
+    "ast_hash": "e87b7e4e5458865beed6aee8ab3c59be",
+    "semantic_hash": "e87b7e4e5458865beed6aee8ab3c59be"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/platform/cloud_run.py": {
+    "mtime": 1780849427.6526296,
+    "ast_hash": "0ba92a7e219496ada9d6a634d0af602d",
+    "semantic_hash": "0ba92a7e219496ada9d6a634d0af602d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/platform/app_registry.py": {
+    "mtime": 1780841486.8457239,
+    "ast_hash": "944f3998ab577c754ac2f3d10c43b3f4",
+    "semantic_hash": "944f3998ab577c754ac2f3d10c43b3f4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/runtime/tasks.py": {
+    "mtime": 1780820176.3570743,
+    "ast_hash": "228734b39c884f3488633fa8a84201f3",
+    "semantic_hash": "228734b39c884f3488633fa8a84201f3"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/runtime/task_store.py": {
+    "mtime": 1779740306.1798146,
+    "ast_hash": "d57d8477fc043298650c85bcb223bacb",
+    "semantic_hash": "d57d8477fc043298650c85bcb223bacb"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/runtime/task_runner.py": {
+    "mtime": 1779740306.0107968,
+    "ast_hash": "53af7bae534b9b1dc422128308953ba7",
+    "semantic_hash": "53af7bae534b9b1dc422128308953ba7"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/runtime/__init__.py": {
+    "mtime": 1779740305.8406389,
+    "ast_hash": "ee7fb25f14dc82dce92084194c1b6fa8",
+    "semantic_hash": "ee7fb25f14dc82dce92084194c1b6fa8"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/runtime/worker_service.py": {
+    "mtime": 1780862940.044766,
+    "ast_hash": "c653da8475d1cb685d26877b653b35d2",
+    "semantic_hash": "c653da8475d1cb685d26877b653b35d2"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/runtime/environment.py": {
+    "mtime": 1781000821.2769837,
+    "ast_hash": "0ba5661f70ff8fd44bd114a864719ec0",
+    "semantic_hash": "0ba5661f70ff8fd44bd114a864719ec0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_rubric_versioning.py": {
+    "mtime": 1780847587.9391649,
+    "ast_hash": "c024dc7485252d827625c849bb0a0659",
+    "semantic_hash": "c024dc7485252d827625c849bb0a0659"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_workflow_orchestration.py": {
+    "mtime": 1780845426.906797,
+    "ast_hash": "2c1d70aa37a86d66ba203d8515a89992",
+    "semantic_hash": "2c1d70aa37a86d66ba203d8515a89992"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_syncmaster_licensing.py": {
+    "mtime": 1779741294.3805156,
+    "ast_hash": "1a0adb545f1ac805273df03165efbe46",
+    "semantic_hash": "1a0adb545f1ac805273df03165efbe46"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_supabase_client.py": {
+    "mtime": 1780531402.9989564,
+    "ast_hash": "ac9bbb3c501e01cfb151da7e3d73917e",
+    "semantic_hash": "ac9bbb3c501e01cfb151da7e3d73917e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_grading_replay.py": {
+    "mtime": 1780847874.219494,
+    "ast_hash": "3f4c77acc57037adb100a5880d019c89",
+    "semantic_hash": "3f4c77acc57037adb100a5880d019c89"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_listener_agent.py": {
+    "mtime": 1780402266.3730118,
+    "ast_hash": "3db99a1d67e89b22be06a0e22907001b",
+    "semantic_hash": "3db99a1d67e89b22be06a0e22907001b"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_os_cli.py": {
+    "mtime": 1779777406.3957732,
+    "ast_hash": "03c793796080a1e98ee61785633a177e",
+    "semantic_hash": "03c793796080a1e98ee61785633a177e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_memory_compat.py": {
+    "mtime": 1779738796.8878753,
+    "ast_hash": "201e97938a5280231eef214a94324aa1",
+    "semantic_hash": "201e97938a5280231eef214a94324aa1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_app_isolation.py": {
+    "mtime": 1780843304.9871383,
+    "ast_hash": "c6faf2e14e8e68d64ba10d23403a6f78",
+    "semantic_hash": "c6faf2e14e8e68d64ba10d23403a6f78"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_quota_failover.py": {
+    "mtime": 1780849480.9523146,
+    "ast_hash": "d37ebdd50e223b68afd891f898e86f63",
+    "semantic_hash": "d37ebdd50e223b68afd891f898e86f63"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_semantic_router.py": {
+    "mtime": 1780834867.2016912,
+    "ast_hash": "4ba14282f64bdf9ff110281d0cd0b4da",
+    "semantic_hash": "4ba14282f64bdf9ff110281d0cd0b4da"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_retry_integrity.py": {
+    "mtime": 1780849465.4596279,
+    "ast_hash": "1318b9d6826e81c89d720f96c947c227",
+    "semantic_hash": "1318b9d6826e81c89d720f96c947c227"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_tracing.py": {
+    "mtime": 1780830800.8793502,
+    "ast_hash": "09e0a5a3c668c607be2b4bbd30d142dd",
+    "semantic_hash": "09e0a5a3c668c607be2b4bbd30d142dd"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_worker_recovery.py": {
+    "mtime": 1780849511.923867,
+    "ast_hash": "530e1b78bdedc1774df02bceccc7aa6b",
+    "semantic_hash": "530e1b78bdedc1774df02bceccc7aa6b"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_planner.py": {
+    "mtime": 1779741928.106879,
+    "ast_hash": "f30fa807e373402ea510178d0683a1ee",
+    "semantic_hash": "f30fa807e373402ea510178d0683a1ee"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_control_plane.py": {
+    "mtime": 1780855077.095878,
+    "ast_hash": "a5c917773d3a1731797e2277d5cf2863",
+    "semantic_hash": "a5c917773d3a1731797e2277d5cf2863"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_api_gateway.py": {
+    "mtime": 1781260929.1080031,
+    "ast_hash": "5c63c8be4ec357dd99855721a4a059fc",
+    "semantic_hash": "5c63c8be4ec357dd99855721a4a059fc"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_layer_boundaries.py": {
+    "mtime": 1780845983.719873,
+    "ast_hash": "0973f88a7b3b111868997e1cf097ddfe",
+    "semantic_hash": "0973f88a7b3b111868997e1cf097ddfe"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_weighted_scoring.py": {
+    "mtime": 1780847560.2741122,
+    "ast_hash": "40a84cd6a60b29de400b1e9fc0a87a2c",
+    "semantic_hash": "40a84cd6a60b29de400b1e9fc0a87a2c"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_tool_registry.py": {
+    "mtime": 1780838457.4010613,
+    "ast_hash": "44501c709c834e055d8303f7bb5fcfce",
+    "semantic_hash": "44501c709c834e055d8303f7bb5fcfce"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_syncmaster_tools.py": {
+    "mtime": 1779775077.9589999,
+    "ast_hash": "9d4b8b75f2216f84275d532b6cf6702b",
+    "semantic_hash": "9d4b8b75f2216f84275d532b6cf6702b"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_syncmaster_matching.py": {
+    "mtime": 1779741243.0825944,
+    "ast_hash": "432464d9b701a3d36407c447a6837272",
+    "semantic_hash": "432464d9b701a3d36407c447a6837272"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_failure_injection.py": {
+    "mtime": 1780839124.7672112,
+    "ast_hash": "1fe1ed21b060ad1c0217e5d68ff65a41",
+    "semantic_hash": "1fe1ed21b060ad1c0217e5d68ff65a41"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_worldcup_next_routes.py": {
+    "mtime": 1780763305.4991024,
+    "ast_hash": "8d9c5a9c7356533ad40eb8072c75746d",
+    "semantic_hash": "8d9c5a9c7356533ad40eb8072c75746d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_orchestrator.py": {
+    "mtime": 1780831987.359988,
+    "ast_hash": "7373540a43a78590e9abd892ce28f4de",
+    "semantic_hash": "7373540a43a78590e9abd892ce28f4de"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_override_integrity.py": {
+    "mtime": 1780847605.9260316,
+    "ast_hash": "ff5946610c233615e350e4c4d4653cca",
+    "semantic_hash": "ff5946610c233615e350e4c4d4653cca"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_learning.py": {
+    "mtime": 1780831304.867496,
+    "ast_hash": "c5d60af060615c2220a14a081ec1923e",
+    "semantic_hash": "c5d60af060615c2220a14a081ec1923e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_dependency_manifests.py": {
+    "mtime": 1780864195.0114257,
+    "ast_hash": "3b7290ce22e15f5ae5161f408e81b392",
+    "semantic_hash": "3b7290ce22e15f5ae5161f408e81b392"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_worldcup.py": {
+    "mtime": 1780855006.1725228,
+    "ast_hash": "defbb08b94d8073afa726b7ddc0152b5",
+    "semantic_hash": "defbb08b94d8073afa726b7ddc0152b5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_quota_manager.py": {
+    "mtime": 1780746141.6607249,
+    "ast_hash": "14c88f026a4621b1f472d3ab389f28aa",
+    "semantic_hash": "14c88f026a4621b1f472d3ab389f28aa"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_learning_is_fully_offline.py": {
+    "mtime": 1780837448.5341787,
+    "ast_hash": "03f9b646a279aa3966bfb93215754d4e",
+    "semantic_hash": "03f9b646a279aa3966bfb93215754d4e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_workflow_engine.py": {
+    "mtime": 1779740286.0855808,
+    "ast_hash": "993a9e8d9d4f07191263826189733747",
+    "semantic_hash": "993a9e8d9d4f07191263826189733747"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_storage_abstraction.py": {
+    "mtime": 1780854335.7155135,
+    "ast_hash": "eca7d3dde10fdff0564fb3de8cda46d8",
+    "semantic_hash": "eca7d3dde10fdff0564fb3de8cda46d8"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_runtime_environment.py": {
+    "mtime": 1780862952.2843018,
+    "ast_hash": "6f18e6c43ad52a299e7f75ead13a312a",
+    "semantic_hash": "6f18e6c43ad52a299e7f75ead13a312a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_workflow_replay.py": {
+    "mtime": 1780845589.324228,
+    "ast_hash": "86a81d38b881c215ed00a191a4a88085",
+    "semantic_hash": "86a81d38b881c215ed00a191a4a88085"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_trace_validator.py": {
+    "mtime": 1780839057.4302604,
+    "ast_hash": "42ce7cb84f516635cca23cdbcb99d772",
+    "semantic_hash": "42ce7cb84f516635cca23cdbcb99d772"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_distributed_queue.py": {
+    "mtime": 1780849449.7269852,
+    "ast_hash": "64be6721fc0f0a5c731561182dfb5375",
+    "semantic_hash": "64be6721fc0f0a5c731561182dfb5375"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_architecture_contracts.py": {
+    "mtime": 1780834804.656373,
+    "ast_hash": "0b7adef542c2c39c52e8ef495f255478",
+    "semantic_hash": "0b7adef542c2c39c52e8ef495f255478"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_replay_engine.py": {
+    "mtime": 1780839161.1425276,
+    "ast_hash": "23d58efb4e87777193e259dcdb8a1326",
+    "semantic_hash": "23d58efb4e87777193e259dcdb8a1326"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_import_graph_stability.py": {
+    "mtime": 1780839265.0437794,
+    "ast_hash": "015073e8ba07780dab34ff4af3cd3780",
+    "semantic_hash": "015073e8ba07780dab34ff4af3cd3780"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_ingestion.py": {
+    "mtime": 1780855037.1486132,
+    "ast_hash": "099175915d5a0bd10feed6804638cdc5",
+    "semantic_hash": "099175915d5a0bd10feed6804638cdc5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_async_replay.py": {
+    "mtime": 1780849499.5511827,
+    "ast_hash": "e33657124a2c99c8eb8155a5c7051602",
+    "semantic_hash": "e33657124a2c99c8eb8155a5c7051602"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_posting_skill.py": {
+    "mtime": 1780763325.630787,
+    "ast_hash": "c8826965f756585e0fc91e6a7fba1559",
+    "semantic_hash": "c8826965f756585e0fc91e6a7fba1559"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_load.py": {
+    "mtime": 1780852970.4554968,
+    "ast_hash": "f60494a6bf08ec885ea97a65b97f2575",
+    "semantic_hash": "f60494a6bf08ec885ea97a65b97f2575"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_worldcup_critical_paths.py": {
+    "mtime": 1780745133.6654003,
+    "ast_hash": "9d5a7d9d08d27c13a8ab9311d78c3292",
+    "semantic_hash": "9d5a7d9d08d27c13a8ab9311d78c3292"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_api.py": {
+    "mtime": 1780969332.1938224,
+    "ast_hash": "f2edb852f81615482da60c57879ad464",
+    "semantic_hash": "f2edb852f81615482da60c57879ad464"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_tool_governance.py": {
+    "mtime": 1780843244.5364482,
+    "ast_hash": "e9eec7c1100056372dedf61c9d43cf1a",
+    "semantic_hash": "e9eec7c1100056372dedf61c9d43cf1a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_listener_pipeline.py": {
+    "mtime": 1780969585.759996,
+    "ast_hash": "d0add4e884fd28d8d7de726fd1ef1ed1",
+    "semantic_hash": "d0add4e884fd28d8d7de726fd1ef1ed1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_farm_briefs.py": {
+    "mtime": 1780402323.6223938,
+    "ast_hash": "0f57b8b01053c0639cde44b5a0ab8258",
+    "semantic_hash": "0f57b8b01053c0639cde44b5a0ab8258"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_load_extended.py": {
+    "mtime": 1780855121.5296683,
+    "ast_hash": "07940fc64739b1d8d67b5b7bdbdb96d1",
+    "semantic_hash": "07940fc64739b1d8d67b5b7bdbdb96d1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_syncmaster_metadata.py": {
+    "mtime": 1779741242.5215104,
+    "ast_hash": "e0a5a7769ad3e5c6abf6fb95a7433854",
+    "semantic_hash": "e0a5a7769ad3e5c6abf6fb95a7433854"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_memory_log.py": {
+    "mtime": 1779738872.9574668,
+    "ast_hash": "b0f1940af5c1a045bb958b63a88c4f8e",
+    "semantic_hash": "b0f1940af5c1a045bb958b63a88c4f8e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_task_runtime.py": {
+    "mtime": 1779740209.4004881,
+    "ast_hash": "2751c07b9f0274908900aebddb85027f",
+    "semantic_hash": "2751c07b9f0274908900aebddb85027f"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_memory_graph.py": {
+    "mtime": 1779740230.8709028,
+    "ast_hash": "b28d726c433a50128e81051741917465",
+    "semantic_hash": "b28d726c433a50128e81051741917465"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_syncmaster_audio.py": {
+    "mtime": 1779777311.2789984,
+    "ast_hash": "eb5183f149ef0cc0f192b463426871a5",
+    "semantic_hash": "eb5183f149ef0cc0f192b463426871a5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_adversarial_drift.py": {
+    "mtime": 1780837446.514783,
+    "ast_hash": "1c8661980aa066377714de35864953ec",
+    "semantic_hash": "1c8661980aa066377714de35864953ec"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_auth_governance.py": {
+    "mtime": 1780855103.776092,
+    "ast_hash": "bb7d32f0fcfaac3e652d72bd3362c52a",
+    "semantic_hash": "bb7d32f0fcfaac3e652d72bd3362c52a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_syncmaster.py": {
+    "mtime": 1780855056.2127185,
+    "ast_hash": "898e82dbbd10f25e0051dbb940de7982",
+    "semantic_hash": "898e82dbbd10f25e0051dbb940de7982"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_architecture_drift_detection.py": {
+    "mtime": 1780837478.5329676,
+    "ast_hash": "2fbe353c411d25c91b8294cad12eb559",
+    "semantic_hash": "2fbe353c411d25c91b8294cad12eb559"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_duplicate_grading_protection.py": {
+    "mtime": 1780847646.1557865,
+    "ast_hash": "5ce5a0c23941d944158f1af50eaea7bb",
+    "semantic_hash": "5ce5a0c23941d944158f1af50eaea7bb"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/test_live_storage_recovery.py": {
+    "mtime": 1780855102.699222,
+    "ast_hash": "15eecfb455c1381795d2189ba07ef1ed",
+    "semantic_hash": "15eecfb455c1381795d2189ba07ef1ed"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/_archive/test_determinism_proof.py": {
+    "mtime": 1780832502.9577005,
+    "ast_hash": "db2a3c9233fc1af8252ee7b7385d5c96",
+    "semantic_hash": "db2a3c9233fc1af8252ee7b7385d5c96"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/tests/_archive/test_mutation_safety.py": {
+    "mtime": 1780831334.5201087,
+    "ast_hash": "377758a2a8500d6eec29e619d9920cb4",
+    "semantic_hash": "377758a2a8500d6eec29e619d9920cb4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/planning/validator.py": {
+    "mtime": 1779741852.1542604,
+    "ast_hash": "896847bca7d89369a424e0c481e940c1",
+    "semantic_hash": "896847bca7d89369a424e0c481e940c1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/planning/__init__.py": {
+    "mtime": 1779740241.1467733,
+    "ast_hash": "9aba03bc3e25440ecb9a89202fdcc9cc",
+    "semantic_hash": "9aba03bc3e25440ecb9a89202fdcc9cc"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/planning/providers.py": {
+    "mtime": 1779741872.1841228,
+    "ast_hash": "ecf75f48d865b16ff186ef0efb77a63e",
+    "semantic_hash": "ecf75f48d865b16ff186ef0efb77a63e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/planning/schema.py": {
+    "mtime": 1779740240.638487,
+    "ast_hash": "25ee49748b1b456b7ee6bc265944d893",
+    "semantic_hash": "25ee49748b1b456b7ee6bc265944d893"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/workflows/definitions.py": {
+    "mtime": 1780852311.7221322,
+    "ast_hash": "149f31e62856f80bc9eeff68ce6feeef",
+    "semantic_hash": "149f31e62856f80bc9eeff68ce6feeef"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/workflows/media_pipelines.py": {
+    "mtime": 1780851312.4938047,
+    "ast_hash": "929e27f5b97e255934bd26c0d8dd9657",
+    "semantic_hash": "929e27f5b97e255934bd26c0d8dd9657"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/workflows/__init__.py": {
+    "mtime": 1780852345.7127895,
+    "ast_hash": "5acc73bdb558a2d4a860b067f4e8c4b1",
+    "semantic_hash": "5acc73bdb558a2d4a860b067f4e8c4b1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/workflows/engine.py": {
+    "mtime": 1780829490.8280094,
+    "ast_hash": "cbc93ae1ff373a20370751be98a97bf0",
+    "semantic_hash": "cbc93ae1ff373a20370751be98a97bf0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/worldcup_content_agent.py": {
+    "mtime": 1781311438.5048969,
+    "ast_hash": "0585432ee3469c4d8d36d552a0ad2bdd",
+    "semantic_hash": "0585432ee3469c4d8d36d552a0ad2bdd"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/base_agent.py": {
+    "mtime": 1780832101.2851524,
+    "ast_hash": "fd0e6632b389b9a2a14f7ed1bf72eced",
+    "semantic_hash": "fd0e6632b389b9a2a14f7ed1bf72eced"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/__init__.py": {
+    "mtime": 1779705922.401044,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/code_agent.py": {
+    "mtime": 1779705565.5035203,
+    "ast_hash": "626e5b702ee09aa70231fa6acc354084",
+    "semantic_hash": "626e5b702ee09aa70231fa6acc354084"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/football_data_agent.py": {
+    "mtime": 1781306017.253827,
+    "ast_hash": "2d156c2c1dff7a04551568b18d2a27d0",
+    "semantic_hash": "2d156c2c1dff7a04551568b18d2a27d0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/orchestrator.py": {
+    "mtime": 1780839239.1553652,
+    "ast_hash": "fc0f64e1f1f91a4b756dde952e5adf3e",
+    "semantic_hash": "fc0f64e1f1f91a4b756dde952e5adf3e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/audio_agent.py": {
+    "mtime": 1779705549.8629947,
+    "ast_hash": "53155b8687d0c4fad9b93f8e297f3a7e",
+    "semantic_hash": "53155b8687d0c4fad9b93f8e297f3a7e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/listener_agent.py": {
+    "mtime": 1780402258.6578953,
+    "ast_hash": "4bcbdce1afa4801b6ab0620597753b23",
+    "semantic_hash": "4bcbdce1afa4801b6ab0620597753b23"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/agents/sync_agent.py": {
+    "mtime": 1779706782.10809,
+    "ast_hash": "a72545dcc5ce63b9bd094b19ad79abad",
+    "semantic_hash": "a72545dcc5ce63b9bd094b19ad79abad"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/combined_migrations.sql": {
+    "mtime": 1781260439.963939,
+    "ast_hash": "abc1b186ff3619a1d4b310fef082e999",
+    "semantic_hash": "abc1b186ff3619a1d4b310fef082e999"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-06-create-flutterwave-processed-tx-refs.sql": {
+    "mtime": 1780740544.6310976,
+    "ast_hash": "1db632dddeaa58b97e01f8ecbe57b0c0",
+    "semantic_hash": "1db632dddeaa58b97e01f8ecbe57b0c0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-06-create-saved-content.sql": {
+    "mtime": 1780754934.4935648,
+    "ast_hash": "985156d2903183ab1d35f475e64cc256",
+    "semantic_hash": "985156d2903183ab1d35f475e64cc256"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-05-increment-usage-fn.sql": {
+    "mtime": 1780739548.6906314,
+    "ast_hash": "c872e991a2b13957a390538537caeb8f",
+    "semantic_hash": "c872e991a2b13957a390538537caeb8f"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/worldcup-ai-migration.sql": {
+    "mtime": 1780754907.8235674,
+    "ast_hash": "93a3b3ed33690d5ab0d6b9533f20e570",
+    "semantic_hash": "93a3b3ed33690d5ab0d6b9533f20e570"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-06-update-brand-profiles-tone-region.sql": {
+    "mtime": 1780750710.4415376,
+    "ast_hash": "135a9ab3d9bb51a45e7df86f3b5b2a80",
+    "semantic_hash": "135a9ab3d9bb51a45e7df86f3b5b2a80"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-06-create-social-connections.sql": {
+    "mtime": 1780754941.8649526,
+    "ast_hash": "9f501c564740e217613bfd5658c25bec",
+    "semantic_hash": "9f501c564740e217613bfd5658c25bec"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/worldcup-ai-migration-hist.sql": {
+    "mtime": 1781244160.3103526,
+    "ast_hash": "0673e46ec0083f2a3c72acc35ce5df23",
+    "semantic_hash": "0673e46ec0083f2a3c72acc35ce5df23"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-06-normalize-free-daily-limit.sql": {
+    "mtime": 1780739750.5634835,
+    "ast_hash": "5959196b3a16b9f98e58655f4d8738c9",
+    "semantic_hash": "5959196b3a16b9f98e58655f4d8738c9"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-06-create-quota-state.sql": {
+    "mtime": 1780746122.060124,
+    "ast_hash": "4ed367695887a695383c849164d483c4",
+    "semantic_hash": "4ed367695887a695383c849164d483c4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/migrations/2026-06-06-create-brand-profiles.sql": {
+    "mtime": 1780754927.5849638,
+    "ast_hash": "c393c327fd2d8c12752a8336c59195b0",
+    "semantic_hash": "c393c327fd2d8c12752a8336c59195b0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/supabase/migrations/20260612_gap_cleanup.sql": {
+    "mtime": 1781260432.2866187,
+    "ast_hash": "06389a252a8b1cf3b18ef9a9f77effbb",
+    "semantic_hash": "06389a252a8b1cf3b18ef9a9f77effbb"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/supabase/migrations/20260609000000_phase8b_listening_farm_tables.sql": {
+    "mtime": 1780970586.3675945,
+    "ast_hash": "0e7accf42b5a351368530c1d556045a4",
+    "semantic_hash": "0e7accf42b5a351368530c1d556045a4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/supabase/migrations/20260613_add_starter_tier.sql": {
+    "mtime": 1781317594.3281524,
+    "ast_hash": "49c75d94dbd75a9aa65ad39f416a5d1a",
+    "semantic_hash": "49c75d94dbd75a9aa65ad39f416a5d1a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/supabase/migrations/20260612_welcome_email_trigger.sql": {
+    "mtime": 1781263183.842151,
+    "ast_hash": "91c7ce18b2a03bcedcf1830a880a9cc5",
+    "semantic_hash": "91c7ce18b2a03bcedcf1830a880a9cc5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/supabase/.temp/linked-project.json": {
+    "mtime": 1781215276.7298763,
+    "ast_hash": "cdd08c6dcc1cea12109949375ab36e9e",
+    "semantic_hash": "cdd08c6dcc1cea12109949375ab36e9e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/syncmaster/metadata.py": {
+    "mtime": 1779741242.355158,
+    "ast_hash": "7e95544f70dc20b459179685729d55d9",
+    "semantic_hash": "7e95544f70dc20b459179685729d55d9"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/syncmaster/graph.py": {
+    "mtime": 1779741807.0036077,
+    "ast_hash": "9b9aaf54799c64adbde95aa267f5bf32",
+    "semantic_hash": "9b9aaf54799c64adbde95aa267f5bf32"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/syncmaster/__init__.py": {
+    "mtime": 1779775029.2195835,
+    "ast_hash": "2b5123559c47f9a76ed0fe73d0b06253",
+    "semantic_hash": "2b5123559c47f9a76ed0fe73d0b06253"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/syncmaster/matching.py": {
+    "mtime": 1779741302.7051418,
+    "ast_hash": "4aee962afb17e2aae3955f06daf13c03",
+    "semantic_hash": "4aee962afb17e2aae3955f06daf13c03"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/syncmaster/licensing.py": {
+    "mtime": 1779741274.6484313,
+    "ast_hash": "2f1e2a91992d32e13470594a7a0fb6fd",
+    "semantic_hash": "2f1e2a91992d32e13470594a7a0fb6fd"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/syncmaster/audio.py": {
+    "mtime": 1779777326.106954,
+    "ast_hash": "2633a4236e77ff456f80f6dfae908172",
+    "semantic_hash": "2633a4236e77ff456f80f6dfae908172"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/syncmaster/schema.py": {
+    "mtime": 1779741260.2132864,
+    "ast_hash": "db0da0f11f51d230649dc0418ed43bc0",
+    "semantic_hash": "db0da0f11f51d230649dc0418ed43bc0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/validate_traces.py": {
+    "mtime": 1780838940.8641262,
+    "ast_hash": "e7aba10e9c86731284c3e5b64ddbb201",
+    "semantic_hash": "e7aba10e9c86731284c3e5b64ddbb201"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/apply_phase8b_migration.sh": {
+    "mtime": 1780971126.3067572,
+    "ast_hash": "fbc2d0857cfb2b6de1bb77da90be8a3b",
+    "semantic_hash": "fbc2d0857cfb2b6de1bb77da90be8a3b"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/memory.py": {
+    "mtime": 1779738866.1530266,
+    "ast_hash": "bcb8d915d0e7402b4fc59afe7e3d0dbd",
+    "semantic_hash": "bcb8d915d0e7402b4fc59afe7e3d0dbd"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/__init__.py": {
+    "mtime": 1779701636.90584,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/import_graph_snapshot.py": {
+    "mtime": 1780840216.81545,
+    "ast_hash": "b4065e524d63749543596dd9f01599a1",
+    "semantic_hash": "b4065e524d63749543596dd9f01599a1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/runtime_smoke.py": {
+    "mtime": 1780864194.0675228,
+    "ast_hash": "cdcb5bdabf53ed045cef56535a4d8bc3",
+    "semantic_hash": "cdcb5bdabf53ed045cef56535a4d8bc3"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/semantic_router.py": {
+    "mtime": 1780834655.3695183,
+    "ast_hash": "52cd683a80e0572a341f1dbf870c7df0",
+    "semantic_hash": "52cd683a80e0572a341f1dbf870c7df0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/os_cli.py": {
+    "mtime": 1780837876.400302,
+    "ast_hash": "36a283897f51996bc785ab695afc347b",
+    "semantic_hash": "36a283897f51996bc785ab695afc347b"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/upgrade_user.py": {
+    "mtime": 1780770286.4305377,
+    "ast_hash": "7f4d0f949c8ed0c47be939afc86d3f55",
+    "semantic_hash": "7f4d0f949c8ed0c47be939afc86d3f55"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/router.py": {
+    "mtime": 1780841973.1239784,
+    "ast_hash": "9d4757012ec2d85cb853b515020f3851",
+    "semantic_hash": "9d4757012ec2d85cb853b515020f3851"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/replay_execution.py": {
+    "mtime": 1780840081.8491845,
+    "ast_hash": "8361d5d9bfa5ef64eac78b1bcd7987a3",
+    "semantic_hash": "8361d5d9bfa5ef64eac78b1bcd7987a3"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/freeze_check.py": {
+    "mtime": 1780837476.517977,
+    "ast_hash": "e373fd5cda3943c81f97a161207765dd",
+    "semantic_hash": "e373fd5cda3943c81f97a161207765dd"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/scripts/import_historical_matches.py": {
+    "mtime": 1780744303.9177756,
+    "ast_hash": "0a8f1be2f66a670711062585c5c01617",
+    "semantic_hash": "0a8f1be2f66a670711062585c5c01617"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/db/supabase_schema.sql": {
+    "mtime": 1780852798.3988588,
+    "ast_hash": "6354e27988b4d7ed7ea1d279139c8951",
+    "semantic_hash": "6354e27988b4d7ed7ea1d279139c8951"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/db/disable_rls.sql": {
+    "mtime": 1780409422.9938276,
+    "ast_hash": "7d9c90963fb2236aa7fafc3c4bcd1b6c",
+    "semantic_hash": "7d9c90963fb2236aa7fafc3c4bcd1b6c"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/api/__init__.py": {
+    "mtime": 1780402484.1709273,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/api/main.py": {
+    "mtime": 1781311392.8717518,
+    "ast_hash": "43ddbd66f2642ea41aa323ead4a0a593",
+    "semantic_hash": "43ddbd66f2642ea41aa323ead4a0a593"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/api/control_plane/routes.py": {
+    "mtime": 1780968229.2480438,
+    "ast_hash": "77bf41ffaa223e5dbde66c01b381d00f",
+    "semantic_hash": "77bf41ffaa223e5dbde66c01b381d00f"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/api/gateway/auth.py": {
+    "mtime": 1780968343.5721147,
+    "ast_hash": "e9cbd23bad5ef2e238bcde1a359940bf",
+    "semantic_hash": "e9cbd23bad5ef2e238bcde1a359940bf"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/api/gateway/router.py": {
+    "mtime": 1780968356.6864908,
+    "ast_hash": "38b03cf2d6b0d14efcaab7c91bb3da3e",
+    "semantic_hash": "38b03cf2d6b0d14efcaab7c91bb3da3e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/api/gateway/safety.py": {
+    "mtime": 1780851251.2400126,
+    "ast_hash": "b8acbdba56dbda58cc6a3ef8aca8b038",
+    "semantic_hash": "b8acbdba56dbda58cc6a3ef8aca8b038"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/api/gateway/middleware.py": {
+    "mtime": 1780851162.8598192,
+    "ast_hash": "330589b62e05eec33a3d220d8b63f777",
+    "semantic_hash": "330589b62e05eec33a3d220d8b63f777"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/skills/worldcup_skill.py": {
+    "mtime": 1781245051.134169,
+    "ast_hash": "381454946bd532fc7fee50bea46531e1",
+    "semantic_hash": "381454946bd532fc7fee50bea46531e1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/skills/model_router.py": {
+    "mtime": 1781311413.6679485,
+    "ast_hash": "4e0d91fbf8249339ea23bd6e41fd1d2c",
+    "semantic_hash": "4e0d91fbf8249339ea23bd6e41fd1d2c"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/skills/router_skills.py": {
+    "mtime": 1780749615.281026,
+    "ast_hash": "9e43b7fd0f0755c593690b1a853d5b67",
+    "semantic_hash": "9e43b7fd0f0755c593690b1a853d5b67"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/skills/posting_skill.py": {
+    "mtime": 1780763236.5400867,
+    "ast_hash": "4dae1860b82eaf9f0f91c9508c01dfe1",
+    "semantic_hash": "4dae1860b82eaf9f0f91c9508c01dfe1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/skills/trending_injector.py": {
+    "mtime": 1780747517.349704,
+    "ast_hash": "2afa57adcba68afad53efe7817761119",
+    "semantic_hash": "2afa57adcba68afad53efe7817761119"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/skills/context_enricher.py": {
+    "mtime": 1780747134.7946448,
+    "ast_hash": "414da79adfa7b027c6ff40d890022e63",
+    "semantic_hash": "414da79adfa7b027c6ff40d890022e63"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/activate.ps1": {
+    "mtime": 1780967313.1387181,
+    "ast_hash": "cb709b114fd0587654781a9cfa1692e1",
+    "semantic_hash": "cb709b114fd0587654781a9cfa1692e1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/dotenv": {
+    "mtime": 1780967326.7803414,
+    "ast_hash": "52a4b28ae065b74a3cb3273b28d4a6b7",
+    "semantic_hash": "52a4b28ae065b74a3cb3273b28d4a6b7"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/pytest": {
+    "mtime": 1780967326.8785048,
+    "ast_hash": "887428f05d1c31d1c4dd78c1b169c930",
+    "semantic_hash": "887428f05d1c31d1c4dd78c1b169c930"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/coverage3": {
+    "mtime": 1780967326.7606199,
+    "ast_hash": "9d70a7670faebb2ce1a26068aad31692",
+    "semantic_hash": "9d70a7670faebb2ce1a26068aad31692"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/idna": {
+    "mtime": 1780967327.00079,
+    "ast_hash": "1012d8b6bca5203489b783c490be939f",
+    "semantic_hash": "1012d8b6bca5203489b783c490be939f"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/websockets": {
+    "mtime": 1780967326.8678625,
+    "ast_hash": "978d2f85b721901dc45ca9a03caef5ef",
+    "semantic_hash": "978d2f85b721901dc45ca9a03caef5ef"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/activate_this.py": {
+    "mtime": 1780967313.140888,
+    "ast_hash": "b8a6623e735e3e07199ec11c043a30fb",
+    "semantic_hash": "b8a6623e735e3e07199ec11c043a30fb"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/httpx": {
+    "mtime": 1780967326.8634906,
+    "ast_hash": "bd83aa3fbed74783d49113e552cb1847",
+    "semantic_hash": "bd83aa3fbed74783d49113e552cb1847"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/pyiceberg": {
+    "mtime": 1780967327.0092585,
+    "ast_hash": "23f3ed2009838947dddf5c0daec27fd0",
+    "semantic_hash": "23f3ed2009838947dddf5c0daec27fd0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/markdown-it": {
+    "mtime": 1780967326.7992413,
+    "ast_hash": "001b530981f55df13d8b5942bfe5a8f5",
+    "semantic_hash": "001b530981f55df13d8b5942bfe5a8f5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/fastapi": {
+    "mtime": 1780967326.7490633,
+    "ast_hash": "688bb2788ec0cde2413000c68dab7888",
+    "semantic_hash": "688bb2788ec0cde2413000c68dab7888"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/pygmentize": {
+    "mtime": 1780967326.9889116,
+    "ast_hash": "6791581d53dd10218fcee204f6aaea25",
+    "semantic_hash": "6791581d53dd10218fcee204f6aaea25"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/uvicorn": {
+    "mtime": 1780967326.8150208,
+    "ast_hash": "760a35e3b60d887ba448f98bd406a13b",
+    "semantic_hash": "760a35e3b60d887ba448f98bd406a13b"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/normalizer": {
+    "mtime": 1780967326.9806287,
+    "ast_hash": "ec80f89bec5d9acc438f56372623864d",
+    "semantic_hash": "ec80f89bec5d9acc438f56372623864d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.venv311/bin/coverage": {
+    "mtime": 1780967326.7546842,
+    "ast_hash": "9d70a7670faebb2ce1a26068aad31692",
+    "semantic_hash": "9d70a7670faebb2ce1a26068aad31692"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.vscode/settings.json": {
+    "mtime": 1780851383.8779044,
+    "ast_hash": "5630e2fc1e69cbb090168e41ba328595",
+    "semantic_hash": "5630e2fc1e69cbb090168e41ba328595"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/base_app/manifest.py": {
+    "mtime": 1780842795.3601727,
+    "ast_hash": "9c12a67e66a40ee8068ec9dade43fa7a",
+    "semantic_hash": "9c12a67e66a40ee8068ec9dade43fa7a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/base_app/adapter.py": {
+    "mtime": 1780842944.8840714,
+    "ast_hash": "84a4c632a00ea0cd0b5ab5e1318ecef6",
+    "semantic_hash": "84a4c632a00ea0cd0b5ab5e1318ecef6"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/base_app/__init__.py": {
+    "mtime": 1780841985.32432,
+    "ast_hash": "cf7c54ab8bd9abfd2415e2aa88fbfb82",
+    "semantic_hash": "cf7c54ab8bd9abfd2415e2aa88fbfb82"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/listening_farm_ai/policy.json": {
+    "mtime": 1780843028.2122245,
+    "ast_hash": "089b6e009b89f86145db8b25e4ced76d",
+    "semantic_hash": "089b6e009b89f86145db8b25e4ced76d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/listening_farm_ai/config.json": {
+    "mtime": 1780842989.8210928,
+    "ast_hash": "3a1b300aa0cd30ac49cc13088df2374c",
+    "semantic_hash": "3a1b300aa0cd30ac49cc13088df2374c"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/listening_farm_ai/manifest.json": {
+    "mtime": 1780842974.6385772,
+    "ast_hash": "9ee05ef22a2358e4306e8b04636b8fc9",
+    "semantic_hash": "9ee05ef22a2358e4306e8b04636b8fc9"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/listening_farm_ai/app.py": {
+    "mtime": 1780843038.2414637,
+    "ast_hash": "4e8b9cf9e4d4d9999f590a3b2a676805",
+    "semantic_hash": "4e8b9cf9e4d4d9999f590a3b2a676805"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/listening_farm_ai/workflow.py": {
+    "mtime": 1780845907.4202335,
+    "ast_hash": "8e15e99337f1bdc381d8c80d627d634d",
+    "semantic_hash": "8e15e99337f1bdc381d8c80d627d634d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/syncmaster_ai/manifest.json": {
+    "mtime": 1780842833.6205292,
+    "ast_hash": "c2d7aab26220ec6bf54fc7dffd735b7a",
+    "semantic_hash": "c2d7aab26220ec6bf54fc7dffd735b7a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/syncmaster_ai/app.py": {
+    "mtime": 1780841462.5603101,
+    "ast_hash": "f36e4b9e908bdbf25444d6bb1b595a3d",
+    "semantic_hash": "f36e4b9e908bdbf25444d6bb1b595a3d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/syncmaster_ai/workflow.py": {
+    "mtime": 1780845879.7011437,
+    "ast_hash": "02f04b40ba3840d4b7f8ee0603a8fb5f",
+    "semantic_hash": "02f04b40ba3840d4b7f8ee0603a8fb5f"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/seed_report.md": {
+    "mtime": 1780745974.430168,
+    "ast_hash": "5cdc983d455e03052fd2d4fb7389bdd0",
+    "semantic_hash": "5cdc983d455e03052fd2d4fb7389bdd0"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/requirements-audio.txt": {
+    "mtime": 1780862949.5362892,
+    "ast_hash": "141f65a2221b8a7aae7a762629b2dee5",
+    "semantic_hash": "141f65a2221b8a7aae7a762629b2dee5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/requirements-model-tagging.txt": {
+    "mtime": 1779775039.3938584,
+    "ast_hash": "27ffb30bdbe365a7b312bd8358094aae",
+    "semantic_hash": "27ffb30bdbe365a7b312bd8358094aae"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/architecture_contract.md": {
+    "mtime": 1780835193.9718733,
+    "ast_hash": "ab493632537a0c143b1de0cd11b0dc50",
+    "semantic_hash": "ab493632537a0c143b1de0cd11b0dc50"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/replay_integrity_report.md": {
+    "mtime": 1780839302.753172,
+    "ast_hash": "360184b1cbe76ec0d3f9b67021bd4f96",
+    "semantic_hash": "360184b1cbe76ec0d3f9b67021bd4f96"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/requirements.txt": {
+    "mtime": 1780862948.6399333,
+    "ast_hash": "776a403179d0fb0d24bbd279e5bdd38d",
+    "semantic_hash": "776a403179d0fb0d24bbd279e5bdd38d"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/determinism_report.md": {
+    "mtime": 1780839296.8440185,
+    "ast_hash": "c9b30b8a6b187ca2e3da122e591f8849",
+    "semantic_hash": "c9b30b8a6b187ca2e3da122e591f8849"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/requirements-prod.txt": {
+    "mtime": 1780864158.7015545,
+    "ast_hash": "12800e5ccf9826b6e95348d519627adf",
+    "semantic_hash": "12800e5ccf9826b6e95348d519627adf"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/progress.md": {
+    "mtime": 1780749680.79176,
+    "ast_hash": "6655d6674ae75814f2be59d247298989",
+    "semantic_hash": "6655d6674ae75814f2be59d247298989"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/requirements-base.txt": {
+    "mtime": 1780864193.0183833,
+    "ast_hash": "86d9bc59bec94f0384c931b3a45b71a3",
+    "semantic_hash": "86d9bc59bec94f0384c931b3a45b71a3"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/requirements-dev.txt": {
+    "mtime": 1780864157.8172665,
+    "ast_hash": "40aed4adef641dca1ee02ac4778d6231",
+    "semantic_hash": "40aed4adef641dca1ee02ac4778d6231"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docker-compose.yml": {
+    "mtime": 1780862943.696821,
+    "ast_hash": "08ce7768d4e3036dd932234099147ca1",
+    "semantic_hash": "08ce7768d4e3036dd932234099147ca1"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/certification_report.md": {
+    "mtime": 1781239860.0296638,
+    "ast_hash": "a54d09409d374e4206bbcb1a243ee4de",
+    "semantic_hash": "a54d09409d374e4206bbcb1a243ee4de"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/requirements-lock.txt": {
+    "mtime": 1780864154.4882052,
+    "ast_hash": "f732ec1a8ef5838124cf7a2b6654fd7c",
+    "semantic_hash": "f732ec1a8ef5838124cf7a2b6654fd7c"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/governance_audit_report.md": {
+    "mtime": 1780839308.534516,
+    "ast_hash": "68842df83d1dc61b442190fc66734098",
+    "semantic_hash": "68842df83d1dc61b442190fc66734098"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/experimental/README.md": {
+    "mtime": 1780840156.4734232,
+    "ast_hash": "5e084f2af4c6050ee4196d6dd660807e",
+    "semantic_hash": "5e084f2af4c6050ee4196d6dd660807e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/admin_ui/index.html": {
+    "mtime": 1780852648.939276,
+    "ast_hash": "89be6bc3b5aa059aec352b08991d47bd",
+    "semantic_hash": "89be6bc3b5aa059aec352b08991d47bd"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/platform/README.md": {
+    "mtime": 1780840155.155095,
+    "ast_hash": "078278b929ffaf3804c22cc0b72d9ece",
+    "semantic_hash": "078278b929ffaf3804c22cc0b72d9ece"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/execution_flow.md": {
+    "mtime": 1780840161.4750917,
+    "ast_hash": "61af18254e0ddd23e3a251d0a9b92698",
+    "semantic_hash": "61af18254e0ddd23e3a251d0a9b92698"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/listening_farm_architecture.md": {
+    "mtime": 1780843126.0333073,
+    "ast_hash": "1910c0615757cad7cb6aaed276fc771e",
+    "semantic_hash": "1910c0615757cad7cb6aaed276fc771e"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/tool_governance_model.md": {
+    "mtime": 1780843146.108173,
+    "ast_hash": "536f27be8505555419640ff510f60bb5",
+    "semantic_hash": "536f27be8505555419640ff510f60bb5"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/system_map.md": {
+    "mtime": 1780840159.210967,
+    "ast_hash": "424e0028d16ddcc780dbe8a39d8fda94",
+    "semantic_hash": "424e0028d16ddcc780dbe8a39d8fda94"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/app_isolation_model.md": {
+    "mtime": 1780841710.498074,
+    "ast_hash": "ad493445b3205711ed8336be454d9f75",
+    "semantic_hash": "ad493445b3205711ed8336be454d9f75"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/SESSION_ARCHITECTURE_2026-05-26.md": {
+    "mtime": 1780749686.8420172,
+    "ast_hash": "e2f40a68dc752a6bc5367ff7ed464869",
+    "semantic_hash": "e2f40a68dc752a6bc5367ff7ed464869"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/contributor_rules.md": {
+    "mtime": 1780840158.466998,
+    "ast_hash": "c623ba4b6a52a6efd6f00a94437afb83",
+    "semantic_hash": "c623ba4b6a52a6efd6f00a94437afb83"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/PRD_WorldCup_AI_Generator.md": {
+    "mtime": 1780749671.0410805,
+    "ast_hash": "9953e4e362de1dc740dded38bc960c0a",
+    "semantic_hash": "9953e4e362de1dc740dded38bc960c0a"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/import_topology.md": {
+    "mtime": 1780840159.9539363,
+    "ast_hash": "c7a786e72c3c68af7a9213c175655fa4",
+    "semantic_hash": "c7a786e72c3c68af7a9213c175655fa4"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/syncmaster_workflow.md": {
+    "mtime": 1780843113.36042,
+    "ast_hash": "2ca98997285f93c7442e24dffc489281",
+    "semantic_hash": "2ca98997285f93c7442e24dffc489281"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/implementation_plan.md": {
+    "mtime": 1780861905.0578067,
+    "ast_hash": "a2175655ba8e8b7db83bb082c0713656",
+    "semantic_hash": "a2175655ba8e8b7db83bb082c0713656"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/runtime_lifecycle.md": {
+    "mtime": 1780840160.7062395,
+    "ast_hash": "72d67d23bbe861503cf86b6fa9055efa",
+    "semantic_hash": "72d67d23bbe861503cf86b6fa9055efa"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/superpowers/codex implementation plan.md": {
+    "mtime": 1780739062.3452067,
+    "ast_hash": "6c353ce362533aa48e4840ec0f320ebf",
+    "semantic_hash": "6c353ce362533aa48e4840ec0f320ebf"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/superpowers/plans/implementaion engineer.md": {
+    "mtime": 1780749691.9172053,
+    "ast_hash": "f36bfacc13c00f0730d35afe2b40fb01",
+    "semantic_hash": "f36bfacc13c00f0730d35afe2b40fb01"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/superpowers/plans/2026-06-04-few-shot-examples.md": {
+    "mtime": 1780593010.852231,
+    "ast_hash": "f73976809a1ce7b2fcebbf95fe140c42",
+    "semantic_hash": "f73976809a1ce7b2fcebbf95fe140c42"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/workflow_maps/execution_flow.md": {
+    "mtime": 1780845479.7779899,
+    "ast_hash": "0d8713860a38f738bcf5c884bb9cfc72",
+    "semantic_hash": "0d8713860a38f738bcf5c884bb9cfc72"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.github/workflows/deploy.yml": {
+    "mtime": 1781308378.5350347,
+    "ast_hash": "272c656449de8e9587052a6bab6f4df8",
+    "semantic_hash": "272c656449de8e9587052a6bab6f4df8"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/.github/workflows/ci.yml": {
+    "mtime": 1781244913.2670498,
+    "ast_hash": "40c1c6de86f019a2f573b4c29f33d564",
+    "semantic_hash": "40c1c6de86f019a2f573b4c29f33d564"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/apps/README.md": {
+    "mtime": 1781000821.282818,
+    "ast_hash": "d56c0895da94a81b25afabf129be2ebf",
+    "semantic_hash": "d56c0895da94a81b25afabf129be2ebf"
+  },
+  "/Users/dakolmasiyer/Projects/Dakol-AI-OS/Dakol-AI-OS/docs/syncmaster_architecture.svg": {
+    "mtime": 1780398560.650231,
+    "ast_hash": "137c90a459c55bb9632f0c2d18df1e58",
+    "semantic_hash": "137c90a459c55bb9632f0c2d18df1e58"
+  }
+}

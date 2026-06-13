@@ -2,9 +2,7 @@
 Dakol AI OS — World Cup Skill
 Chains: FootballDataAgent → WorldCupContentAgent → LLM → structured output
 
-LLM routing strategy:
-  Short content (twitter, instagram, linkedin)  → Groq first (fast) → Gemini → Hugging Face
-  Long content  (preview, spotlight, youtube)   → Gemini first      → Groq   → Hugging Face
+# Content generation dispatched via model_router.generate_with_fallback() — see api/main.py:69
 """
 
 import os

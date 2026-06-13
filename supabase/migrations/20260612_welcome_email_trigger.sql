@@ -1,0 +1,53 @@
+-- Welcome email on first sign-in
+--
+-- AUDIT: This project sends email via Supabase Auth built-in templates only.
+-- No Resend, no SendGrid, no custom SMTP is configured.
+--
+-- HOW SUPABASE HANDLES WELCOME EMAIL:
+--
+--   1. Email + magic link signups:
+--      Supabase automatically sends a "Confirm signup" email using the built-in
+--      email template. Configure in:
+--        Supabase Dashboard → Authentication → Email Templates → Confirm signup
+--      No SQL migration required.
+--
+--   2. Google OAuth (first sign-in):
+--      Supabase does NOT send a welcome email for OAuth signups automatically.
+--      To send one, you need:
+--        a) Enable the pg_net extension (Supabase Pro or self-hosted with pg_net)
+--        b) Create a Supabase Edge Function (e.g. supabase/functions/welcome-email/index.ts)
+--           that calls your email provider (Resend, SendGrid, etc.)
+--        c) Wire a trigger on auth.users INSERT to invoke it via pg_net:
+--
+-- TODO: If welcome emails for OAuth sign-ins are required, complete these steps:
+--
+--   Step 1 — Enable pg_net (run once in Supabase SQL editor):
+--     CREATE EXTENSION IF NOT EXISTS pg_net;
+--
+--   Step 2 — Create Edge Function at supabase/functions/welcome-email/index.ts
+--     The function receives { email, name } and calls your email provider.
+--
+--   Step 3 — Add trigger (uncomment and fill in your edge function URL):
+--
+-- CREATE OR REPLACE FUNCTION public.handle_new_user_welcome()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--   -- Only fire on first insert (new account), skip if user already existed
+--   PERFORM net.http_post(
+--     url     := 'https://<project-ref>.supabase.co/functions/v1/welcome-email',
+--     headers := jsonb_build_object(
+--       'Content-Type',  'application/json',
+--       'Authorization', 'Bearer ' || current_setting('app.supabase_service_key', true)
+--     ),
+--     body    := jsonb_build_object(
+--       'email', NEW.email,
+--       'name',  COALESCE(NEW.raw_user_meta_data->>'full_name', split_part(NEW.email, '@', 1))
+--     )
+--   );
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql SECURITY DEFINER;
+--
+-- CREATE TRIGGER on_auth_user_created_welcome
+--   AFTER INSERT ON auth.users
+--   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user_welcome();

@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS content_outputs (
   content_type        TEXT NOT NULL,
   input_prompt        TEXT,
   output_text         TEXT NOT NULL,
-  model               TEXT DEFAULT 'gemini-2.5-flash',
+  model               TEXT DEFAULT 'gemini-1.5-flash',
   input_tokens        INTEGER DEFAULT 0,
   output_tokens       INTEGER DEFAULT 0,
   total_tokens        INTEGER DEFAULT 0,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS prompts (
   user_template  TEXT NOT NULL,
   max_tokens     INTEGER DEFAULT 800,
   temperature    FLOAT DEFAULT 0.8,
-  model          TEXT DEFAULT 'gemini-2.5-flash',
+  model          TEXT DEFAULT 'gemini-1.5-flash',
   is_active      BOOLEAN DEFAULT TRUE,
   created_at     TIMESTAMPTZ DEFAULT NOW()
 );
@@ -255,6 +255,9 @@ CREATE POLICY "Users can insert their own brand profile" ON brand_profiles FOR I
 DROP POLICY IF EXISTS "Users can update their own brand profile" ON brand_profiles;
 CREATE POLICY "Users can update their own brand profile" ON brand_profiles FOR UPDATE USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 
+CREATE POLICY "brand_profiles_delete" ON brand_profiles
+  FOR DELETE USING (auth.uid() = user_id);
+
 DROP POLICY IF EXISTS "Users can read their own saved content" ON saved_content;
 CREATE POLICY "Users can read their own saved content" ON saved_content FOR SELECT USING (auth.uid() = user_id);
 
@@ -281,9 +284,6 @@ CREATE POLICY "Users can delete their own social connections" ON social_connecti
 
 DROP POLICY IF EXISTS "historical_matches_public_read" ON historical_matches;
 CREATE POLICY "historical_matches_public_read" ON historical_matches FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "historical_matches_anon_insert" ON historical_matches;
-CREATE POLICY "historical_matches_anon_insert" ON historical_matches FOR INSERT TO anon WITH CHECK (true);
 
 -- Service-role full access policies
 DROP POLICY IF EXISTS "service_full_access_users" ON users;

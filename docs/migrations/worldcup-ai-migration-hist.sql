@@ -31,10 +31,6 @@ DROP POLICY IF EXISTS "historical_matches_public_read" ON historical_matches;
 CREATE POLICY "historical_matches_public_read" ON historical_matches 
   FOR SELECT USING (true);
 
-DROP POLICY IF EXISTS "historical_matches_anon_insert" ON historical_matches;
-CREATE POLICY "historical_matches_anon_insert" ON historical_matches 
-  FOR INSERT TO anon WITH CHECK (true);
-
 DROP POLICY IF EXISTS "historical_matches_service_all" ON historical_matches;
 CREATE POLICY "historical_matches_service_all" ON historical_matches 
   FOR ALL TO service_role USING (true);
