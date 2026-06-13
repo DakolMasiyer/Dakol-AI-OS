@@ -121,6 +121,12 @@ class WorldCupPostRequest(BaseModel):
     content_type: str
 
 
+class AnalyzeProfileRequest(BaseModel):
+    url: Optional[str] = None
+    handle: Optional[str] = None
+    platform: Optional[str] = None
+
+
 class TaskRequest(BaseModel):
     task: str
 
@@ -445,6 +451,38 @@ def worldcup_content_types():
     """Return all supported content generation types."""
     from skills.worldcup_skill import list_content_types
     return {"content_types": list_content_types()}
+
+
+@app.post("/worldcup/analyze-profile")
+@limiter.limit("10/minute", key_func=get_remote_address)
+async def worldcup_analyze_profile(
+    request: Request,
+    payload: AnalyzeProfileRequest,
+    auth_user: Dict[str, Any] = Depends(require_auth),
+):
+    """Infer brand voice (tone, style notes, hashtags) from a public social profile.
+
+    Best-effort and non-fatal: always returns a usable result so onboarding can
+    proceed even when the profile can't be fetched.
+    """
+    from skills.profile_analyzer import analyze_profile
+
+    try:
+        return await asyncio.to_thread(
+            analyze_profile,
+            url=payload.url,
+            handle=payload.handle,
+            platform=payload.platform,
+        )
+    except Exception:
+        logger.warning("analyze-profile failed", exc_info=True)
+        return {
+            "tone_key": "analytical",
+            "style_notes": "",
+            "suggested_hashtags": [],
+            "coverage": "inferred",
+            "status": "ok",
+        }
 
 
 @app.post("/worldcup/post")
