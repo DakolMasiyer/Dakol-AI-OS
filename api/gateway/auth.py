@@ -3,11 +3,29 @@ from typing import Optional, Dict, Any
 from fastapi import Request, HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
+from jwt import PyJWKClient
 
 security = HTTPBearer(auto_error=False)
 
 def get_supabase_jwt_secret() -> str:
     return os.environ.get("SUPABASE_JWT_SECRET", "")
+
+
+# Modern Supabase projects sign access tokens with asymmetric keys (ES256) and
+# publish the public keys via JWKS. The client caches fetched keys internally,
+# so we build it once at module load. Legacy projects use HS256 + the shared
+# JWT secret, which we keep as a fallback below.
+_jwks_client: Optional[PyJWKClient] = None
+
+
+def _get_jwks_client() -> Optional[PyJWKClient]:
+    global _jwks_client
+    if _jwks_client is None:
+        supabase_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
+        if not supabase_url:
+            return None
+        _jwks_client = PyJWKClient(f"{supabase_url}/auth/v1/.well-known/jwks.json")
+    return _jwks_client
 
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(security)) -> Optional[Dict[str, Any]]:
     """
@@ -21,19 +39,29 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(
         return {"sub": "anonymous", "role": "anon"}
         
     token = credentials.credentials
-    secret = get_supabase_jwt_secret()
-    
-    if not secret:
-        # In dev mode without a secret, we might just decode without verification 
-        # or reject. For safety, reject if secret is missing in prod, but mock it here if needed.
-        if os.environ.get("ENVIRONMENT") != "production":
-            try:
-                payload = jwt.decode(token, options={"verify_signature": False})
-                return payload
-            except Exception:
-                pass
+
+    # Determine the signing algorithm from the token header so we verify with
+    # the right key material (ES256 via JWKS for modern Supabase projects,
+    # HS256 via shared secret for legacy ones).
+    try:
+        alg = jwt.get_unverified_header(token).get("alg", "")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
     try:
+        if alg.startswith("ES") or alg.startswith("RS"):
+            jwks_client = _get_jwks_client()
+            if jwks_client is None:
+                raise HTTPException(status_code=500, detail="Auth not configured (SUPABASE_URL missing)")
+            signing_key = jwks_client.get_signing_key_from_jwt(token).key
+            payload = jwt.decode(token, signing_key, algorithms=[alg], audience="authenticated")
+            return payload
+
+        # Legacy HS256 path.
+        secret = get_supabase_jwt_secret()
+        if not secret and os.environ.get("ENVIRONMENT") != "production":
+            # Dev convenience: decode without verification when no secret is set.
+            return jwt.decode(token, options={"verify_signature": False})
         payload = jwt.decode(token, secret, algorithms=["HS256"], audience="authenticated")
         return payload
     except jwt.ExpiredSignatureError:
