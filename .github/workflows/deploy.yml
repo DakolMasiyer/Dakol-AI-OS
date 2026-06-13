@@ -43,6 +43,7 @@ jobs:
           env_vars: |
             ENVIRONMENT=production
           secrets: |
+            FOOTBALL_DATA_API_KEY=FOOTBALL_DATA_API_KEY:latest
             SUPABASE_URL=SUPABASE_URL:latest
             SUPABASE_KEY=SUPABASE_KEY:latest
             SUPABASE_JWT_SECRET=SUPABASE_JWT_SECRET:latest

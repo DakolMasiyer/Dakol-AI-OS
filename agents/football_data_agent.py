@@ -139,6 +139,246 @@ MOCK_FIXTURES = [
         "score": "TBD",
         "competition": "FIFA World Cup 2026",
     },
+    # ── Group A (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-009",
+        "external_id": "mock-009",
+        "home_team": "Poland",
+        "away_team": "Ecuador",
+        "home_team_flag": "🇵🇱",
+        "away_team_flag": "🇪🇨",
+        "stage": "Group A",
+        "status": "scheduled",
+        "date": "2026-06-19T17:00:00Z",
+        "venue": "MetLife Stadium, New York",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group A (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-010",
+        "external_id": "mock-010",
+        "home_team": "Argentina",
+        "away_team": "Poland",
+        "home_team_flag": "🇦🇷",
+        "away_team_flag": "🇵🇱",
+        "stage": "Group A",
+        "status": "scheduled",
+        "date": "2026-06-23T20:00:00Z",
+        "venue": "SoFi Stadium, Los Angeles",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group B (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-011",
+        "external_id": "mock-011",
+        "home_team": "Nigeria",
+        "away_team": "Australia",
+        "home_team_flag": "🇳🇬",
+        "away_team_flag": "🇦🇺",
+        "stage": "Group B",
+        "status": "scheduled",
+        "date": "2026-06-19T20:00:00Z",
+        "venue": "Levi's Stadium, San Francisco",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group B (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-012",
+        "external_id": "mock-012",
+        "home_team": "France",
+        "away_team": "Nigeria",
+        "home_team_flag": "🇫🇷",
+        "away_team_flag": "🇳🇬",
+        "stage": "Group B",
+        "status": "scheduled",
+        "date": "2026-06-23T17:00:00Z",
+        "venue": "AT&T Stadium, Dallas",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group C (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-013",
+        "external_id": "mock-013",
+        "home_team": "Iran",
+        "away_team": "Panama",
+        "home_team_flag": "🇮🇷",
+        "away_team_flag": "🇵🇦",
+        "stage": "Group C",
+        "status": "scheduled",
+        "date": "2026-06-20T17:00:00Z",
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group C (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-014",
+        "external_id": "mock-014",
+        "home_team": "USA",
+        "away_team": "Iran",
+        "home_team_flag": "🇺🇸",
+        "away_team_flag": "🇮🇷",
+        "stage": "Group C",
+        "status": "scheduled",
+        "date": "2026-06-24T21:00:00Z",
+        "venue": "Arrowhead Stadium, Kansas City",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group D (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-015",
+        "external_id": "mock-015",
+        "home_team": "Croatia",
+        "away_team": "Switzerland",
+        "home_team_flag": "🇭🇷",
+        "away_team_flag": "🇨🇭",
+        "stage": "Group D",
+        "status": "scheduled",
+        "date": "2026-06-20T21:00:00Z",
+        "venue": "AT&T Stadium, Dallas",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group D (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-016",
+        "external_id": "mock-016",
+        "home_team": "Brazil",
+        "away_team": "Croatia",
+        "home_team_flag": "🇧🇷",
+        "away_team_flag": "🇭🇷",
+        "stage": "Group D",
+        "status": "scheduled",
+        "date": "2026-06-24T18:00:00Z",
+        "venue": "Estadio Azteca, Mexico City",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group E (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-017",
+        "external_id": "mock-017",
+        "home_team": "Belgium",
+        "away_team": "Costa Rica",
+        "home_team_flag": "🇧🇪",
+        "away_team_flag": "🇨🇷",
+        "stage": "Group E",
+        "status": "scheduled",
+        "date": "2026-06-21T17:00:00Z",
+        "venue": "NRG Stadium, Houston",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group E (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-018",
+        "external_id": "mock-018",
+        "home_team": "Spain",
+        "away_team": "Belgium",
+        "home_team_flag": "🇪🇸",
+        "away_team_flag": "🇧🇪",
+        "stage": "Group E",
+        "status": "scheduled",
+        "date": "2026-06-25T18:00:00Z",
+        "venue": "AT&T Stadium, Dallas",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group F (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-019",
+        "external_id": "mock-019",
+        "home_team": "Uruguay",
+        "away_team": "South Korea",
+        "home_team_flag": "🇺🇾",
+        "away_team_flag": "🇰🇷",
+        "stage": "Group F",
+        "status": "scheduled",
+        "date": "2026-06-21T20:00:00Z",
+        "venue": "Levi's Stadium, San Francisco",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group F (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-020",
+        "external_id": "mock-020",
+        "home_team": "Portugal",
+        "away_team": "Uruguay",
+        "home_team_flag": "🇵🇹",
+        "away_team_flag": "🇺🇾",
+        "stage": "Group F",
+        "status": "scheduled",
+        "date": "2026-06-25T21:00:00Z",
+        "venue": "SoFi Stadium, Los Angeles",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group G (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-021",
+        "external_id": "mock-021",
+        "home_team": "Cameroon",
+        "away_team": "Chile",
+        "home_team_flag": "🇨🇲",
+        "away_team_flag": "🇨🇱",
+        "stage": "Group G",
+        "status": "scheduled",
+        "date": "2026-06-22T17:00:00Z",
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group G (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-022",
+        "external_id": "mock-022",
+        "home_team": "Italy",
+        "away_team": "Cameroon",
+        "home_team_flag": "🇮🇹",
+        "away_team_flag": "🇨🇲",
+        "stage": "Group G",
+        "status": "scheduled",
+        "date": "2026-06-26T18:00:00Z",
+        "venue": "MetLife Stadium, New York",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group H (2nd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-023",
+        "external_id": "mock-023",
+        "home_team": "Serbia",
+        "away_team": "Egypt",
+        "home_team_flag": "🇷🇸",
+        "away_team_flag": "🇪🇬",
+        "stage": "Group H",
+        "status": "scheduled",
+        "date": "2026-06-22T21:00:00Z",
+        "venue": "NRG Stadium, Houston",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
+    # ── Group H (3rd match) ───────────────────────────────────────────────────
+    {
+        "id": "wc2026-024",
+        "external_id": "mock-024",
+        "home_team": "Colombia",
+        "away_team": "Serbia",
+        "home_team_flag": "🇨🇴",
+        "away_team_flag": "🇷🇸",
+        "stage": "Group H",
+        "status": "scheduled",
+        "date": "2026-06-26T21:00:00Z",
+        "venue": "Arrowhead Stadium, Kansas City",
+        "score": "TBD",
+        "competition": "FIFA World Cup 2026",
+    },
 ]
 
 
@@ -157,15 +397,20 @@ def _fetch_football_api(path: str) -> Optional[dict]:
     api_key = os.environ.get("FOOTBALL_DATA_API_KEY")
     if not api_key:
         return None
+    url = f"{FOOTBALL_API_BASE}{path}"
     try:
-        req = urllib.request.Request(
-            f"{FOOTBALL_API_BASE}{path}",
-            headers={"X-Auth-Token": api_key},
-        )
+        req = urllib.request.Request(url, headers={"X-Auth-Token": api_key})
         with urllib.request.urlopen(req, timeout=10) as resp:
             return json.loads(resp.read().decode())
+    except urllib.error.HTTPError as e:
+        body = e.read(500).decode(errors="replace")
+        print(f"[MATCH_FETCH] HTTPError {e.code} from {url} — body: {body[:500]}")
+        return None
+    except urllib.error.URLError as e:
+        print(f"[MATCH_FETCH] URLError for {url} — reason: {e.reason}")
+        return None
     except Exception as e:
-        print(f"[football_data_agent] API error: {e}")
+        print(f"[MATCH_FETCH] Unexpected error for {url}: {e}")
         return None
 
 
@@ -180,12 +425,15 @@ def get_matches(competition: str = "WC") -> List[dict]:
     # Try live API
     data = _fetch_football_api(f"/competitions/{competition}/matches?status=SCHEDULED,LIVE,FINISHED")
     if data and "matches" in data:
+        raw_count = len(data["matches"])
         matches = _format_api_matches(data["matches"])
+        print(f"[MATCH_FETCH] Live API: {raw_count} raw matches → {len(matches)} after filtering (competition={competition})")
         _set_cached(cache_key, matches)
         return matches
 
     # Fallback to mock
-    print("[football_data_agent] No API key or API failed — using mock World Cup 2026 fixtures")
+    has_key = bool(os.environ.get("FOOTBALL_DATA_API_KEY"))
+    print(f"[MATCH_FETCH] Fallback to MOCK_FIXTURES (api_key_present={has_key}, competition={competition})")
     _set_cached(cache_key, MOCK_FIXTURES, ttl=3600)
     return MOCK_FIXTURES
 
