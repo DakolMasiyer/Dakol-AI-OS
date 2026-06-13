@@ -126,9 +126,10 @@ CONTENT_PROMPTS = {
             "historical stats vs this opponent, and a storyline angle."
         ),
         "template": (
-            "Write a player spotlight in context of: {home_team} vs {away_team}\n"
+            "Write a player spotlight for TWO players — one from each team — in context of: {home_team} vs {away_team}\n"
             "Stage: {stage} | Date: {date}\n"
-            "Pick the most compelling player storyline and explore it deeply."
+            "For each player cover: current form, key strengths, one weakness or risk, and why this match matters for them.\n"
+            "Label each section with the player's name and team. Make both sections equally compelling."
         ),
         "max_tokens": 500,
     },
@@ -488,6 +489,58 @@ What leadership lessons have you taken from elite sport? I'd love to hear in the
 
 #Leadership #WorldCup #HighPerformance #Football #Management""",
 
+    # ── AGGRESSIVE ────────────────────────────────────────────────────────────
+
+    ("twitter_thread", "aggressive"): """\
+EXAMPLE of high-performing aggressive Twitter thread (structure to follow):
+
+🔥 THREAD: [Home Team] vs [Away Team] — who's actually showing up?
+
+1/ [Home Team] have been soft for 60 minutes every game. One goal lead and they park the bus. That's not winning football, that's surviving.
+
+2/ [Away Team] midfield has been invisible. [Key Player] hasn't tracked a runner in three matches. Tactically exposed and the coaching staff are pretending not to notice.
+
+3/ This is a must-win for both sets of fans who still believe. One more flat performance and the excuses run out.
+
+4/ Prediction: 2-1. But don't @ me if either keeper has a howler — both have been shaky under high balls all tournament. 🎯""",
+
+    ("instagram_caption", "aggressive"): """\
+EXAMPLE of high-performing aggressive Instagram caption (structure to follow):
+
+No more excuses. [Home Team] vs [Away Team] — this is where reputations get made or buried.
+
+Both squads have underdelivered. The standings don't lie. Tonight someone has to actually want it.
+
+Drop your score prediction below. And be honest — not hopeful. 👇
+
+#FIFAWorldCup2026 #Football #NoExcuses""",
+
+    # ── CUSTOM ────────────────────────────────────────────────────────────────
+
+    ("twitter_thread", "custom"): """\
+EXAMPLE of custom-tone Twitter thread (structure to follow):
+
+[Custom tone applied]
+
+1/ [Home Team] vs [Away Team] — context and preview thread.
+
+2/ Key matchup to watch: the midfield battle will decide this. Both teams set up to control tempo but only one can.
+
+3/ Historical record matters here. Check the H2H — patterns don't lie at tournament level.
+
+4/ Final thought: form is temporary, structure is permanent. Watch the shape, not the names.""",
+
+    ("instagram_caption", "custom"): """\
+EXAMPLE of custom-tone Instagram caption (structure to follow):
+
+[Home Team] vs [Away Team].
+
+Every match at this stage carries weight. Here's what to watch for.
+
+Form, tactics, history — it all converges tonight.
+
+#FIFAWorldCup2026""",
+
     # ── YOUTUBE SCRIPT ────────────────────────────────────────────────────────
 
     ("youtube_script", "hype"): """\
@@ -579,6 +632,9 @@ class WorldCupContentAgent(BaseAgent):
                                 provided, tone_key/region_key/custom_tone_instruction are
                                 used to shape the prompt and select the matching example.
         """
+        # NOTE: prompts table exists in Supabase for future runtime overrides (no deploy needed).
+        # Wire DB lookup here when needed: SELECT * FROM prompts WHERE type=content_type AND is_active=TRUE ORDER BY version DESC LIMIT 1
+        # Falls back to CONTENT_PROMPTS dict below if no active DB row found.
         config = CONTENT_PROMPTS.get(content_type, CONTENT_PROMPTS["match_preview"])
 
         ctx = {

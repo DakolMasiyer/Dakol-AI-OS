@@ -10,7 +10,7 @@ logger = get_logger(__name__)
 
 MODEL_CHAIN = [
     "groq/llama3-70b-8192",
-    "gemini/gemini-1.5-flash",
+    "gemini/gemini-2.5-flash",
     "hf/mistralai/Mistral-7B-Instruct-v0.3",
 ]
 

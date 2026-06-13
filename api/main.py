@@ -1,10 +1,11 @@
 import uuid
 import asyncio
+import contextvars
 import urllib.request
 import tempfile
 import os as _os
 import time
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from typing import Optional, Dict, Any
@@ -21,6 +22,7 @@ from core.api import route_task
 from farm.listener_pipeline import process_uploaded_track
 from skills.model_router import AllModelsUnavailableError, generate_with_fallback
 import skills.worldcup_skill as worldcup_skill
+from api.gateway.auth import require_auth
 from api.gateway.router import gateway_router
 from api.control_plane.routes import control_plane_router
 from api.gateway.middleware import GatewayMiddleware
@@ -313,7 +315,11 @@ def debug_evaluate(payload: EvaluateRequest):
 @app.post("/worldcup/generate")
 @limiter.limit("10/minute", key_func=get_remote_address)
 @limiter.limit("30/minute", key_func=_user_id_rate_limit_key)
-async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
+async def worldcup_generate(
+    request: Request,
+    payload: WorldCupGenerateRequest,
+    auth_user: Dict[str, Any] = Depends(require_auth),
+):
     """
     Generate AI football content for a given match.
     Chains: FootballDataAgent → WorldCupContentAgent → Gemini (quota-rotated)
@@ -322,69 +328,70 @@ async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
     if not payload.match_id:
         return {"error": "match_id is required"}
 
-    user_id = payload.user_id
-    if user_id and user_id != "anonymous":
-        from farm.supabase_client import get_user, get_monthly_output_count, increment_user_usage
-        from datetime import datetime, timezone
+    # Identity always comes from the verified JWT sub claim, never from the request body.
+    user_id = auth_user["sub"]
+    if user_id == "anonymous":
+        raise HTTPException(status_code=401, detail="Authentication required")
 
-        # 1. Daily Usage Check (Existing implicit requirement)
-        usage = increment_user_usage(user_id, tokens=0)
-        if not usage.get("allowed", True):
-            daily_limit = usage.get("daily_limit", 0)
-            return JSONResponse(
-                status_code=402,
-                content={
-                    "error": f"You have reached your daily limit of {daily_limit} free generations. Please upgrade to Pro for unlimited access.",
-                    "status": "error",
-                    "code": "LIMIT_REACHED"
-                }
-            )
+    from farm.supabase_client import get_user, get_monthly_output_count, increment_user_usage
+    from datetime import datetime, timezone
 
-        # 2. Monthly Limit Check (Fix 2)
-        db_user = get_user(user_id)
-        if db_user and db_user.get("tier") != "pro":
-            tier = db_user.get("tier", "free")
-            custom_limit = db_user.get("monthly_limit")
-            
-            # free=30, starter=200, pro=skip
-            limits = {"free": 30, "starter": 200}
-            monthly_limit = custom_limit if custom_limit is not None else limits.get(tier)
+    usage = increment_user_usage(user_id, tokens=0)
+    if not usage.get("allowed", True):
+        daily_limit = usage.get("daily_limit", 0)
+        return JSONResponse(
+            status_code=402,
+            content={
+                "error": f"You have reached your daily limit of {daily_limit} free generations. Please upgrade to Pro for unlimited access.",
+                "status": "error",
+                "code": "LIMIT_REACHED"
+            }
+        )
 
-            if monthly_limit is not None:
-                now = datetime.now(timezone.utc)
-                start = datetime(now.year, now.month, 1, tzinfo=timezone.utc)
-                if now.month == 12:
-                    reset = datetime(now.year + 1, 1, 1, tzinfo=timezone.utc)
-                else:
-                    reset = datetime(now.year, now.month + 1, 1, tzinfo=timezone.utc)
-                
-                count = get_monthly_output_count(user_id, start.isoformat())
-                if count >= monthly_limit:
-                    return JSONResponse(
-                        status_code=402,
-                        content={
-                            "error": "monthly_limit_exceeded",
-                            "reset_at": reset.isoformat()
-                        }
-                    )
+    db_user = get_user(user_id)
+    if db_user and db_user.get("tier") != "pro":
+        tier = db_user.get("tier", "free")
+        custom_limit = db_user.get("monthly_limit")
+        limits = {"free": 30, "starter": 200}
+        monthly_limit = custom_limit if custom_limit is not None else limits.get(tier)
+
+        if monthly_limit is not None:
+            now = datetime.now(timezone.utc)
+            start = datetime(now.year, now.month, 1, tzinfo=timezone.utc)
+            if now.month == 12:
+                reset = datetime(now.year + 1, 1, 1, tzinfo=timezone.utc)
+            else:
+                reset = datetime(now.year, now.month + 1, 1, tzinfo=timezone.utc)
+
+            count = get_monthly_output_count(user_id, start.isoformat())
+            if count >= monthly_limit:
+                return JSONResponse(
+                    status_code=402,
+                    content={
+                        "error": "monthly_limit_exceeded",
+                        "reset_at": reset.isoformat()
+                    }
+                )
 
     from workflows.definitions import create_worldcup_generation_workflow
     try:
         start = time.perf_counter()
         engine = create_worldcup_generation_workflow("worldcup_ai")
-        
+
+        ctx = contextvars.copy_context()
         res = await asyncio.to_thread(
+            ctx.run,
             engine.execute,
             {
                 "match_id": payload.match_id,
                 "content_type": payload.content_type,
-                "user_id": payload.user_id,
+                "user_id": user_id,
                 "brand_profile": payload.brand_profile,
-                "auto_publish": False, # set to True when auto-publishing
+                "auto_publish": False,
             }
         )
         elapsed_ms = int((time.perf_counter() - start) * 1000)
-        
+
         if res.get("status") == "COMPLETED":
             result = res.get("payload", {}).get("generation_result", {})
         else:
@@ -393,7 +400,7 @@ async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
         logger.info(
             "Generate workflow completed",
             extra={
-                "user_id": payload.user_id,
+                "user_id": user_id,
                 "content_type": payload.content_type,
                 "llm_response_time_ms": result.get("generation_time_ms", elapsed_ms),
             },
@@ -404,7 +411,7 @@ async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
     except AllModelsUnavailableError as e:
         logger.warning(
             "All generation models unavailable",
-            extra={"user_id": payload.user_id, "content_type": payload.content_type},
+            extra={"user_id": user_id, "content_type": payload.content_type},
         )
         return JSONResponse(
             status_code=503,
@@ -418,7 +425,7 @@ async def worldcup_generate(request: Request, payload: WorldCupGenerateRequest):
     except Exception as e:
         logger.exception(
             "Generate request failed",
-            extra={"user_id": payload.user_id, "content_type": payload.content_type},
+            extra={"user_id": user_id, "content_type": payload.content_type},
         )
         return {"error": str(e), "status": "error"}
 
