@@ -18,6 +18,8 @@ from agents.football_data_agent import (
 from agents.worldcup_content_agent import WorldCupContentAgent
 from app.core.logging import get_logger
 from skills.model_router import generate_with_fallback
+from skills.context_enricher import enrich_match_context
+from skills.fact_gate import check_content_facts
 
 _football_agent = FootballDataAgent()
 _content_agent = WorldCupContentAgent()
@@ -227,6 +229,22 @@ def generate_worldcup_content(
 
     tone = brand_profile or {}
 
+    # Fetch verified per-match events ONCE (own 15s cap) so the SAME data drives
+    # the prompt (grounding / degraded mode) and the post-generation fact gate.
+    live_context = enrich_match_context(home_team, away_team, match.get("date", "TBD"))
+
+    data_context = {
+        "home_team": home_team,
+        "away_team": away_team,
+        "scoreline": live_context.get("scoreline"),
+        "key_events": live_context.get("key_events") or [],
+        "squad_home": squad_home,
+        "squad_away": squad_away,
+        "h2h": h2h_summary,
+        "standings": standings,
+        "top_scorers": top_scorers,
+    }
+
     system_prompt, user_prompt = _content_agent.build_prompt(
         content_type, match,
         h2h_context=h2h_summary,
@@ -235,6 +253,7 @@ def generate_worldcup_content(
         standings_context=standings,
         top_scorers_context=top_scorers,
         tone=tone,
+        live_context=live_context,
     )
     max_tokens = _content_agent.get_max_tokens(content_type)
 
@@ -254,6 +273,8 @@ def generate_worldcup_content(
             "error": "AI generation service is temporarily at capacity (rate limits reached). Please try again in a few minutes or upgrade to Pro.",
         }
 
+    fact_check = check_content_facts(llm_result["text"], data_context)
+
     return {
         "content": llm_result["text"],
         "match": match,
@@ -263,6 +284,8 @@ def generate_worldcup_content(
         "generation_time_ms": elapsed_ms,
         "user_id": user_id,
         "status": "ok",
+        "fact_check": fact_check,
+        "data_context": data_context,
     }
 
 

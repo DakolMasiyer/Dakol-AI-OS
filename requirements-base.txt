@@ -10,3 +10,7 @@ anyio==4.12.1
 slowapi==0.1.9
 requests==2.32.5
 PyJWT==2.13.0
+# Fallback per-match fact enrichment (skills/context_enricher.py). ESPN public
+# JSON is primary; these power the DuckDuckGo search fallback only.
+smolagents==1.26.0
+ddgs==9.0.0

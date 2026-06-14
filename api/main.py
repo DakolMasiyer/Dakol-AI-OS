@@ -119,6 +119,10 @@ class WorldCupPostRequest(BaseModel):
     platform: str
     content: str
     content_type: str
+    # Snapshot of the facts available at generation time. The server independently
+    # re-runs the fact gate against this — a client cannot fake a pass without
+    # also faking the underlying data.
+    data_context: Optional[Dict[str, Any]] = None
 
 
 class AnalyzeProfileRequest(BaseModel):
@@ -487,7 +491,24 @@ async def worldcup_analyze_profile(
 
 @app.post("/worldcup/post")
 async def worldcup_post(payload: WorldCupPostRequest):
-    """Post generated football content to a connected social account."""
+    """Post generated football content to a connected social account.
+
+    Gated by the fact checker: content with claims unverifiable against the
+    generation-time data context is rejected with 422 so the user edits first.
+    """
+    from skills.fact_gate import check_content_facts
+
+    fact_check = check_content_facts(payload.content, payload.data_context or {})
+    if fact_check["status"] == "flagged":
+        return JSONResponse(
+            status_code=422,
+            content={
+                "error": "unverified_claims",
+                "status": "error",
+                "issues": fact_check["issues"],
+            },
+        )
+
     try:
         from skills.posting_skill import post_generated_content
 

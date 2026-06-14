@@ -8,12 +8,12 @@ TONE_PRESETS = {
     "aggressive": {
         "label": "Pepper Them",
         "description": "Sharp, combative. No mercy on underperformers.",
-        "prompt_instruction": "Write with sharp, combative energy. Call out underperformers directly. Do not be diplomatic. No hedging.",
+        "prompt_instruction": "Write with sharp, combative energy. Call out underperformers directly — but only players whose underperformance is supported by the provided context. Do not be diplomatic. No hedging. Tone shapes voice, never facts.",
     },
     "hype": {
         "label": "Ballon d'Or Energy",
         "description": "Maximum hype for standout moments.",
-        "prompt_instruction": "Write with maximum hype. Superlatives are expected. Frame every good performance as historic.",
+        "prompt_instruction": "Write with maximum hype. Superlatives are expected. Frame standout moments as historic — but only moments and performances present in the provided context. Tone shapes voice, never facts.",
     },
     "professional": {
         "label": "Broadcast Professional",
@@ -97,7 +97,8 @@ CONTENT_PROMPTS = {
         "system": (
             "You are a professional football analyst. "
             "Write a compelling match preview covering: team form, key players, tactical matchup, "
-            "historical head-to-head, and a bold prediction. Be authoritative and specific."
+            "historical head-to-head, and a bold prediction. Be authoritative, but only assert "
+            "facts (player names, stats, form, H2H) that appear in the provided context."
         ),
         "template": (
             "Write a match preview for: {home_team} vs {away_team}\n"
@@ -108,9 +109,11 @@ CONTENT_PROMPTS = {
     },
     "post_match_analysis": {
         "system": (
-            "You are a post-match analyst. Break down the result with: "
-            "key moments, tactical shifts, player ratings (best/worst), "
-            "what this result means for the tournament, and what to watch next."
+            "You are a post-match analyst. Break down the result. WHEN verified in-match event "
+            "data (scorers, cards, key moments) is provided in the context, cover key moments, "
+            "tactical shifts, and player ratings (best/worst) grounded in that data. WHEN no "
+            "verified event data is provided, do NOT invent scorers, ratings, or moments — instead "
+            "cover what the scoreline means for the tournament, both teams' form, and what to watch next."
         ),
         "template": (
             "Write a post-match analysis for: {home_team} vs {away_team}\n"
@@ -163,6 +166,75 @@ CONTENT_PROMPTS = {
         "max_tokens": 600,
     },
 }
+
+# ─── Grounding / anti-fabrication ─────────────────────────────────────────────
+# Appended to every generation. The single most important instruction set — it
+# overrides any tone or "be authoritative" pressure above.
+GROUNDING_RULES = (
+    "\n\n--- GROUNDING RULES (NON-NEGOTIABLE) ---\n"
+    "Only reference players, scorers, assists, cards, and in-match events that are EXPLICITLY "
+    "present in the MATCH CONTEXT / DATA CONTEXT blocks above. Never name a player as a scorer, "
+    "best performer, worst performer, or as involved in a specific moment unless that exact claim "
+    "appears in the provided context. Do not state league/group standings unless a standings block "
+    "is provided. Do not claim a player started or featured unless the data says so. If a fact is "
+    "not in the context, do not assert it. Tone affects voice only — never facts.\n"
+    "----------------------------------------"
+)
+
+# Injected when no verified in-match event data is available for this match.
+LIMITED_DATA_NOTICE = (
+    "\n\n--- LIMITED-DATA MODE ---\n"
+    "No verified in-match event data is available for this match. You know the final scoreline and "
+    "the pre-match squads — you do NOT know who scored, who assisted, who was booked, who started, "
+    "or how individuals performed. Therefore: do NOT name goalscorers, do NOT give player ratings "
+    "(best/worst), do NOT narrate specific moments, and do NOT attribute the result to any individual. "
+    "Write about the final score, what it means for the group/stage, both teams' form and stakes, and "
+    "pre-match squad framing only.\n"
+    "-------------------------"
+)
+
+# Few-shot for degraded (no-event-data) mode — shows the truthful, no-named-performance shape.
+NO_EVENT_DATA_EXAMPLES: dict = {
+    "post_match_analysis": (
+        "FULL TIME: Brazil 1-1 Morocco 🇧🇷🇲🇦\n\n"
+        "A point apiece in Group C, and both sides stay unbeaten — but neither lands the statement "
+        "win this fixture promised. For Brazil, a draw against a side this organised is a reminder "
+        "that favourites tag means nothing here. For Morocco, matching a tournament heavyweight is "
+        "real evidence their run is no fluke.\n\n"
+        "The group stays wide open. Every remaining match now carries weight, and goal difference "
+        "could decide who advances. Next up, both teams will know a win changes everything.\n\n"
+        "Tournaments aren't won in the group stage — but they can be lost here. Neither side blinked today."
+    ),
+    "player_spotlight": (
+        "TWO TO WATCH — Brazil vs Morocco 🇧🇷🇲🇦\n\n"
+        "🟡 Brazil — the spotlight falls on their creative core. Coming into this one, the storyline "
+        "is whether their attacking talent can break down one of the tournament's most disciplined "
+        "defensive units. Form and pedigree say yes; this stage tests it.\n\n"
+        "🔴 Morocco — built on structure and belief after a remarkable unbeaten run. The question is "
+        "whether they can turn defensive solidity into moments at the other end against elite opposition.\n\n"
+        "Two contrasting football identities. That contrast is the story — regardless of the final whistle."
+    ),
+}
+
+
+def _format_key_events(key_events: list) -> str:
+    """Render structured key_events ({minute,player,team,type}) into readable lines."""
+    lines: list[str] = []
+    for ev in key_events:
+        if isinstance(ev, str):
+            lines.append(f"  • {ev}")
+            continue
+        if not isinstance(ev, dict):
+            continue
+        minute = ev.get("minute")
+        when = f"{minute}'" if isinstance(minute, int) else "?"
+        player = ev.get("player") or "Unknown"
+        team = ev.get("team") or ""
+        etype = (ev.get("type") or "event").replace("_", " ")
+        team_part = f" ({team})" if team else ""
+        lines.append(f"  • {when} — {player}{team_part}: {etype}")
+    return "\n".join(lines)
+
 
 # ─── Few-shot examples ────────────────────────────────────────────────────────
 # Keyed by (content_type, tone). Each value is one curated example that shows
@@ -616,6 +688,7 @@ class WorldCupContentAgent(BaseAgent):
         standings_context: str = None,
         top_scorers_context: str = None,
         tone: Any = None,
+        live_context: dict = None,
     ) -> tuple:
         """
         Build system + user prompt enriched with all available context.
@@ -649,14 +722,20 @@ class WorldCupContentAgent(BaseAgent):
 
         user_prompt = config["template"].format(**ctx)
 
-        live_context = enrich_match_context(ctx["home_team"], ctx["away_team"], ctx["date"])
-        if live_context.get("enriched") is True:
-            key_events = "\n".join(live_context.get("key_events") or [])
+        # live_context is normally fetched once by the caller (worldcup_skill) and
+        # passed in, so the SAME event data drives the prompt and the fact gate.
+        # Fall back to fetching here for back-compat / direct callers.
+        if live_context is None:
+            live_context = enrich_match_context(ctx["home_team"], ctx["away_team"], ctx["date"])
+        has_event_data = bool(live_context.get("enriched"))
+
+        if has_event_data:
+            key_events = _format_key_events(live_context.get("key_events") or [])
             user_prompt += (
-                "\n\n--- MATCH CONTEXT ---\n"
+                "\n\n--- MATCH CONTEXT (verified) ---\n"
                 f"Scoreline: {live_context.get('scoreline') or 'Unknown'}\n"
-                f"Key events: {key_events or 'None found'}\n"
-                "---------------------"
+                f"Key events:\n{key_events or 'None found'}\n"
+                "--------------------------------"
             )
 
         match_query = f"{ctx['home_team']} vs {ctx['away_team']} {ctx['date']}"
@@ -691,10 +770,15 @@ class WorldCupContentAgent(BaseAgent):
             user_prompt += (
                 "\n\n--- DATA CONTEXT (use naturally — do not dump raw stats) ---\n"
                 + "\n\n".join(enrichment_parts)
-                + "\n\nIMPORTANT: Weave the above facts (specific scorelines, years, player names, "
-                "standings position, form run) naturally into the copy. Make it feel authoritative "
-                "and data-rich, not like a stats dump. Prioritise the most compelling facts."
+                + "\n\nIMPORTANT: Use ONLY the facts above. Weave the provided facts (scorelines, "
+                "years, standings position, form run, and squad names where relevant) naturally into "
+                "the copy. Do NOT add specifics — scorers, assists, ratings, minutes, who started — "
+                "that are not explicitly stated above. Prioritise the most compelling provided facts."
             )
+
+        # Degraded mode: no verified in-match events → forbid invented player performances.
+        if not has_event_data:
+            user_prompt += LIMITED_DATA_NOTICE
 
         tone_payload = tone if isinstance(tone, dict) else {}
         tone_key = tone_payload.get("tone_key") or tone_payload.get("default_tone") or tone_payload.get("tone")
@@ -711,10 +795,15 @@ class WorldCupContentAgent(BaseAgent):
         # ── Tone + region: system example and prompt block ────────────────────
         system_prompt = config["system"]
         if tone_key:
-            example = FEW_SHOT_EXAMPLES.get(
-                (content_type, tone_key),
-                FEW_SHOT_EXAMPLES.get((content_type, "analytical"), _FALLBACK_EXAMPLE)
-            )
+            # In degraded mode, prefer a no-event-data example for the content types
+            # that otherwise demand player-level performance claims.
+            if not has_event_data and content_type in NO_EVENT_DATA_EXAMPLES:
+                example = NO_EVENT_DATA_EXAMPLES[content_type]
+            else:
+                example = FEW_SHOT_EXAMPLES.get(
+                    (content_type, tone_key),
+                    FEW_SHOT_EXAMPLES.get((content_type, "analytical"), _FALLBACK_EXAMPLE)
+                )
             system_prompt = (
                 f"STUDY THIS EXAMPLE — match its structure, sentence rhythm, and voice EXACTLY:\n\n"
                 f"{example}\n\n"
@@ -738,6 +827,9 @@ class WorldCupContentAgent(BaseAgent):
             if region_instruction:
                 user_prompt += region_instruction + "\n"
             user_prompt += "-------------"
+
+        # Grounding rules go LAST so they override any tone/authority pressure above.
+        user_prompt += GROUNDING_RULES
 
         return system_prompt, user_prompt
 
