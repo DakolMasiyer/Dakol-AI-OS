@@ -9,7 +9,7 @@ from app.core.logging import get_logger
 logger = get_logger(__name__)
 
 MODEL_CHAIN = [
-    "groq/llama3-70b-8192",
+    "groq/llama-3.3-70b-versatile",
     "gemini/gemini-2.5-flash",
     "hf/mistralai/Mistral-7B-Instruct-v0.3",
 ]
@@ -68,7 +68,7 @@ def _extract_choice_text(response: Any) -> str:
     return ""
 
 
-def _run_groq(prompt: str, max_tokens: int) -> dict[str, Any]:
+def _run_groq(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
     api_key = os.getenv("GROQ_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("Missing GROQ_API_KEY")
@@ -81,7 +81,7 @@ def _run_groq(prompt: str, max_tokens: int) -> dict[str, Any]:
                 "Content-Type": "application/json",
             },
             json={
-                "model": "llama3-70b-8192",
+                "model": model,
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": max_tokens,
                 "temperature": 0.8,
@@ -108,7 +108,7 @@ def _run_groq(prompt: str, max_tokens: int) -> dict[str, Any]:
     return _run_with_timeout(_call)
 
 
-def _run_gemini(prompt: str, max_tokens: int) -> dict[str, Any]:
+def _run_gemini(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("Missing GEMINI_API_KEY")
@@ -121,7 +121,7 @@ def _run_gemini(prompt: str, max_tokens: int) -> dict[str, Any]:
     def _call() -> dict[str, Any]:
         client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model=model,
             contents=prompt,
         )
         content = getattr(response, "text", "") or ""
@@ -136,7 +136,7 @@ def _run_gemini(prompt: str, max_tokens: int) -> dict[str, Any]:
     return _run_with_timeout(_call)
 
 
-def _run_hf(prompt: str, max_tokens: int) -> dict[str, Any]:
+def _run_hf(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
     token = os.getenv("HF_API_TOKEN", "").strip()
     if not token:
         raise RuntimeError("Missing HF_API_TOKEN")
@@ -149,7 +149,7 @@ def _run_hf(prompt: str, max_tokens: int) -> dict[str, Any]:
     def _call() -> dict[str, Any]:
         client = InferenceClient(api_key=token)
         response = client.chat_completion(
-            model="mistralai/Mistral-7B-Instruct-v0.3",
+            model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=max_tokens,
         )
@@ -188,15 +188,15 @@ def generate_with_fallback(prompt: str, max_tokens: int) -> dict[str, Any]:
     last_error: Optional[Exception] = None
 
     for index, model in enumerate(MODEL_CHAIN):
-        provider, _ = model.split("/", 1)
+        provider, model_name = model.split("/", 1)
         try:
             start_time = time.perf_counter()
             if provider == "groq":
-                res = _run_groq(prompt, max_tokens)
+                res = _run_groq(prompt, max_tokens, model_name)
             elif provider == "gemini":
-                res = _run_gemini(prompt, max_tokens)
+                res = _run_gemini(prompt, max_tokens, model_name)
             elif provider == "hf":
-                res = _run_hf(prompt, max_tokens)
+                res = _run_hf(prompt, max_tokens, model_name)
             else:
                 raise RuntimeError(f"Unsupported provider: {provider}")
 

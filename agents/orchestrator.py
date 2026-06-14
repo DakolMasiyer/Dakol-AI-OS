@@ -167,7 +167,7 @@ Return ONLY valid JSON:
         client = genai.Client(api_key=api_key)
         fallback = '{"final_intent": "unknown", "reasoning": "all LLM backends failed", "best_agent": "unknown", "confidence": 0.0}'
 
-        for model_name in ("gemini-2.5-flash", "gemini-1.5-flash-8b"):
+        for model_name in ("gemini-2.5-flash", "gemini-2.5-flash-lite"):
             try:
                 response = client.models.generate_content(
                     model=model_name,

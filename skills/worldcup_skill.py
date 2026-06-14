@@ -79,7 +79,7 @@ def _run_gemini(system_prompt: str, user_prompt: str, max_tokens: int = 800) -> 
     full_prompt = f"{system_prompt}\n\n{user_prompt}"
     tried_keys = set()
 
-    for model_name in ("gemini-2.5-flash", "gemini-1.5-flash-8b"):
+    for model_name in ("gemini-2.5-flash", "gemini-2.5-flash-lite"):
         for _ in range(7):  # max 7 keys
             api_key = get_available_key()
             if not api_key or api_key in tried_keys:
