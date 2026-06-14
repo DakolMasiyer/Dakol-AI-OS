@@ -205,13 +205,16 @@ def generate_worldcup_content(
             return None
 
     import contextvars
-    ctx = contextvars.copy_context()
+    # Each worker thread needs its OWN copy of the context. A single
+    # contextvars.Context cannot be entered concurrently — sharing one copy
+    # across these parallel submits raises "cannot enter context: <Context>
+    # is already entered". Copy per task (see farm/listener_pipeline.py).
     with ThreadPoolExecutor(max_workers=5) as pool:
-        f_h2h       = pool.submit(ctx.run, _safe, get_historical_h2h,       home_team, away_team)
-        f_squad_h   = pool.submit(ctx.run, _safe, get_squad_context,         home_team)
-        f_squad_a   = pool.submit(ctx.run, _safe, get_squad_context,         away_team)
-        f_standings = pool.submit(ctx.run, _safe, get_wc_standings_context,  home_team)
-        f_scorers   = pool.submit(ctx.run, _safe, get_top_scorers_context)
+        f_h2h       = pool.submit(contextvars.copy_context().run, _safe, get_historical_h2h,       home_team, away_team)
+        f_squad_h   = pool.submit(contextvars.copy_context().run, _safe, get_squad_context,         home_team)
+        f_squad_a   = pool.submit(contextvars.copy_context().run, _safe, get_squad_context,         away_team)
+        f_standings = pool.submit(contextvars.copy_context().run, _safe, get_wc_standings_context,  home_team)
+        f_scorers   = pool.submit(contextvars.copy_context().run, _safe, get_top_scorers_context)
 
         h2h_result  = f_h2h.result(timeout=8)
         squad_home  = f_squad_h.result(timeout=8)
