@@ -68,7 +68,7 @@ def _extract_choice_text(response: Any) -> str:
     return ""
 
 
-def _run_groq(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
+def _run_groq(prompt: str, max_tokens: int, model: str, temperature: float = 0.8) -> dict[str, Any]:
     api_key = os.getenv("GROQ_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("Missing GROQ_API_KEY")
@@ -84,7 +84,7 @@ def _run_groq(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
                 "model": model,
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": max_tokens,
-                "temperature": 0.8,
+                "temperature": temperature,
             },
             timeout=_MODEL_TIMEOUT_SECONDS,
         )
@@ -108,21 +108,27 @@ def _run_groq(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
     return _run_with_timeout(_call)
 
 
-def _run_gemini(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
+def _run_gemini(prompt: str, max_tokens: int, model: str, temperature: float = None) -> dict[str, Any]:
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("Missing GEMINI_API_KEY")
 
     try:
         from google import genai
+        from google.genai import types
     except ImportError as exc:
         raise RuntimeError("Gemini client is unavailable") from exc
 
     def _call() -> dict[str, Any]:
         client = genai.Client(api_key=api_key)
+        config = (
+            types.GenerateContentConfig(temperature=temperature)
+            if temperature is not None else None
+        )
         response = client.models.generate_content(
             model=model,
             contents=prompt,
+            config=config,
         )
         content = getattr(response, "text", "") or ""
         if not content.strip():
@@ -136,7 +142,7 @@ def _run_gemini(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
     return _run_with_timeout(_call)
 
 
-def _run_hf(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
+def _run_hf(prompt: str, max_tokens: int, model: str, temperature: float = None) -> dict[str, Any]:
     token = os.getenv("HF_API_TOKEN", "").strip()
     if not token:
         raise RuntimeError("Missing HF_API_TOKEN")
@@ -148,10 +154,12 @@ def _run_hf(prompt: str, max_tokens: int, model: str) -> dict[str, Any]:
 
     def _call() -> dict[str, Any]:
         client = InferenceClient(api_key=token)
+        kwargs = {"temperature": temperature} if temperature is not None else {}
         response = client.chat_completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=max_tokens,
+            **kwargs,
         )
         content = _extract_choice_text(response)
         if not content.strip():
@@ -184,7 +192,7 @@ def _estimate_cost(provider: str, token_count: Optional[int]) -> Optional[float]
 
 
 
-def generate_with_fallback(prompt: str, max_tokens: int) -> dict[str, Any]:
+def generate_with_fallback(prompt: str, max_tokens: int, temperature: float = None) -> dict[str, Any]:
     last_error: Optional[Exception] = None
 
     for index, model in enumerate(MODEL_CHAIN):
@@ -192,11 +200,11 @@ def generate_with_fallback(prompt: str, max_tokens: int) -> dict[str, Any]:
         try:
             start_time = time.perf_counter()
             if provider == "groq":
-                res = _run_groq(prompt, max_tokens, model_name)
+                res = _run_groq(prompt, max_tokens, model_name, **({"temperature": temperature} if temperature is not None else {}))
             elif provider == "gemini":
-                res = _run_gemini(prompt, max_tokens, model_name)
+                res = _run_gemini(prompt, max_tokens, model_name, temperature=temperature)
             elif provider == "hf":
-                res = _run_hf(prompt, max_tokens, model_name)
+                res = _run_hf(prompt, max_tokens, model_name, temperature=temperature)
             else:
                 raise RuntimeError(f"Unsupported provider: {provider}")
 

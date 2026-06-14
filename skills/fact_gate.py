@@ -1,20 +1,28 @@
 """Pre-post fact gate.
 
 Cross-checks generated football content against the data context that was
-available at generation time. It is intentionally conservative and heuristic —
-a *review flag*, not a hard truth oracle. Two signals:
+available at generation time, and returns {"status": "ok"|"flagged", "issues"}.
 
-  (a) named individuals in the copy that don't appear in any provided source
-      (squads, scorers, match events, top scorers); and
-  (b) scorer / player-rating / performance claims made when NO verified in-match
-      event data was available (the common cause of fabrication).
+Primary path is an LLM check (`_llm_check`): it reads the structured verified
+facts (who actually scored / was carded, the scoreline) and flags claims in the
+post that CONTRADICT or are NOT SUPPORTED by them — so it catches "Casemiro
+scored the winner" when the data says Casemiro was only booked and Vinícius
+scored. This is the accuracy the heuristic can't reach (the heuristic only knows
+Casemiro is *in the squad*, not what he did).
 
-Signal (b) is the strong one: in degraded mode (empty key_events) any specific
-player-performance claim is unverifiable by construction.
+Fallback path is the heuristic (`_heuristic_check`): if every LLM provider is
+unavailable, we still flag (a) unknown named individuals and (b) performance
+claims made with no verified event data. Same return shape, so callers and the
+frontend are unaffected.
 """
 
+import json
 import re
-from typing import Any
+from typing import Any, Optional
+
+from app.core.logging import get_logger
+
+logger = get_logger(__name__)
 
 # Capitalised football-generic / structural terms that are not player names.
 _STOPWORDS = {
@@ -106,8 +114,8 @@ def _candidate_names(content: str) -> list[str]:
     return out
 
 
-def check_content_facts(content: str, data_context: dict) -> dict[str, Any]:
-    """Return {"status": "ok"|"flagged", "issues": [{"claim", "reason"}]}."""
+def _heuristic_check(content: str, data_context: dict) -> dict[str, Any]:
+    """Fast, no-cost fallback. Return {"status", "issues"}."""
     content = content or ""
     data_context = data_context or {}
     allowed = _allowed_names(data_context)
@@ -147,3 +155,100 @@ def check_content_facts(content: str, data_context: dict) -> dict[str, Any]:
                 })
 
     return {"status": "flagged" if issues else "ok", "issues": issues[:12]}
+
+
+# ─── LLM check (primary) ────────────────────────────────────────────────────────
+
+def _facts_brief(data_context: dict) -> str:
+    """Compact ledger of the ONLY facts the post is allowed to rely on."""
+    dc = data_context or {}
+    lines: list[str] = []
+    home, away = dc.get("home_team"), dc.get("away_team")
+    if home and away:
+        lines.append(f"MATCH: {home} vs {away}")
+    if dc.get("scoreline"):
+        lines.append(f"SCORELINE: {dc['scoreline']}")
+
+    events = dc.get("key_events") or []
+    if events:
+        lines.append("VERIFIED EVENTS:")
+        for ev in events:
+            if not isinstance(ev, dict):
+                continue
+            minute = ev.get("minute")
+            when = f"{minute}'" if isinstance(minute, int) else "?"
+            etype = (ev.get("type") or "event").replace("_", " ").upper()
+            team = f" ({ev['team']})" if ev.get("team") else ""
+            lines.append(f"  - {when} {etype}: {ev.get('player') or 'unknown'}{team}")
+    else:
+        lines.append("VERIFIED EVENTS: none (no scorers/cards/lineups known for this match)")
+
+    for label, key in (("HOME SQUAD", "squad_home"), ("AWAY SQUAD", "squad_away"),
+                        ("STANDINGS", "standings"), ("TOP SCORERS", "top_scorers")):
+        text = dc.get(key)
+        if isinstance(text, str) and text.strip():
+            lines.append(f"{label}:\n{text.strip()}")
+    return "\n".join(lines)
+
+
+_LLM_GATE_INSTRUCTION = (
+    "You are a strict fact-checker for a football social media post. The FACTS block below is the "
+    "ONLY verified information about this match. Identify every claim in the POST that CONTRADICTS "
+    "these facts, or that asserts a specific in-match event or individual performance NOT supported "
+    "by them — e.g. who scored, assists, cards, player ratings (best/worst), who started or featured, "
+    "or league/group standings. If VERIFIED EVENTS is 'none', flag ANY specific claim about an "
+    "individual's in-match performance (scoring, assisting, being booked, being best/worst). Do NOT "
+    "flag opinions, predictions, hype, tone, or general statements that make no factual assertion. "
+    'Respond with JSON ONLY: {"issues":[{"claim":"<quoted text>","reason":"<why unverifiable/wrong>"}]}. '
+    "Return an empty issues array if the post makes no unsupported factual claims."
+)
+
+
+def _llm_check(content: str, data_context: dict) -> Optional[dict[str, Any]]:
+    """LLM-backed verdict. Returns {"status","issues"} or None if unavailable."""
+    if not (content or "").strip():
+        return {"status": "ok", "issues": []}
+    try:
+        from skills.model_router import generate_with_fallback
+    except Exception:
+        return None
+    prompt = (
+        f"{_LLM_GATE_INSTRUCTION}\n\n--- FACTS ---\n{_facts_brief(data_context)}\n\n"
+        f"--- POST ---\n{content.strip()}\n\n--- JSON ---"
+    )
+    try:
+        out = generate_with_fallback(prompt, 600, temperature=0).get("content", "")
+    except Exception as e:
+        logger.warning("fact_gate LLM check unavailable: %s", e)
+        return None
+    m = re.search(r"\{.*\}", out, re.DOTALL)
+    if not m:
+        logger.warning("fact_gate LLM returned no JSON object")
+        return None
+    try:
+        parsed = json.loads(m.group(0))
+    except Exception as e:
+        logger.warning("fact_gate LLM JSON parse failed: %s", e)
+        return None
+    issues: list[dict] = []
+    for item in (parsed.get("issues") or []):
+        if isinstance(item, dict) and item.get("claim"):
+            issues.append({
+                "claim": str(item["claim"])[:200],
+                "reason": str(item.get("reason") or "Not supported by verified match facts")[:200],
+            })
+    return {"status": "flagged" if issues else "ok", "issues": issues[:12]}
+
+
+def check_content_facts(content: str, data_context: dict, prefer_llm: bool = True) -> dict[str, Any]:
+    """Verify content against the generation-time facts.
+
+    LLM-backed when available (accurate: distinguishes "in squad" from "actually
+    scored"); falls back to the heuristic if every provider is down. Return shape
+    {"status": "ok"|"flagged", "issues": [{"claim", "reason"}]}.
+    """
+    if prefer_llm:
+        verdict = _llm_check(content, data_context)
+        if verdict is not None:
+            return verdict
+    return _heuristic_check(content, data_context)

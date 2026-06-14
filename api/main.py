@@ -498,7 +498,10 @@ async def worldcup_post(payload: WorldCupPostRequest):
     """
     from skills.fact_gate import check_content_facts
 
-    fact_check = check_content_facts(payload.content, payload.data_context or {})
+    # Gate may call an LLM — run off the event loop.
+    fact_check = await asyncio.to_thread(
+        check_content_facts, payload.content, payload.data_context or {}
+    )
     if fact_check["status"] == "flagged":
         return JSONResponse(
             status_code=422,
