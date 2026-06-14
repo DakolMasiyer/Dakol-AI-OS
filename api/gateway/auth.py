@@ -3,7 +3,7 @@ from typing import Optional, Dict, Any
 from fastapi import Request, HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
-from jwt import PyJWKClient
+from jwt import PyJWKClient, PyJWKClientError
 
 security = HTTPBearer(auto_error=False)
 
@@ -11,21 +11,44 @@ def get_supabase_jwt_secret() -> str:
     return os.environ.get("SUPABASE_JWT_SECRET", "")
 
 
+def _normalize_issuer(value: str) -> str:
+    """Normalize a Supabase URL or issuer to the canonical issuer form
+    ``https://<ref>.supabase.co/auth/v1``."""
+    v = value.strip().rstrip("/")
+    if not v:
+        return ""
+    return v if v.endswith("/auth/v1") else f"{v}/auth/v1"
+
+
+def _allowed_issuers() -> set[str]:
+    """Issuers whose tokens we trust: the backend's own Supabase project plus any
+    configured via SUPABASE_TRUSTED_ISSUERS (e.g. the worldcup-ai frontend project,
+    which is a different Supabase project and signs the end-user tokens)."""
+    issuers: set[str] = set()
+    base = os.environ.get("SUPABASE_URL", "")
+    if base:
+        issuers.add(_normalize_issuer(base))
+    for extra in os.environ.get("SUPABASE_TRUSTED_ISSUERS", "").split(","):
+        norm = _normalize_issuer(extra)
+        if norm:
+            issuers.add(norm)
+    return issuers
+
+
 # Modern Supabase projects sign access tokens with asymmetric keys (ES256) and
-# publish the public keys via JWKS. The client caches fetched keys internally,
-# so we build it once at module load. Legacy projects use HS256 + the shared
-# JWT secret, which we keep as a fallback below.
-_jwks_client: Optional[PyJWKClient] = None
+# publish the public keys via JWKS. We verify each token against ITS OWN issuer's
+# JWKS (so a multi-project setup works), but only for issuers on the allowlist.
+# One client is cached per issuer; the client caches the fetched key set itself.
+_jwk_clients: Dict[str, PyJWKClient] = {}
 
 
-def _get_jwks_client() -> Optional[PyJWKClient]:
-    global _jwks_client
-    if _jwks_client is None:
-        supabase_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
-        if not supabase_url:
-            return None
-        _jwks_client = PyJWKClient(f"{supabase_url}/auth/v1/.well-known/jwks.json")
-    return _jwks_client
+def _jwk_client_for(issuer: str) -> PyJWKClient:
+    client = _jwk_clients.get(issuer)
+    if client is None:
+        client = PyJWKClient(f"{issuer}/.well-known/jwks.json")
+        _jwk_clients[issuer] = client
+    return client
+
 
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(security)) -> Optional[Dict[str, Any]]:
     """
@@ -34,39 +57,47 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(
     or raises HTTPException if invalid/missing when required.
     """
     if not credentials:
-        # Allow anonymous for now if no token is provided, 
+        # Allow anonymous for now if no token is provided,
         # or return None to let the endpoint decide.
         return {"sub": "anonymous", "role": "anon"}
-        
+
     token = credentials.credentials
 
-    # Determine the signing algorithm from the token header so we verify with
-    # the right key material (ES256 via JWKS for modern Supabase projects,
-    # HS256 via shared secret for legacy ones).
+    # Inspect the token (unverified) to pick the right verification path.
+    # alg → key material; iss → which project's JWKS to use.
     try:
         alg = jwt.get_unverified_header(token).get("alg", "")
+        issuer = (jwt.decode(token, options={"verify_signature": False}).get("iss") or "").rstrip("/")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
     try:
         if alg.startswith("ES") or alg.startswith("RS"):
-            jwks_client = _get_jwks_client()
-            if jwks_client is None:
-                raise HTTPException(status_code=500, detail="Auth not configured (SUPABASE_URL missing)")
-            signing_key = jwks_client.get_signing_key_from_jwt(token).key
-            payload = jwt.decode(token, signing_key, algorithms=[alg], audience="authenticated")
-            return payload
+            # Asymmetric: keys are fetched from the issuer's URL, so the issuer
+            # MUST be pinned to the allowlist to prevent impersonation via a
+            # token signed by an attacker-controlled Supabase project.
+            allowed = _allowed_issuers()
+            if not issuer or (allowed and issuer not in allowed):
+                raise HTTPException(status_code=401, detail="Untrusted token issuer")
+            signing_key = _jwk_client_for(issuer).get_signing_key_from_jwt(token).key
+            return jwt.decode(
+                token,
+                signing_key,
+                algorithms=[alg],
+                audience="authenticated",
+                issuer=issuer,
+            )
 
-        # Legacy HS256 path.
+        # Legacy HS256 path — the shared secret already binds the token to a
+        # known project, so no separate issuer pin is required here.
         secret = get_supabase_jwt_secret()
         if not secret and os.environ.get("ENVIRONMENT") != "production":
             # Dev convenience: decode without verification when no secret is set.
             return jwt.decode(token, options={"verify_signature": False})
-        payload = jwt.decode(token, secret, algorithms=["HS256"], audience="authenticated")
-        return payload
+        return jwt.decode(token, secret, algorithms=["HS256"], audience="authenticated")
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token has expired")
-    except jwt.InvalidTokenError:
+    except (jwt.InvalidTokenError, PyJWKClientError):
         raise HTTPException(status_code=401, detail="Invalid token")
 
 def require_auth(user: Optional[Dict[str, Any]] = Security(get_current_user)) -> Dict[str, Any]:

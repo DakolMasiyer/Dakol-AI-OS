@@ -42,6 +42,7 @@ jobs:
           image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-deploy/${{ env.SERVICE_NAME }}:${{ github.sha }}
           env_vars: |
             ENVIRONMENT=production
+            SUPABASE_TRUSTED_ISSUERS=https://vlxludzuyyzefmhzruof.supabase.co/auth/v1
           secrets: |
             FOOTBALL_DATA_API_KEY=FOOTBALL_DATA_API_KEY:latest
             SUPABASE_URL=SUPABASE_URL:latest
